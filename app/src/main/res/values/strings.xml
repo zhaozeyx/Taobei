@@ -1,0 +1,149 @@
+<resources>
+  <string name="app_name">Taobei</string>
+  <string name="btn_lead_enter">进入应用</string>
+
+  <!--common-->
+  <string name="list_empty_default">没有数据加载</string>
+
+  <!-- 用户信息 -->
+  <string name="default_user_name">游客</string>
+
+  <!-- 广告列表-->
+  <string name="adv_item_type_pic">#图片</string>
+  <string name="adv_item_type_video">#视频</string>
+  <string name="adv_item_type_h5">#微场景广告</string>
+  <string name="adv_item_profit_real">即赚%s元</string>
+  <string name="adv_item_profit_virtual">即赚%s贝贝金</string>
+  <string name="adv_not_launch_info">剧透啦,剧透啦,剧透啦!重要的事说三遍。每天几分钟,赚钱不耽误,你可以在设置中开启或关闭广告
+  预告提醒,在广告开始投放之前,我们将会提前给你推送通知。</string>
+  <string name="adv_not_launch_info_setting_text">预告广告正式投放提醒设置</string>
+
+  <!-- 广告详情 -->
+  <string name="activity_advertisement_detail_title">观看广告</string>
+  <string name="adv_detail_input_info_text">写评论</string>
+  <string name="adv_detail_play_number_info">剩余%1$d场次,总投放%2$d场次</string>
+  <string name="adv_detail_profit_info_real">即赚%s元</string>
+  <string name="adv_detail_profit_info_virtual">即赚%s贝贝金</string>
+  <string name="adv_detail_info_apologize_title">非常抱歉!</string>
+  <string name="adv_detail_info_apologize_info">您错失先机,未能抢先观看,无法获得现金红包。</string>
+  <string name="adv_detail_info_apologize_info_profit">但是,现在继续看广告,能获得%d枚贝贝金。</string>
+  <string name="adv_detail_info_play_continue">继续播放</string>
+  <string name="adv_detail_status_profit_real_un_get">领取</string>
+  <string name="adv_detail_status_profit_real_get">%d元</string>
+  <string name="adv_detail_status_profit_virtual_un_get">领取</string>
+  <string name="adv_detail_status_profit_virtual_get">%d枚</string>
+  <string name="adv_detail_info_share">分享广告，让你的朋友们也赚钱</string>
+  <string name="adv_detail_btn_share_moments">朋友圈</string>
+  <string name="adv_detail_btn_share_friends">微信</string>
+  <string name="adv_detail_rule_title">规则说明</string>
+  <string name="adv_detail_activity_title">活动</string>
+  <string name="adv_detail_rule">观看广告视频后,即可获得%s元随机抽取现金红包。\n广告投放期内,首次抢先观看获得
+  现金红包,其后每次观看可获得贝贝金。\n将广告分享给朋友,可以获得100贝贝金。</string>
+  <string name="adv_detail_comment_list_title">热门评论</string>
+  <string name="adv_detail_comment_list_order_time">时间</string>
+  <string name="adv_detail_comment_list_order_hot">热度</string>
+  <string name="adv_detail_btn_send">发送</string>
+  <string name="adv_detail_comments_load_more">查看更多评论</string>
+  <string name="adv_detail_profit_info_congratulations_real">恭喜你赚得%d元现金红包</string>
+  <string name="adv_detail_profit_info_congratulations_virtual">恭喜你赚得%d元贝贝金</string>
+  <string name="adv_detail_profit_info_label_wallet">已存入你的钱包</string>
+  <string name="adv_detail_profit_info_btn_wallet">我的钱包</string>
+  <string name="adv_detail_profit_info_btn_question_virtual_money">答题得贝贝金</string>
+  <string name="adv_detail_profit_info_btn_withdraw">提现</string>
+  <string name="adv_detail_profit_info_btn_my_profit">我的收益</string>
+
+  <string name="adv_detail_toast_info_state_changed">您的状态已发生改变,状态同步完成后,请再次点击</string>
+
+  <!-- 广告播放浏览界面 -->
+  <string name="adv_play_count_down">还剩下 %d 秒</string>
+
+  <!--侧滑栏-->
+  <string name="drawer_name_un_login">登录</string>
+  <string name="drawer_total_profit_login">你已从观看广告中\n赚得%d元现金红包</string>
+  <string name="drawer_total_profit_withdraw">提现</string>
+  <string name="drawer_total_profit_un_login">你还没有开始赚钱?\n还等什么赶紧看广告!</string>
+  <string name="drawer_profit">今天收益%d元</string>
+  <string name="drawer_sign_in_award">登录签到奖励</string>
+  <string name="drawer_btn_task">任务</string>
+  <string name="drawer_btn_share">分享</string>
+  <string name="drawer_btn_attention">关注</string>
+  <string name="drawer_btn_collection">收藏</string>
+  <string name="drawer_btn_search">搜索</string>
+  <string name="drawer_btn_setting">设置</string>
+  <string name="drawer_btn_feed_back">反馈</string>
+
+  <!-- Login -->
+  <string name="login_sub_title_first">看好看的广告</string>
+  <string name="login_sub_title_second">领能提现的钱</string>
+  <string name="login_phone_input_hint">手机号码</string>
+  <string name="login_password_input_hint">登录密码</string>
+  <string name="login_verify_code_input_hint">获取验证码</string>
+  <string name="btn_login">登\u0020录</string>
+  <string name="btn_login_with_verify_code">使用验证码登录</string>
+  <string name="btn_login_with_password">使用密码登录</string>
+  <string name="btn_forget_password">忘记密码</string>
+  <string name="btn_register_prefix">您还没有账号?点这里</string>
+  <string name="btn_register">快速注册</string>
+  <string name="btn_get_verify_code_count_down_default">获\u0020取</string>
+  <string name="login_way_sub_title">会员登录</string>
+  <string name="login_way_web_chat">微信</string>
+  <string name="login_way_phone">手机</string>
+  <string name="login_way_qq">QQ</string>
+  <string name="login_way_other_register">会员注册</string>
+  <string name="login_way_other_sina">微博</string>
+  <string name="login_way_other">或许还可以选择其它方式</string>
+  <string name="login_error">用户名或者密码错误</string>
+  <string name="login_input_phone_error">请输入有效的手机号码</string>
+  <string name="login_input_password_error">密码输入有误</string>
+
+  <!-- Register -->
+  <string name="register_phone_input_hint">常用手机号码</string>
+  <string name="register_verify_code_input_hint">请填写手机收到的验证码</string>
+  <string name="register_verify_code_label">验证码</string>
+  <string name="register_btn_get_verify_code">获\u0020取</string>
+  <string name="register_btn">注册</string>
+  <string name="register_licence_info">点击上面的"注册"按钮,即表示您同意《淘贝软件许可及服务协议》</string>
+  <string name="register_phone_invalid">请输入合法手机号</string>
+
+  <!-- Password -->
+  <string name="password_label">密码</string>
+  <string name="password_confirm_label">确认密码</string>
+  <string name="password_input_hint">输入由6~12位数字、字母或组合的密码</string>
+  <string name="password_confirm_input_hint">确认密码须与原密码保持一致</string>
+  <string name="btn_password_confirm">确定</string>
+
+  <!-- Profile -->
+  <string name="fragment_profile_title">个人中心</string>
+  <string name="fragment_profile_btn_register">注\u0020册</string>
+  <string name="fragment_profile_btn_login">登\u0020录</string>
+  <string name="fragment_profile_btn_profit">收益</string>
+  <string name="fragment_profile_btn_account">账户</string>
+  <string name="fragment_profile_btn_virtual_money">贝贝金</string>
+  <string name="fragment_profile_no_profit">暂无收益</string>
+  <string name="fragment_profile_has_profit">今日已赚￥%s</string>
+  <string name="fragment_profile_account_value">￥%s</string>
+  <string name="fragment_profile_virtual_money_value">已收获%d枚</string>
+  <string name="fragment_profile_menu_message_center">消息中心</string>
+  <string name="fragment_profile_menu_member_honour">会员荣誉</string>
+  <string name="fragment_profile_menu_member_achievement">会员成就</string>
+  <string name="fragment_profile_menu_watched">我看过的</string>
+  <string name="fragment_profile_menu_comments">我的评论</string>
+  <string name="fragment_profile_menu_friend_invite">邀请朋友</string>
+
+  <!-- Profit -->
+  <string name="fragment_profit_title">哔哔</string>
+  <string name="fragment_profit_view_count">看了%d条广告</string>
+  <string name="fragment_profit_label_view_time">使用闲时</string>
+  <string name="fragment_profit_friend_rank">友圈哔格第%d</string>
+  <string name="fragment_profit_label_be_visited">累计被浏览</string>
+  <string name="fragment_profit_be_visited_count">%d次</string>
+  <string name="fragment_profit_profit_label_today">今天赚</string>
+  <string name="fragment_profit_beyond">超越%s的会员,</string>
+  <string name="fragment_profit_description_beyond">你就是明日那璀璨之星</string>
+  <string name="fragment_profit_cheered">立即加油</string>
+
+  <!-- 广告问题列表 -->
+  <string name="activity_adv_question_list_title">观看广告</string>
+  <string name="activity_adv_question_btn_commit">提交领红包</string>
+  <string name="activity_adv_question_label">回答以下问题,完成后领取红包。感谢你的支持!</string>
+</resources>

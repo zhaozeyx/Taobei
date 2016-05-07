@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_medium"
+      android:text="@string/adv_detail_info_apologize_title"
+      style="@style/Widget.App.TextView.Large.White"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_smallest"
+      android:text="@string/adv_detail_info_apologize_info"
+      style="@style/Widget.App.TextView.Medium.White"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_medium"
+      tools:text="@string/adv_detail_info_apologize_info_profit"
+      style="@style/Widget.App.TextView.Medium.White"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawablePadding="@dimen/margin_primary"
+      android:drawableTop="@mipmap/icon_adv_detail_play_enabled"
+      android:text="@string/adv_detail_info_play_continue"
+      android:textColor="@color/font_color_yellow"
+      android:textSize="@dimen/font_size_large"
+      />
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_adv_question_option"
+    android:paddingLeft="12dp"
+    android:paddingRight="10dp"
+    tools:selected="true"
+    >
+  <EditText
+      android:id="@+id/question_input"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_alignParentLeft="true"
+      android:layout_centerVertical="true"
+      android:background="@drawable/bg_white_corner_frame"
+      android:gravity="top|left"
+      android:orientation="vertical"
+      android:padding="8dp"
+      android:singleLine="false"
+      tools:text="松下Viera3D"
+      style="@style/Widget.App.TextView.Medium.Primary"
+      >
+  </EditText>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_alignBottom="@id/question_input"
+      android:background="@drawable/dotted_line_gray"
+      />
+</RelativeLayout>
