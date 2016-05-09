@@ -28,7 +28,6 @@ import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.ui.basic.BasicFragment;
 import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
-import com.hengrtec.taobei.ui.home.event.PlayStartEvent;
 
 /**
  * 视频播放界面<BR>
@@ -114,7 +113,6 @@ public class VideoPlayFragment extends BasicFragment {
       }
     };
     mCountDownTimer.start();
-    getComponent().getGlobalBus().post(new PlayStartEvent());
   }
 
   @Override
@@ -125,7 +123,7 @@ public class VideoPlayFragment extends BasicFragment {
 
   @Override
   public boolean onBackPressed() {
-    if(null != mVideoView && mVideoView.isPlaying()) {
+    if (null != mVideoView && mVideoView.isPlaying()) {
       mVideoView.suspend();
     }
     return super.onBackPressed();

@@ -34,24 +34,29 @@ import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.injection.GlobalModule;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.UiRpcSubscriber1;
+import com.hengrtec.taobei.net.rpc.model.AdvPlayInfo;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
+import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.home.view.DetailProfitInfoView;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.AdvertisementValueBindUtils;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.sevenheaven.segmentcontrol.SegmentControl;
+import com.squareup.otto.Subscribe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.inject.Inject;
 import org.apmem.tools.layouts.FlowLayout;
 import retrofit2.Response;
@@ -96,7 +101,6 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   TextView mAdvSubTitle;
   @Bind(R.id.adv_profit)
   TextView mAdvProfit;
-  TextView mVirtualProfitGet;
   @Bind(R.id.btn_share_moments)
   TextView mBtnShareMoments;
   @Bind(R.id.btn_share_friends)
@@ -140,7 +144,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   private int mAdvId;
   private AdvertisementDetail mDetail;
   private CommentListAdapter mListAdapter;
-
+  private AdvPlayInfo mAdvPlayInfo;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -254,12 +258,13 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     mListAdapter.addAll(detail.getCommentsTimeList());
     mListAdapter.notifyDataSetChanged();
 
-    refreshDetailInfoView(mDetail, 0, false, false, false);
+    refreshDetailInfoView(mDetail, 0, false, false);
   }
 
   private void refreshDetailInfoView(AdvertisementDetail detail, int profitCount, boolean
-      viewCompleted, boolean hasGotten, boolean hasQuestion) {
-    mDetailProfitInfoView.update(detail, profitCount, viewCompleted, hasGotten, hasQuestion);
+      viewCompleted, boolean hasGotten) {
+    mDetailProfitInfoView.update(detail, profitCount, viewCompleted, hasGotten, TextUtils.equals
+        (AdvertisementConstant.ADV_NEED_SYS_QUESTION, mDetail.getNeedSysQuestion()));
   }
 
   private void setProfitInfoByStatus() {
@@ -338,9 +343,15 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
 
   }
 
+  /**
+   * 处理广告点击事件
+   * 需要先获取广告状态,判断其是否发生改变
+   * 如果改变,重新获取详情信息
+   * 如果未改变,根据是否播放完毕回答问题进行处理
+   */
   private void performAdvInfoClicked() {
 
-    Observable<String> advInfoClickedObservable = mAdvertisementService.getUserAdvState(new
+    Observable<AdvPlayInfo> advInfoClickedObservable = mAdvertisementService.getUserAdvState(new
         GetUserAdvStateParams(String.valueOf
         (getComponent()
             .loginSession().getUserId()), String.valueOf(mDetail.getAdvId()))).map(new Func1<Response<ResponseModel<String>>, String>() {
@@ -365,33 +376,47 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         }
         return !stateChanged;
       }
-    }).filter(new Func1<String, Boolean>() {
+    }).flatMap(new Func1<String, Observable<Response<ResponseModel<AdvPlayInfo>>>>() {
       @Override
-      public Boolean call(String s) {
+      public Observable<Response<ResponseModel<AdvPlayInfo>>> call(String s) {
+        return mAdvertisementService.advPlay(new AdvPlayParams(String.valueOf(getComponent()
+            .loginSession().getUserId()), String.valueOf(mAdvId)));
+      }
+    }).map(new Func1<Response<ResponseModel<AdvPlayInfo>>, AdvPlayInfo>() {
+      @Override
+      public AdvPlayInfo call(Response<ResponseModel<AdvPlayInfo>> responseModelResponse) {
+        mAdvPlayInfo = responseModelResponse.body().getData();
+        mDetail.setBenefitType(mAdvPlayInfo.getBenefitType());
+        return mAdvPlayInfo;
+      }
+    }).filter(new Func1<AdvPlayInfo, Boolean>() {
+      @Override
+      public Boolean call(AdvPlayInfo advPlayInfo) {
         // 判断用户是否是看完未回答问题
         boolean hasAnswerQuestion = !TextUtils.equals(mDetail.getUserAdvState(),
             AdvertisementConstant.ADV_USER_ADV_STATE_HAS_VIEWED_NOT_COMMIT_QUESTION);
         if (!hasAnswerQuestion) {
           // 如果未完成问题回答，直接跳转到回答问题界面
           startActivity(AdvQuestionListActivity.makeIntent(AdvertisementDetailActivity.this,
-              mAdvId));
+              mAdvId, advPlayInfo.getWatchId()));
         }
         return hasAnswerQuestion;
       }
-    }).doOnNext(new Action1<String>() {
+    }).doOnNext(new Action1<AdvPlayInfo>() {
       @Override
-      public void call(String s) {
+      public void call(AdvPlayInfo info) {
         // 如果已完成问题回答，跳转到播放界面
         Intent intent = AdvertisementPlayActivity.makeIntent(AdvertisementDetailActivity.this,
             mDetail.getAdvId()
-            , mDetail.getAdvType(), mDetail.getFilePath(), mDetail.getBenefitType());
+            , mDetail.getAdvType(), mDetail.getFilePath(), mDetail.getBenefitType(), info
+                .getBenefitFinal(), info.getWatchId());
         startActivityForResult(intent, REQUEST_CODE_PLAY);
       }
     });
 
-    manageRpcCall(advInfoClickedObservable, new UiRpcSubscriber1<String>(this) {
+    manageRpcCall(advInfoClickedObservable, new UiRpcSubscriber1<AdvPlayInfo>(this) {
       @Override
-      protected void onSuccess(String s) {
+      protected void onSuccess(AdvPlayInfo info) {
 
       }
 
@@ -430,23 +455,23 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
       case REQUEST_CODE_PLAY:
-        if (RESULT_OK == resultCode && null != data) {
-          dispatchPlayFinish(data);
+        // TODO RESULT_OK == resultCode
+        if (null != data) {
+          dispatchPlayFinish();
         }
         break;
     }
   }
 
-  private void dispatchPlayFinish(Intent data) {
-    String benefitFinal = data.getStringExtra(AdvertisementPlayActivity
-        .RESULT_DATA_KEY_BENEFIT_FINAL);
-    String benefitType = data.getStringExtra(AdvertisementPlayActivity
-        .RESULT_DATA_KEY_BENEFIT_TYPE);
-    String watchId = data.getStringExtra(AdvertisementPlayActivity.RESULT_DATA_KEY_WATCH_ID);
-    mDetail.setBenefitType(benefitType);
+  @Subscribe
+  public void performAdvQustionSubmitEvent(SubmitQuestionAnswerEvent event) {
+    // TODO 弹出对话框
+    refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true, true);
+  }
 
-    // TODO 最后一个参数，代表是否要回答平台问题，如何判断？？
-    mDetailProfitInfoView.update(mDetail, Integer.parseInt(benefitFinal), true, false, false);
+  private void dispatchPlayFinish() {
+    refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true,
+        false);
   }
 
   static class CommentListAdapter extends RecyclerView.Adapter<ViewHolder> {

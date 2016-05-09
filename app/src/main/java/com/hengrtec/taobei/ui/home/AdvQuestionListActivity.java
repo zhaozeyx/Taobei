@@ -43,7 +43,9 @@ import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
+import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.AdvertisementValueBindUtils;
@@ -68,6 +70,7 @@ import rx.schedulers.Schedulers;
  */
 public class AdvQuestionListActivity extends BasicTitleBarActivity {
   private static final String BUNDLE_KEY_ADV_ID = "adv_id";
+  private static final String BUNDLE_KEY_WATCH_ID = "watch_id";
   @Bind(R.id.adv_snapshot)
   ImageView mAdvSnapshot;
   @Bind(R.id.no_play_time)
@@ -93,6 +96,7 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
   AdvertisementService mAdvService;
 
   private int mAdvId;
+  private String mWatchId;
   private QuestionListAdapter mListAdapter;
 
   private Subscription mCheckBtnStateSubscription;
@@ -102,6 +106,7 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
   protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
     mAdvId = getIntent().getIntExtra(BUNDLE_KEY_ADV_ID, -1);
+    mWatchId = getIntent().getStringExtra(BUNDLE_KEY_WATCH_ID);
     inject();
     initListView();
     initData();
@@ -233,7 +238,32 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
 
   @OnClick(R.id.btn_commit)
   public void onClick() {
-
+    // TODO 测试代码
+    finish();
+    getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent());
+    //showShortToast("");
+    //HashMap<String, String> qMap = new HashMap<>();
+    //for (Question question : mListAdapter.getData()) {
+    //  qMap.put(question.getQId(), question.getAnswer());
+    //}
+    //manageRpcCall(mAdvService.subAnswer(new SubAdvQuestionAnswerParams(mWatchId, String.valueOf
+    //    (getComponent().loginSession().getUserId()), String.valueOf(mAdvId), qMap)), new
+    //    UiRpcSubscriber<String>(this) {
+    //      @Override
+    //      protected void onSuccess(String s) {
+    //        if (TextUtils.equals(AdvertisementConstant.ADV_SUBMIT_QUESTION_SUCCESS, s)) {
+    //          finish();
+    //          getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent());
+    //        } else {
+    //          showShortToast(R.string.activity_adv_toast_submit_failure);
+    //        }
+    //      }
+    //
+    //      @Override
+    //      protected void onEnd() {
+    //        closeProgressDialog();
+    //      }
+    //    });
   }
 
   private void updateCommitStatus() {
@@ -290,9 +320,10 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
     }
   }
 
-  public static Intent makeIntent(Context context, int advId) {
+  public static Intent makeIntent(Context context, int advId, String watchId) {
     Intent intent = new Intent(context, AdvQuestionListActivity.class);
     intent.putExtra(BUNDLE_KEY_ADV_ID, advId);
+    intent.putExtra(BUNDLE_KEY_WATCH_ID, watchId);
     return intent;
   }
 

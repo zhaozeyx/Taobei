@@ -113,4 +113,19 @@ public class AdvertisementConstant {
    */
   public static final String ADV_NO_QUESTION = "0";
 
+  /**
+   * 是否需要回答系统问题
+   */
+  public static final String ADV_NEED_SYS_QUESTION = "1";
+
+  /**
+   * 不需要回答系统问题
+   */
+  public static final String ADV_NO_SYS_QUESTION = "0";
+
+  /**
+   * 提交问题答案成功
+   */
+  public static final String ADV_SUBMIT_QUESTION_SUCCESS = "1";
+
 }

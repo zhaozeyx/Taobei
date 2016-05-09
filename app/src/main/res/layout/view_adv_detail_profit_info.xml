@@ -114,7 +114,7 @@
             android:layout_marginRight="3.5dp"
             android:layout_marginTop="15dp"
             android:text="@string/adv_detail_profit_info_label_wallet"
-            style="@style/Widget.App.TextView.Medium.Red"
+            style="@style/Widget.App.TextView.Medium.RedDark"
             />
 
         <View
@@ -157,6 +157,7 @@
             android:paddingTop="8dp"
             android:text="@string/adv_detail_profit_info_btn_wallet"
             android:textColor="@color/btn_black_white_selector"
+            android:visibility="gone"
             style="@style/Widget.App.TextView.Medium"
             />
 
@@ -175,6 +176,7 @@
             android:paddingTop="8dp"
             android:text="@string/adv_detail_profit_info_btn_question_virtual_money"
             android:textColor="@color/font_color_primary"
+            android:visibility="gone"
             style="@style/Widget.App.TextView.Medium"
             />
 

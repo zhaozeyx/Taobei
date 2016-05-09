@@ -144,6 +144,8 @@ public class AdvertisementDetail extends BaseModel {
   private String thumbnail;
   private String totalTime;
   private String userAdvState;
+  private String needSysQuestion;
+
   /**
    * advId : 1
    * advName :
@@ -512,6 +514,14 @@ public class AdvertisementDetail extends BaseModel {
 
   public void setTagsArr(List<String> tagsArr) {
     this.tagsArr = tagsArr;
+  }
+
+  public String getNeedSysQuestion() {
+    return needSysQuestion;
+  }
+
+  public void setNeedSysQuestion(String needQuestion) {
+    this.needSysQuestion = needQuestion;
   }
 
   public static class Comment {

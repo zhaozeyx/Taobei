@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 
@@ -67,7 +69,8 @@ public class DetailProfitInfoView extends FrameLayout {
   public void initView() {
     LayoutInflater inflater = LayoutInflater.from(getContext());
     View childView = inflater.inflate(R.layout.view_adv_detail_profit_info, this, false);
-    addView(childView);
+    addView(childView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
     ButterKnife.bind(this, childView);
   }
 
@@ -81,6 +84,9 @@ public class DetailProfitInfoView extends FrameLayout {
    */
   public void update(AdvertisementDetail detail, int profitCount, boolean
       viewCompleted, boolean hasGotten, boolean hasQuestion) {
+    Logger.d("DetailProfitInfoView", "benefitType %s   has Gotten %s ", detail.getBenefitType(),
+        String.valueOf
+        (hasGotten));
     // 如果观看未完成,全部隐藏
     if (!viewCompleted) {
       mAdvDetailProfitGetInfo.setVisibility(GONE);
@@ -142,9 +148,31 @@ public class DetailProfitInfoView extends FrameLayout {
             // TODO 跳转到我的答题领取贝贝金界面
           }
         });
+      } else {
+        mBtnRight.setVisibility(View.GONE);
       }
     } else {
+      // 如果没领取，显示领取红包按钮
+      // 理论上不存在贝贝金未领取的可能，按照产品设计，播放完毕自动领取红包
       mAdvDetailProfitGetInfo.setVisibility(View.GONE);
+      mRealProfitNotGet.setVisibility(TextUtils.equals(detail.getBenefitType(),
+          AdvertisementConstant
+              .ADV_BENEFIT_TYPE_REALITY_CURRENCY) ? VISIBLE : GONE);
+      mVirtualProfitNotGet.setVisibility(TextUtils.equals(detail.getBenefitType(),
+          AdvertisementConstant
+              .ADV_BENEFIT_TYPE_REALITY_CURRENCY) ? GONE : VISIBLE);
+      mRealProfitNotGet.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          // TODO 跳转到领取红包界面
+        }
+      });
+      mVirtualProfitNotGet.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+      });
     }
 
   }

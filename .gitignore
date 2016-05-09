@@ -7,9 +7,5 @@
 /build
 /captures
 .svn/
-gradle.properties
 gradle/
-gradlew
-gradlew.bat
-settings.gradle
 .idea/
