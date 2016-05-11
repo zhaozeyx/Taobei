@@ -39,7 +39,7 @@ public abstract class UiRpcSubscriber<T> extends Subscriber<Response<ResponseMod
 
   @Override
   public final void onNext(Response<ResponseModel<T>> responseModelResponse) {
-    if (null == responseModelResponse) {
+    if (null == responseModelResponse || null == responseModelResponse.body()) {
       onHttpError(new RpcHttpError(NetConstant.HttpCodeConstant.UNKNOWN_ERROR, ""));
       return;
     }

@@ -373,6 +373,10 @@
     <item name="android:textColor">@color/font_color_red</item>
   </style>
 
+  <style name="Widget.App.TextView.Large.RedDark">
+    <item name="android:textColor">@color/font_color_red_dark</item>
+  </style>
+
   <!-- 超大字体 -->
   <style name="Widget.App.TextView.XLarge">
     <item name="android:textSize">@dimen/font_size_xlarge</item>

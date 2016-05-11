@@ -23,6 +23,7 @@ import com.hengrtec.taobei.ui.login.LoginWithPasswordFragment;
 import com.hengrtec.taobei.ui.login.LoginWithVerifyCodeFragment;
 import com.hengrtec.taobei.ui.login.PasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
+import com.hengrtec.taobei.ui.profit.ProfitFragment;
 import dagger.Component;
 
 /**
@@ -56,4 +57,6 @@ public interface ServiceComponent {
   void inject(AdvQuestionListActivity activity);
 
   void inject(AdvertisementPlayActivity activity);
+
+  void inject(ProfitFragment fragment);
 }

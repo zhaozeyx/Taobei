@@ -1,5 +1,6 @@
 package com.hengrtec.taobei.injection;
 
+import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import com.hengrtec.taobei.CustomApp;
@@ -22,6 +23,8 @@ public class GlobalModule {
   public GlobalModule(CustomApp app) {
     mApplication = app;
   }
+
+
 
   @Singleton
   @Provides

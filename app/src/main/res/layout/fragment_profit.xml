@@ -6,6 +6,7 @@
     android:background="@mipmap/bg_fragment_profit"
     >
   <LinearLayout
+      android:id="@+id/profit_info_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@mipmap/bg_fragment_profit_header"
@@ -34,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="48.5dp"
+            android:layout_marginTop="47.5dp"
+            android:includeFontPadding="false"
             android:text="@string/fragment_profit_profit_label_today"
             style="@style/Widget.App.TextView.Medium.Primary"
             />
@@ -72,7 +74,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal"
             >
@@ -128,8 +130,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="13dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal"
             >
@@ -167,8 +168,8 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="209dp"
-        android:layout_height="70dp"
+        android:layout_width="200dp"
+        android:layout_height="68dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         >
@@ -187,7 +188,7 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/profit_beyond"
           android:layout_centerHorizontal="true"
-          android:layout_marginTop="5dp"
+          android:layout_marginTop="4dp"
           android:background="@mipmap/bg_profit_profit_beyond_line_first"
           />
 
@@ -197,7 +198,7 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/beyond_divider"
           android:layout_centerHorizontal="true"
-          android:layout_marginTop="5dp"
+          android:layout_marginTop="4dp"
           android:text="@string/fragment_profit_description_beyond"
           style="@style/Widget.App.TextView.Large.Primary"
           />
@@ -208,7 +209,7 @@
           android:layout_alignLeft="@id/profit_beyond_description"
           android:layout_below="@id/profit_beyond_description"
           android:layout_centerHorizontal="true"
-          android:layout_marginTop="7dp"
+          android:layout_marginTop="4dp"
           android:background="@mipmap/bg_profit_profit_beyond_line_second"
           />
 
@@ -235,9 +236,50 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="14dp"
         android:text="@string/fragment_profit_cheered"
-        style="@style/Widget.App.TextView.Large.Red"
+        style="@style/Widget.App.TextView.Large.RedDark"
         />
 
   </LinearLayout>
+
+  <TextView
+      android:id="@+id/info"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="12dp"
+      android:text="@string/fragment_profit_bottom_info"
+      style="@style/Widget.App.TextView.Medium.White"
+      />
+
+  <FrameLayout
+      android:id="@+id/btn_share_moments"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/info"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="7dp"
+      android:background="@drawable/bg_btn_profit_share_surround"
+      >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_btn_profit_share"
+        android:gravity="center"
+        android:text="@string/fragment_profit_btn_share_moments"
+        style="@style/Widget.App.TextView.Medium.Primary"
+        />
+
+  </FrameLayout>
+
+  <com.hengrtec.taobei.ui.basic.widget.BarChartView
+      android:id="@+id/bar_chart"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@id/btn_share_moments"
+      android:layout_below="@id/profit_info_container"
+      android:layout_margin="7dp"
+      />
 
 </RelativeLayout>

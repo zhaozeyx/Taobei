@@ -43,7 +43,6 @@ import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
-import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
@@ -284,7 +283,9 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
                 break;
               }
               if (TextUtils.equals(question.getType(), AdvertisementConstant
-                  .ADV_QUESTION_TYPE_CHOICE_NO_ANSWER)) {
+                  .ADV_QUESTION_TYPE_CHOICE_NO_ANSWER)
+                  || TextUtils.equals(question.getType(), AdvertisementConstant
+                  .ADV_QUESTION_TYPE_MULTY_CHOICE)) {
                 continue;
               }
               if (myAnswer instanceof Integer) {
@@ -294,7 +295,7 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
                   break;
                 }
               } else if (myAnswer instanceof String) {
-                if (!TextUtils.equals(myAnswer.toString(), question
+                if (TextUtils.equals(myAnswer.toString(), question
                     .getAnswer())) {
                   allCorrect = false;
                   break;
@@ -438,7 +439,22 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
       holder.containerView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          question.setMyAnswer(childPosition);
+          Object myAnswer = question.getMyAnswer();
+          if (null != myAnswer && (myAnswer.toString().contains(String.valueOf(childPosition)) ||
+              myAnswer.toString().contains(childPosition + ","))) {
+            question.setMyAnswer(myAnswer.toString().replace(childPosition + ",", "").replace
+                (String.valueOf(childPosition), ""));
+          } else {
+            if (TextUtils.equals(AdvertisementConstant.ADV_QUESTION_TYPE_MULTY_CHOICE, question
+                .getType())) {
+              // 如果是多选题，拼接类型为1，2，3，
+              question.setMyAnswer(null != myAnswer && myAnswer
+                  instanceof String ? (question.getMyAnswer().toString() + childPosition + ",")
+                  : childPosition + ",");
+            } else {
+              question.setMyAnswer(childPosition);
+            }
+          }
           setViewStateByAnswer(question, stateView, containerView, childPosition);
           updateCommitStatus();
           notifyDataSetChanged();
@@ -492,7 +508,7 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
       boolean hasCorrectQuestion = TextUtils.equals(AdvertisementConstant
               .ADV_QUESTION_TYPE_CHOICE_WITH_ANSWER
           , question.getType());
-      if (null != myAnswer) {
+      if (null != myAnswer && !TextUtils.isEmpty(myAnswer.toString())) {
         if (myAnswer instanceof Integer) {
           int intAnswer = (int) myAnswer;
           if (intAnswer != childPosition) {
@@ -504,6 +520,14 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
               .getAnswer());
 
         } else if (myAnswer instanceof String) {
+          if (TextUtils.equals(AdvertisementConstant.ADV_QUESTION_TYPE_MULTY_CHOICE, question
+              .getType())) {
+            if (!question.getMyAnswer().toString().contains(childPosition + ",")) {
+              stateView.setVisibility(View.GONE);
+              containerView.setBackground(null);
+              return;
+            }
+          }
           isAnswerCorrect = TextUtils.equals(myAnswer.toString(), question
               .getAnswer());
         }
@@ -537,6 +561,7 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
       switch (question.getType()) {
         case AdvertisementConstant.ADV_QUESTION_TYPE_CHOICE_NO_ANSWER:
         case AdvertisementConstant.ADV_QUESTION_TYPE_CHOICE_WITH_ANSWER:
+        case AdvertisementConstant.ADV_QUESTION_TYPE_MULTY_CHOICE:
           return ChildType.CHOICE_QUESTION.ordinal();
         case AdvertisementConstant.ADV_QUESTION_TYPE_EASY_QUESTION:
           return ChildType.EASY_QUESTION.ordinal();

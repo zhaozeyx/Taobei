@@ -104,6 +104,11 @@ public class AdvertisementConstant {
   public static final String ADV_QUESTION_TYPE_EASY_QUESTION = "3";
 
   /**
+   * 问题类型: 选择题多选
+   */
+  public static final String ADV_QUESTION_TYPE_MULTY_CHOICE = "4";
+
+  /**
    * 是否有问题: 有
    */
   public static final String ADV_HAS_QUESTION = "1";

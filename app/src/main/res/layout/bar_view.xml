@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    >
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:id="@+id/container"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      tools:background="@android:color/holo_purple"
+      >
+    <TextView
+        android:id="@+id/top_title"
+        android:layout_width="33sp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="20日"
+        style="@style/Widget.App.TextView.Small.Secondary"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+      <View
+          android:id="@+id/bar"
+          android:layout_width="33dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_centerHorizontal="true"
+          android:background="@color/bar_color_default"
+          android:minHeight="5dp"
+          tools:layout_height="40dp"
+          />
+      <TextView
+          android:id="@+id/bar_value"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_above="@id/bar"
+          android:layout_centerHorizontal="true"
+          android:text="16元"
+          style="@style/Widget.App.TextView.Small.Secondary"
+          />
+    </RelativeLayout>
+
+  </LinearLayout>
+  <View
+      android:id="@+id/cover"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/container"
+      android:layout_alignLeft="@id/container"
+      android:layout_alignRight="@id/container"
+      android:layout_alignTop="@id/container"
+      android:alpha="0.4"
+      android:background="@android:color/darker_gray"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+</RelativeLayout>

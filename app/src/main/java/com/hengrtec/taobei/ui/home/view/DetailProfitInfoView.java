@@ -59,6 +59,8 @@ public class DetailProfitInfoView extends FrameLayout {
   private CustomApp mCustomApp;
   private boolean hasLogin;
 
+  private OnReceiveBtnClickListener mReceiveBtnClickListener;
+
   public DetailProfitInfoView(Context context, AttributeSet attrs) {
     super(context, attrs);
     mCustomApp = (CustomApp) context.getApplicationContext();
@@ -79,6 +81,10 @@ public class DetailProfitInfoView extends FrameLayout {
     // TODO 点击领取金币
   }
 
+  public void setOnReceiveBtnClickListener(OnReceiveBtnClickListener listener) {
+    mReceiveBtnClickListener = listener;
+  }
+
   /**
    * 根据观看状态,收益类型,是否登录,收益金额展示界面
    */
@@ -86,7 +92,7 @@ public class DetailProfitInfoView extends FrameLayout {
       viewCompleted, boolean hasGotten, boolean hasQuestion) {
     Logger.d("DetailProfitInfoView", "benefitType %s   has Gotten %s ", detail.getBenefitType(),
         String.valueOf
-        (hasGotten));
+            (hasGotten));
     // 如果观看未完成,全部隐藏
     if (!viewCompleted) {
       mAdvDetailProfitGetInfo.setVisibility(GONE);
@@ -165,15 +171,24 @@ public class DetailProfitInfoView extends FrameLayout {
         @Override
         public void onClick(View v) {
           // TODO 跳转到领取红包界面
+          if (null != mReceiveBtnClickListener) {
+            mReceiveBtnClickListener.onBtnClicked();
+          }
         }
       });
       mVirtualProfitNotGet.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View v) {
-
+          if (null != mReceiveBtnClickListener) {
+            mReceiveBtnClickListener.onBtnClicked();
+          }
         }
       });
     }
 
+  }
+
+  public interface OnReceiveBtnClickListener {
+    void onBtnClicked();
   }
 }

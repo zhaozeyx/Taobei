@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -98,6 +99,14 @@ public class HomeFragment extends BasicTitleBarFragment implements HomeView {
       @Override
       public void onClick(View view) {
         mGlobalBus.post(new UserAvatarClickedEvent());
+      }
+    });
+
+    setRightImgButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO 跳转到贝贝报告界面
+        startActivity(new Intent(getActivity(), ReportActivity.class));
       }
     });
     return true;

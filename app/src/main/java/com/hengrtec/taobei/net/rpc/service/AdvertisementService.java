@@ -15,10 +15,12 @@ import com.hengrtec.taobei.net.rpc.model.AdvPlayInfo;
 import com.hengrtec.taobei.net.rpc.model.AdvQuestionState;
 import com.hengrtec.taobei.net.rpc.model.Advertisement;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
+import com.hengrtec.taobei.net.rpc.model.BibiModel;
 import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvWatchedParams;
+import com.hengrtec.taobei.net.rpc.service.params.BibiParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementListParams;
@@ -68,4 +70,7 @@ public interface AdvertisementService {
 
   @POST("subanswer.do")
   Observable<Response<ResponseModel<String>>> subAnswer(@Body SubAdvQuestionAnswerParams params);
+
+  @POST("bibi.do")
+  Observable<Response<ResponseModel<BibiModel>>> bibi(@Body BibiParams params);
 }

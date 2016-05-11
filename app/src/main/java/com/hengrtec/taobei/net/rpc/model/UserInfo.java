@@ -11,6 +11,8 @@
  */
 package com.hengrtec.taobei.net.rpc.model;
 
+import com.hengrtec.taobei.net.rpc.service.constant.UserConstant;
+
 /**
  * 用户信息<BR>
  *
@@ -61,7 +63,7 @@ public class UserInfo {
   private String certified;
   private String devId;
   private String education;
-  private String gender;
+  private String gender = String.valueOf(UserConstant.GENDER_MALE);
   private String idCardImg;
   private String introduce;
   private String inviteCode;

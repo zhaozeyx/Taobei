@@ -12,8 +12,12 @@
 package com.hengrtec.taobei.net;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
+import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalBus;
+import com.hengrtec.taobei.utils.NetworkType;
+import com.hengrtec.taobei.utils.NetworkUtil;
 import com.squareup.otto.Bus;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,15 +41,15 @@ public class HttpErrorUiNotifier {
 
   public void notifyUi(RpcHttpError httpError) {
     int errorCode = httpError.getHttpCode();
-    // TODO 根据业务需要处理
-    //if (errorCode == 503) {
-    //  rootBus.post(new ServerUpheldEvent(httpError.getMessage()));
-    //} else if (NetworkTypeUtils.getNetworkType(context) == NetworkType.NONE) {
-    //  showHttpErrorToast(context, context.getString(R.string.network_not_normal));
-    //} else {
-    //  showHttpErrorToast(context, context.getString(R.string.server_error));
-    //}
-    showHttpErrorToast(context.getApplicationContext(), httpError.getMessage());
+    if (errorCode == 503) {
+      rootBus.post(new ServerUpheldEvent(httpError.getMessage()));
+    } else if (NetworkUtil.getNetworkType(context) == NetworkType.NONE) {
+      showHttpErrorToast(context, context.getString(R.string.network_not_normal));
+    } else {
+      showHttpErrorToast(context, context.getString(R.string.http_server_error));
+    }
+    showHttpErrorToast(context.getApplicationContext(), TextUtils.isEmpty(httpError.getMessage())
+        ? context.getString(R.string.http_server_error) : httpError.getMessage());
   }
 
   private void showHttpErrorToast(Context context, String errorMsg) {

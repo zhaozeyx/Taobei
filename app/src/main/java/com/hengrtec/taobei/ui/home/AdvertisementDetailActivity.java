@@ -14,6 +14,8 @@ package com.hengrtec.taobei.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,7 +58,6 @@ import com.squareup.otto.Subscribe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.inject.Inject;
 import org.apmem.tools.layouts.FlowLayout;
 import retrofit2.Response;
@@ -146,6 +147,8 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   private CommentListAdapter mListAdapter;
   private AdvPlayInfo mAdvPlayInfo;
 
+  private AlertDialog mProfitDialog;
+
   @Override
   protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
@@ -157,6 +160,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     }
     inject();
     initRecyclerView();
+    initProfitInfoViewListener();
     initSegmentControl();
     initData();
   }
@@ -170,6 +174,23 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     mCommentListView.setLayoutManager(new LinearLayoutManager(this));
     mListAdapter = new CommentListAdapter(this);
     mCommentListView.setAdapter(mListAdapter);
+  }
+
+  private void initProfitInfoViewListener() {
+    mDetailProfitInfoView.setOnReceiveBtnClickListener(new DetailProfitInfoView
+        .OnReceiveBtnClickListener() {
+      @Override
+      public void onBtnClicked() {
+        if (TextUtils.equals(AdvertisementConstant.ADV_BENEFIT_TYPE_REALITY_CURRENCY, mDetail
+            .getBenefitType())) {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_red_bag_get, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataProfitDialog(childView);
+        }
+      }
+    });
   }
 
   private void initSegmentControl() {
@@ -470,8 +491,45 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   }
 
   private void dispatchPlayFinish() {
+    if (TextUtils.equals(AdvertisementConstant.ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY, mDetail
+        .getBenefitType())) {
+      if (null == mProfitDialog) {
+        // 显示对话框
+        View childView = LayoutInflater.from(this).inflate(R.layout.dialog_bbj_get, null);
+        mProfitDialog = new AlertDialog.Builder(this).setView(childView).create();
+        bindDataProfitDialog(childView);
+      }
+      if (!mProfitDialog.isShowing()) {
+        mProfitDialog.show();
+      }
+    }
     refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true,
         false);
+  }
+
+  private void bindDataProfitDialog(@NonNull View contentView) {
+    ImageLoader.loadOptimizedHttpImage(this, getComponent().loginSession().getUserInfo().getAvart
+        ()).into((ImageView) contentView.findViewById(R.id.user_avatar));
+    contentView.findViewById(R.id.btn_share_moments).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO 分享到朋友圈 根据类型不同分享内容不同？
+      }
+    });
+    contentView.findViewById(R.id.btn_share_friends).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO 分享到微信 根据类型不同分享内容不同？
+      }
+    });
+    if (null != mAdvPlayInfo) {
+      ((TextView) contentView.findViewById(R.id.profit_number)).setText(mAdvPlayInfo
+          .getBenefitFinal());
+    }
+    TextView congratulationsView = ((TextView) contentView.findViewById(R.id
+        .dialog_congratulations));
+    congratulationsView.setText(getString(R.string.adv_detail_dialog_congratulations,
+        getComponent().loginSession().getUserInfo().getUserName()));
   }
 
   static class CommentListAdapter extends RecyclerView.Adapter<ViewHolder> {
@@ -536,9 +594,9 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     }
   }
 
-  public static Intent makeIntent(Context context, int advId) {
-    Intent intent = new Intent(context, AdvertisementDetailActivity.class);
-    intent.putExtra(BUNDLE_KEY_ADV_ID, advId);
-    return intent;
-  }
+    public static Intent makeIntent(Context context, int advId) {
+      Intent intent = new Intent(context, AdvertisementDetailActivity.class);
+      intent.putExtra(BUNDLE_KEY_ADV_ID, advId);
+      return intent;
+    }
 }

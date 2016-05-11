@@ -59,4 +59,9 @@
   <color name="font_color_brown">#7c493b</color>
 
   <color name="font_color_red_tab_bar">#eb4f38</color>
+
+  <!-- BarChart -->
+  <color name="bar_color_default">#f4f1df</color>
+  <color name="bar_color_yellow">#ffdd2b</color>
+  <color name="bar_color_red">#ff4343</color>
 </resources>

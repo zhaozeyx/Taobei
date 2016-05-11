@@ -23,4 +23,26 @@
     <item>@color/indicator_3</item>
     <item>@color/indicator_4</item>
   </array>
+
+  <array name="label_report_level_male">
+    <item>咸蛋超人</item>
+    <item>我劳动我自豪</item>
+    <item>努力挣个小户型</item>
+    <item>自给自足</item>
+    <item>有点小钱</item>
+    <item>没见过世面的有钱人</item>
+    <item>不够任性</item>
+    <item>超有钱太任性</item>
+  </array>
+
+  <array name="label_report_level_female">
+    <item>咸蛋超人</item>
+    <item>我劳动我自豪</item>
+    <item>努力挣个小户型</item>
+    <item>自给自足</item>
+    <item>有点小钱</item>
+    <item>没见过世面的有钱人</item>
+    <item>买买买</item>
+    <item>超有钱太任性</item>
+  </array>
 </resources>

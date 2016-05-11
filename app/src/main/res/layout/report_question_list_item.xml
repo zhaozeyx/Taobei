@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_report_question_list_selector"
+    tools:selected="true"
+    >
+  <TextView
+      android:id="@+id/question_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="15dp"
+      tools:text="一般你选择何种方式进行金融投资"
+      style="@style/Widget.App.TextView.Medium.Primary"
+      />
+  <View
+      android:id="@+id/divider"
+      android:layout_width="match_parent"
+      android:layout_height="0.5dp"
+      android:layout_alignBottom="@id/question_name"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:background="@color/bg_color_divider"
+      />
+
+</RelativeLayout>

@@ -4,6 +4,14 @@
 
   <!--common-->
   <string name="list_empty_default">没有数据加载</string>
+  <string name="unit_cash">元</string>
+  <string name="unit_bbj">枚</string>
+  <string name="unit_adv_view_count">条</string>
+
+  <!-- 服务器 -->
+  <string name="network_not_normal">网络不给力</string>
+  <string name="http_server_error">无法连接到服务器,请稍后再试</string>
+  <string name="server_error">服务器错误</string>
 
   <!-- 用户信息 -->
   <string name="default_user_name">游客</string>
@@ -51,6 +59,10 @@
   <string name="adv_detail_profit_info_btn_question_virtual_money">答题得贝贝金</string>
   <string name="adv_detail_profit_info_btn_withdraw">提现</string>
   <string name="adv_detail_profit_info_btn_my_profit">我的收益</string>
+  <string name="adv_detail_dialog_congratulations">恭喜您!\u0020%s</string>
+  <string name="adv_detail_dialog_cash_award">本次赚得贝贝金</string>
+  <string name="adv_detail_dialog_bbj_award">本次赚得现金奖励</string>
+  <string name="adv_detail_dialog_share_label">分享广告,让你的朋友们也赚钱</string>
 
   <string name="adv_detail_toast_info_state_changed">您的状态已发生改变,状态同步完成后,请再次点击</string>
 
@@ -141,10 +153,26 @@
   <string name="fragment_profit_beyond">超越%s的会员,</string>
   <string name="fragment_profit_description_beyond">你就是明日那璀璨之星</string>
   <string name="fragment_profit_cheered">立即加油</string>
+  <string name="fragment_profit_bar_format">%d元</string>
+  <string name="fragment_profit_bottom_info">今天的"哔"格满满,明天才能盆满钵满</string>
+  <string name="fragment_profit_btn_share_moments">哔哔到微信朋友圈</string>
 
   <!-- 广告问题列表 -->
   <string name="activity_adv_question_list_title">观看广告</string>
   <string name="activity_adv_question_btn_commit">提交领红包</string>
   <string name="activity_adv_question_label">回答以下问题,完成后领取红包。感谢你的支持!</string>
   <string name="activity_adv_toast_submit_failure">问题提交失败,请稍后再试</string>
+
+  <!-- 贝贝报告 -->
+  <string name="activity_report_title">贝贝报告</string>
+  <string name="activity_report_label_first">累计看广告</string>
+  <string name="activity_report_label_second">累计已赚钱</string>
+  <string name="activity_report_label_third">累计时长</string>
+  <string name="activity_report_desc_make_money">赚钱绝不手软</string>
+  <string name="activity_report_desc_make_money_more">怎样才能赚更多的钱?</string>
+  <string name="activity_report_label_today_expected">今日预计:</string>
+  <string name="activity_report_medal_title">勋章</string>
+  <string name="activity_report_medal_all">全部勋章</string>
+  <string name="activity_report_title_question">淘贝·赚更多?给我回报吧!</string>
+  <string name="activity_report_desc_question">不要拒绝,不要反抗。那只会让你平庸,真实回答我们的问题,让我们更多向您推送高价广告。</string>
 </resources>
