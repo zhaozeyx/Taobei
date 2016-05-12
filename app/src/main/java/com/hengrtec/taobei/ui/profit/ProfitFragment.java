@@ -131,12 +131,11 @@ public class ProfitFragment extends BasicTitleBarFragment {
 
   private void updateBar(BibiModel model) {
     BibiModel.BenefitsBean bean = model.getBenefits();
-    String[] topTitle = bean.getKey().get(0).split(",");
-    String[] value = bean.getValue().get(0).split(",");
-    int valueSize = value.length;
+    String[] topTitle = bean.getKey().toArray(new String[]{});
+    int valueSize = bean.getValue().size();
     int[] data = new int[valueSize];
     for (int i = 0; i < valueSize; i++) {
-      data[i] = Integer.parseInt(value[i]);
+      data[i] = Integer.parseInt(bean.getValue().get(i));
     }
     mBarChart.setData(LEFT_TITLE, topTitle, data, MAX_VALUE, getString(R.string.unit_cash));
   }

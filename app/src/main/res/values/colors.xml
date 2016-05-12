@@ -64,4 +64,8 @@
   <color name="bar_color_default">#f4f1df</color>
   <color name="bar_color_yellow">#ffdd2b</color>
   <color name="bar_color_red">#ff4343</color>
+
+  <!-- 贝贝报告 朋友圈排名 颜色-->
+  <color name="report_rank_color_primary">#a37200</color>
+  <color name="report_rank_color_secondary">#bfa060</color>
 </resources>

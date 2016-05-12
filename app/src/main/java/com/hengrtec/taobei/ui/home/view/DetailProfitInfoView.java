@@ -28,6 +28,7 @@ import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
+import com.hengrtec.taobei.ui.home.DetailSysQuestionActivity;
 
 /**
  * 广告详情页面收益提示界面<BR>
@@ -152,6 +153,8 @@ public class DetailProfitInfoView extends FrameLayout {
           @Override
           public void onClick(View view) {
             // TODO 跳转到我的答题领取贝贝金界面
+            getContext().startActivity(DetailSysQuestionActivity.makeDetailSysQuestionIntent
+                (getContext(), true));
           }
         });
       } else {

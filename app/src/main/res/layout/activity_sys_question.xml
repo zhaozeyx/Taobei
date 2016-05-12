@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bg_frame_border_gray"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+        >
+      <TextView
+          android:id="@+id/question_award_info"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawableLeft="@mipmap/icon_title_block_yellow"
+          android:drawablePadding="10dp"
+          android:gravity="center_vertical"
+          tools:text="@string/activity_sys_question_activity_award_info"
+          style="@style/Widget.App.TextView.Large.Primary"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:paddingLeft="13dp"
+          android:text="@string/activity_sys_question_info"
+          style="@style/Widget.App.TextView.Medium.Secondary"
+          />
+
+      <ExpandableListView
+          android:id="@+id/question_list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="17dp"
+          />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_btn_sys_question_submit_selector"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+      <TextView android:id="@+id/real_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:drawableLeft="@drawable/icon_sys_question_bbj_selector"
+          android:drawablePadding="6dp"
+          android:enabled="false"
+          android:gravity="center"
+          android:text="@string/activity_sys_question_btn_submit"
+          android:textColor="@color/btn_black_white_selector"
+          style="@style/Widget.App.TextView.Medium"
+          />
+    </FrameLayout>
+
+  </FrameLayout>
+</com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView>

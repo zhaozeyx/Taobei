@@ -16,16 +16,20 @@ import com.hengrtec.taobei.net.rpc.model.AdvQuestionState;
 import com.hengrtec.taobei.net.rpc.model.Advertisement;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.BibiModel;
+import com.hengrtec.taobei.net.rpc.model.BibiReport;
 import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvWatchedParams;
 import com.hengrtec.taobei.net.rpc.service.params.BibiParams;
+import com.hengrtec.taobei.net.rpc.service.params.BibiReportParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
 import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
+import com.hengrtec.taobei.net.rpc.service.params.SysQuestionByIdParams;
+import com.hengrtec.taobei.net.rpc.service.params.SysQuestionParams;
 import java.util.List;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -73,4 +77,15 @@ public interface AdvertisementService {
 
   @POST("bibi.do")
   Observable<Response<ResponseModel<BibiModel>>> bibi(@Body BibiParams params);
+
+  @POST("bbreport.do")
+  Observable<Response<ResponseModel<BibiReport>>> bibiReport(@Body BibiReportParams params);
+
+  @POST("getsysquestion.do")
+  Observable<Response<ResponseModel<List<Question>>>> getSysQuestion(@Body SysQuestionParams
+                                                                         params);
+
+  @POST("getquestion.do")
+  Observable<Response<ResponseModel<List<Question>>>> getQuestion(@Body SysQuestionByIdParams
+                                                                      params);
 }

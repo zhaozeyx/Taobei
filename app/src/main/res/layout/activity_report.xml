@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -40,7 +40,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="bottom|center_horizontal"
           android:layout_marginBottom="84dp"
-          android:drawablePadding="10dp"
+          android:drawablePadding="4dp"
           android:gravity="center_horizontal"
           tools:drawableTop="@mipmap/icon_zhongnong"
           tools:text="自给自足"
@@ -145,6 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:paddingBottom="30dp"
         >
       <LinearLayout
           android:layout_width="match_parent"
@@ -286,6 +287,7 @@
             android:background="@drawable/bg_frame_border_gray_corner"
             android:orientation="vertical"
             android:paddingTop="12dp"
+            tools:visibility="gone"
             >
           <TextView
               android:layout_width="wrap_content"
@@ -315,9 +317,28 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="21dp"
+            android:drawableLeft="@mipmap/icon_report_rank_title"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/activity_report_rank_title"
+            android:textColor="@color/report_rank_color_primary"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rank_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            />
+
       </LinearLayout>
     </FrameLayout>
 
   </LinearLayout>
 
-</ScrollView>
+</com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView>

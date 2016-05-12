@@ -168,6 +168,7 @@
   <string name="activity_report_label_first">累计看广告</string>
   <string name="activity_report_label_second">累计已赚钱</string>
   <string name="activity_report_label_third">累计时长</string>
+  <string name="activity_report_total_view_duration">%1$d小时%2$d分</string>
   <string name="activity_report_desc_make_money">赚钱绝不手软</string>
   <string name="activity_report_desc_make_money_more">怎样才能赚更多的钱?</string>
   <string name="activity_report_label_today_expected">今日预计:</string>
@@ -175,4 +176,13 @@
   <string name="activity_report_medal_all">全部勋章</string>
   <string name="activity_report_title_question">淘贝·赚更多?给我回报吧!</string>
   <string name="activity_report_desc_question">不要拒绝,不要反抗。那只会让你平庸,真实回答我们的问题,让我们更多向您推送高价广告。</string>
+  <string name="activity_report_rank_title">朋友圈排名</string>
+
+  <!-- 平台问题界面 -->
+  <string name="activity_sys_question_title">问答</string>
+  <string name="activity_sys_question_activity_award_info">回答提问得%d枚贝贝金</string>
+  <string name="activity_sys_question_info">回答以下问题,完成后贝贝金。真诚感谢你的支持!</string>
+  <string name="activity_sys_question_btn_submit">领取贝贝金</string>
+  <string name="activity_sys_question_submit_success">问题提交成功,你获得1贝贝金</string>
+
 </resources>

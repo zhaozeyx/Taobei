@@ -1,9 +1,9 @@
 /*
- * 文件名: AdvQuestionListActivity
+ * 文件名: BaseSysQuestionActivity
  * 版    权：  Copyright Hengrtech Tech. Co. Ltd. All Rights Reserved.
  * 描    述: [该类的简要描述]
  * 创建人: zhaozeyang
- * 创建时间:16/5/5
+ * 创建时间:16/5/11
  * 
  * 修改人：
  * 修改时间:
@@ -20,13 +20,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,25 +35,20 @@ import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.injection.GlobalModule;
 import com.hengrtec.taobei.net.RpcApiError;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
-import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.Question;
-import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
-import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
-import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
+import com.hengrtec.taobei.net.rpc.service.params.SysQuestionParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
-import com.hengrtec.taobei.utils.AdvertisementValueBindUtils;
-import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-import retrofit2.Response;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -64,91 +57,68 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * 答题界面<BR>
+ * 平台问题基类<BR>
  *
  * @author zhaozeyang
- * @version [Taobei Client V20160411, 16/5/5]
+ * @version [Taobei Client V20160411, 16/5/11]
  */
-public class AdvQuestionListActivity extends BasicTitleBarActivity {
-  private static final String BUNDLE_KEY_ADV_ID = "adv_id";
-  private static final String BUNDLE_KEY_WATCH_ID = "watch_id";
-  @Bind(R.id.adv_snapshot)
-  ImageView mAdvSnapshot;
-  @Bind(R.id.no_play_time)
-  ViewStub mNoPlayTime;
-  @Bind(R.id.layout_can_play)
-  ImageView mLayoutCanPlay;
-  @Bind(R.id.play_count_info)
-  TextView mPlayCountInfo;
-  @Bind(R.id.adv_info)
-  RelativeLayout mAdvInfo;
-  @Bind(R.id.adv_title)
-  TextView mAdvTitle;
-  @Bind(R.id.adv_sub_title)
-  TextView mAdvSubTitle;
-  @Bind(R.id.adv_profit)
-  TextView mAdvProfit;
+public abstract class BaseSysQuestionActivity extends BasicTitleBarActivity {
+  protected static final String BUNDLE_KEY_FIRST_QUESTION = "first_question";
+
+  @Bind(R.id.question_award_info)
+  TextView mQuestionAwardInfo;
   @Bind(R.id.question_list)
   ExpandableListView mQuestionListView;
-  @Bind(R.id.btn_commit)
-  TextView mBtnCommit;
-
+  @Bind(R.id.btn_submit)
+  View mBtnSubmit;
+  @Bind(R.id.real_btn)
+  View mRealBtn;
   @Inject
   AdvertisementService mAdvService;
 
-  private int mAdvId;
-  private String mWatchId;
+  private Subscription mNextQuestionSubscription;
+
+  private boolean mIsFirstQuestion = false;
+
   private QuestionListAdapter mListAdapter;
-
   private Subscription mCheckBtnStateSubscription;
-
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
+    mIsFirstQuestion = getIntent().getBooleanExtra(BUNDLE_KEY_FIRST_QUESTION, false);
     ButterKnife.bind(this);
-    mAdvId = getIntent().getIntExtra(BUNDLE_KEY_ADV_ID, -1);
-    mWatchId = getIntent().getStringExtra(BUNDLE_KEY_WATCH_ID);
     inject();
+    initView();
     initListView();
-    initData();
+    loadData();
   }
 
-  private void inject() {
-    DaggerServiceComponent.builder().globalModule(new GlobalModule((CustomApp) getApplication()))
-        .serviceModule(new ServiceModule()).build().inject(this);
+  private void initView() {
+    updateBtnStatus(false);
+    mQuestionAwardInfo.setText(getString(R.string.activity_sys_question_activity_award_info, 1));
   }
 
-  private void initData() {
-    showProgressDialog("", true);
-    Observable<Response<ResponseModel<List<Question>>>> listQuestionObservable =
-        mAdvService.getAdvertisement(new GetAdvertisementDetailParams
-            (getComponent().appPreferences().getUserId(),
-                mAdvId)).observeOn(AndroidSchedulers.mainThread())
-            .doOnNext(new Action1<Response<ResponseModel<AdvertisementDetail>>>() {
-              @Override
-              public void call(Response<ResponseModel<AdvertisementDetail>> responseModelResponse) {
-                refreshUI(responseModelResponse.body().getData());
-              }
-            }).observeOn(Schedulers.newThread())
-            .flatMap(new Func1<Response<ResponseModel<AdvertisementDetail>>,
-                Observable<Response<ResponseModel<List<Question>>>>>() {
-              @Override
-              public Observable<Response<ResponseModel<List<Question>>>> call
-                  (Response<ResponseModel<AdvertisementDetail>>
-                       responseModelResponse) {
-                return mAdvService.getAdvQuestionList(new GetAdvQuestionListParams(String.valueOf
-                    (getComponent().loginSession().getUserId()), String.valueOf(mAdvId)));
-              }
-            });
-    manageRpcCall(listQuestionObservable, new UiRpcSubscriber<List<Question>>(this) {
+  private void updateBtnStatus(boolean enabled) {
+    mBtnSubmit.setEnabled(enabled);
+    mRealBtn.setEnabled(enabled);
+  }
+
+  private void loadData() {
+    if (mIsFirstQuestion) {
+      loadFirstQuestion();
+    } else {
+      loadNextQuestion();
+    }
+  }
+
+  private void loadNextQuestion() {
+    manageRpcCall(mAdvService.getSysQuestion(new SysQuestionParams(String.valueOf(getComponent()
+        .loginSession().getUserId()))), new UiRpcSubscriber<List<Question>>(this) {
+
+
       @Override
       protected void onSuccess(List<Question> questions) {
-        mListAdapter.addAll(questions);
-        mListAdapter.notifyDataSetChanged();
-        for (int i = 0; i < questions.size(); i++) {
-          mQuestionListView.expandGroup(i);
-        }
-        setListViewHeightBasedOnChildren(mQuestionListView);
+        updateListView(questions);
       }
 
       @Override
@@ -156,6 +126,14 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
         closeProgressDialog();
       }
     });
+  }
+
+  protected abstract void loadFirstQuestion();
+
+  private void inject() {
+    DaggerServiceComponent.builder().globalModule(new GlobalModule((CustomApp) getApplication()))
+        .serviceModule(new ServiceModule()).build()
+        .inject(this);
   }
 
   private void initListView() {
@@ -191,65 +169,37 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
     listView.setLayoutParams(params);
   }
 
-  private void refreshUI(AdvertisementDetail detail) {
-    if (null == detail) {
-      return;
-    }
-    updateCommitStatus();
-    ImageLoader.loadOptimizedHttpImage(AdvQuestionListActivity.this, detail.getThumbnail())
-        .into(mAdvSnapshot);
-    mAdvTitle.setText(detail.getName());
-    mAdvSubTitle.setText(detail.getSubTitle());
-
-    mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_number_info, detail
-        .getPlayCounts(), detail.getPlanCounts()));
-    if (0 == detail.getPlayCounts()) {
-      mLayoutCanPlay.setVisibility(View.GONE);
-      mNoPlayTime.setVisibility(View.VISIBLE);
-    } else {
-      mLayoutCanPlay.setVisibility(View.VISIBLE);
-      mNoPlayTime.setVisibility(View.GONE);
-    }
-    mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_number_info, detail
-        .getPlayCounts(), detail.getPlanCounts()));
-    setProfitInfoByStatus(detail);
-  }
-
-  private void setProfitInfoByStatus(AdvertisementDetail detail) {
-    String benefitType = detail.getBenefitType();
-    AdvertisementValueBindUtils.setProfit(mAdvProfit, benefitType, detail.getPrice(), R.string
-        .adv_detail_profit_info_real, R.string.adv_detail_profit_info_virtual);
+  @Override
+  public boolean initializeTitleBar() {
+    setMiddleTitle(R.string.activity_sys_question_title);
+    setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
+    return true;
   }
 
   @Override
   public int getLayoutId() {
-    return R.layout.activity_adv_question_list;
+    return R.layout.activity_sys_question;
   }
 
-  @Override
-  public boolean initializeTitleBar() {
-    setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        finish();
-      }
-    });
-    return super.initializeTitleBar();
-  }
-
-  @OnClick(R.id.btn_commit)
+  @OnClick(R.id.btn_submit)
   public void onClick() {
     showProgressDialog("", true);
     HashMap<String, String> qMap = new HashMap<>();
     for (Question question : mListAdapter.getData()) {
       qMap.put(question.getQId(), question.getMyAnswer().toString());
     }
-    manageRpcCall(mAdvService.subAnswer(new SubAdvQuestionAnswerParams(mWatchId, String.valueOf
-        (getComponent().loginSession().getUserId()), String.valueOf(mAdvId), qMap)), new
+    manageRpcCall(mAdvService.subAnswer(new SubAdvQuestionAnswerParams("", String.valueOf
+        (getComponent().loginSession().getUserId()), "", qMap)), new
         UiRpcSubscriber<String>(this) {
           @Override
           protected void onSuccess(String s) {
-            finish();
+            showShortToast(R.string.activity_sys_question_submit_success);
+            nextQuestion();
             getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent());
           }
 
@@ -264,6 +214,20 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
             showShortToast(R.string.activity_adv_toast_submit_failure);
           }
         });
+  }
+
+  private void nextQuestion() {
+    mNextQuestionSubscription = Observable.timer(1, TimeUnit.SECONDS).doOnNext(new Action1<Long>() {
+      @Override
+      public void call(Long aLong) {
+        startActivity(getNextIntent(BaseSysQuestionActivity.this));
+        finish();
+      }
+    }).subscribe();
+  }
+
+  protected Intent getNextIntent(Context context) {
+    return new Intent();
   }
 
   private void updateCommitStatus() {
@@ -308,25 +272,21 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
         }).observeOn(AndroidSchedulers.mainThread()).doOnNext(new Action1<Boolean>() {
           @Override
           public void call(Boolean aBoolean) {
-            mBtnCommit.setEnabled(aBoolean);
+            updateBtnStatus(aBoolean);
           }
         }).subscribe();
-
   }
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    if (null != mCheckBtnStateSubscription && mCheckBtnStateSubscription.isUnsubscribed()) {
-      mCheckBtnStateSubscription.unsubscribe();
+  protected void updateListView(List<Question> questions) {
+    if (null == questions) {
+      return;
     }
-  }
-
-  public static Intent makeIntent(Context context, int advId, String watchId) {
-    Intent intent = new Intent(context, AdvQuestionListActivity.class);
-    intent.putExtra(BUNDLE_KEY_ADV_ID, advId);
-    intent.putExtra(BUNDLE_KEY_WATCH_ID, watchId);
-    return intent;
+    mListAdapter.addAll(questions);
+    mListAdapter.notifyDataSetChanged();
+    for (int i = 0; i < questions.size(); i++) {
+      mQuestionListView.expandGroup(i);
+    }
+    setListViewHeightBasedOnChildren(mQuestionListView);
   }
 
   private class QuestionListAdapter extends BaseExpandableListAdapter {
@@ -620,5 +580,16 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
      * 问答题
      */
     EASY_QUESTION
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    if (null != mCheckBtnStateSubscription && mCheckBtnStateSubscription.isUnsubscribed()) {
+      mCheckBtnStateSubscription.unsubscribe();
+    }
+    if (null != mNextQuestionSubscription && mNextQuestionSubscription.isUnsubscribed()) {
+      mNextQuestionSubscription.unsubscribe();
+    }
   }
 }

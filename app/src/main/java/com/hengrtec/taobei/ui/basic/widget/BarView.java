@@ -23,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.component.log.Logger;
 
 /**
  * 柱状图单个矩形柱<BR>
@@ -103,16 +104,19 @@ public class BarView extends FrameLayout {
     if (-1 == mBarValue || -1 == mMaxValue || 0 == mMaxValue || mAttachData) {
       return;
     }
-    int showHeight = getMeasuredHeight() - mTopTitleView.getMeasuredHeight() - mBarValueView
-        .getMeasuredHeight() + 100;
+    int showHeight = getMeasuredHeight();
+    Logger.d("YZZ", "measuredHeight : %d   height : ", getMeasuredHeight(), getHeight());
     float percent = (float) mBarValue / (float) mMaxValue;
+    Logger.d("YZZ", "percent : %f : ", percent);
     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(mBarView
         .getMeasuredWidth(),
         mBarView.getMinimumHeight());
     if (mBarValue != 0) {
       params = new RelativeLayout.LayoutParams(mBarView.getMeasuredWidth(),
-          ((int) (percent * showHeight)) / (int) getResources().getDisplayMetrics().density);
+          ((int) (percent * showHeight)) / 2);
     }
+    Logger.d("YZZ", "final -height :%d  density : %d ", ((int) (percent * showHeight)), (int)
+        getResources().getDisplayMetrics().scaledDensity);
     params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
     mBarView.setLayoutParams(params);
     mAttachData = true;

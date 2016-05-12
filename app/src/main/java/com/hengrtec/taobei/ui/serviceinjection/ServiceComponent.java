@@ -19,6 +19,10 @@ import com.hengrtec.taobei.ui.home.AdvQuestionListActivity;
 import com.hengrtec.taobei.ui.home.AdvertisementDetailActivity;
 import com.hengrtec.taobei.ui.home.AdvertisementListPresenter;
 import com.hengrtec.taobei.ui.home.AdvertisementPlayActivity;
+import com.hengrtec.taobei.ui.home.BaseSysQuestionActivity;
+import com.hengrtec.taobei.ui.home.DetailSysQuestionActivity;
+import com.hengrtec.taobei.ui.home.ReportActivity;
+import com.hengrtec.taobei.ui.home.ReportSysQuestionActivity;
 import com.hengrtec.taobei.ui.login.LoginWithPasswordFragment;
 import com.hengrtec.taobei.ui.login.LoginWithVerifyCodeFragment;
 import com.hengrtec.taobei.ui.login.PasswordSetActivity;
@@ -59,4 +63,12 @@ public interface ServiceComponent {
   void inject(AdvertisementPlayActivity activity);
 
   void inject(ProfitFragment fragment);
+
+  void inject(ReportActivity activity);
+
+  void inject(BaseSysQuestionActivity activity);
+
+  void inject(ReportSysQuestionActivity activity);
+
+  void inject(DetailSysQuestionActivity activity);
 }
