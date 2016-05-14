@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg_color"
+    android:clickable="true"
     >
   <RelativeLayout
       android:layout_width="match_parent"
@@ -21,7 +22,7 @@
           android:layout_height="match_parent"
           android:gravity="center_horizontal"
           android:orientation="vertical"
-          android:paddingBottom="20dp"
+          android:paddingBottom="50dp"
           >
         <RelativeLayout
             android:id="@+id/adv_info"
@@ -131,7 +132,7 @@
             android:id="@+id/detail_profit_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ></com.hengrtec.taobei.ui.home.view.DetailProfitInfoView>
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -303,18 +304,16 @@
             android:id="@+id/comment_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="29dp"
             />
-
         <TextView
             android:id="@+id/view_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:padding="20dp"
             android:text="@string/adv_detail_comments_load_more"
             style="@style/Widget.App.TextView.Medium.Red"
             />
-
       </LinearLayout>
     </com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView>
 

@@ -295,6 +295,10 @@
     <item name="android:textColor">@color/font_color_blue</item>
   </style>
 
+  <style name="Widget.App.TextView.Small.Yellow">
+    <item name="android:textColor">@color/font_color_yellow</item>
+  </style>
+
   <!-- 中字体 -->
   <style name="Widget.App.TextView.Medium">
     <item name="android:textSize">@dimen/font_size_medium</item>
@@ -444,5 +448,20 @@
     <item name="android:drawablePadding">12dp</item>
   </style>
 
+
+  <style name="ProfileMenuContainer.Detail">
+
+  </style>
+
+  <style name="Widget.App.TextView.Small.Secondary.ProfileDetailArrow">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:drawableRight">@mipmap/icon_arrow</item>
+    <item name="android:drawablePadding">4dp</item>
+    <item name="android:layout_centerVertical">true</item>
+    <item name="android:layout_alignParentRight">true</item>
+    <item name="android:maxLength">15</item>
+    <item name="android:ellipsize">end</item>
+  </style>
 
 </resources>

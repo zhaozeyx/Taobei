@@ -116,9 +116,11 @@ public class ProfitFragment extends BasicTitleBarFragment {
         (model.getRanking())));
     mProfitBeyond.setText(getString(R.string.fragment_profit_beyond, model.getRankingPercentage()));
     mTodayIncome.setText(model.getBenefit() + getString(R.string.unit_cash));
-    // TODO
-    //mViewTotalTime.setText();
-    //mViewBeVisitedCount.setText();
+    int hour = model.getPlayDuration() / 3600;
+    int minute = (model.getPlayDuration() % 3600) / 60;
+    mViewTotalTime.setText(getString(R.string.format_duration, hour, minute));
+    mViewBeVisitedCount.setText(String.valueOf(model.getViewTimes()) + getString(R.string
+        .unit_times));
 
     updateBar(model);
   }
@@ -127,6 +129,14 @@ public class ProfitFragment extends BasicTitleBarFragment {
   public void onDestroyView() {
     super.onDestroyView();
     ButterKnife.unbind(this);
+  }
+
+  @Override
+  public void onHiddenChanged(boolean hidden) {
+    super.onHiddenChanged(hidden);
+    if (null != mAdvService) {
+      initData();
+    }
   }
 
   private void updateBar(BibiModel model) {

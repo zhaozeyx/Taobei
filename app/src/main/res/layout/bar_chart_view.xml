@@ -9,13 +9,11 @@
 
 
   <LinearLayout
-      android:id="@+id/left_title"
+      android:id="@+id/left_title_container"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:gravity="center_horizontal"
       android:orientation="vertical"
-      tools:background="@android:color/holo_purple"
-      tools:minWidth="10dp"
       >
     <TextView
         android:id="@+id/left_title_unit"
@@ -24,6 +22,16 @@
         tools:text="(元)"
         style="@style/Widget.App.TextView.Small.Secondary"
         />
+    <LinearLayout
+        android:id="@+id/left_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:background="@android:color/holo_purple"
+        tools:minWidth="10dp"
+        >
+    </LinearLayout>
   </LinearLayout>
   <View
       android:id="@+id/base_line_view"
@@ -31,7 +39,7 @@
       android:layout_height="0.5dp"
       android:layout_alignParentBottom="true"
       android:layout_marginBottom="6sp"
-      android:layout_toRightOf="@id/left_title"
+      android:layout_toRightOf="@id/left_title_container"
       android:background="@color/bg_color_divider"
       />
   <LinearLayout
@@ -42,7 +50,7 @@
       android:layout_alignBottom="@id/base_line_view"
       android:layout_marginLeft="15dp"
       android:layout_marginTop="8sp"
-      android:layout_toRightOf="@id/left_title"
+      android:layout_toRightOf="@id/left_title_container"
       android:orientation="horizontal"
       tools:background="@android:color/holo_green_light"
       />

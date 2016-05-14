@@ -22,6 +22,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.component.log.Logger;
 
 /**
  * 柱状图<BR>
@@ -59,11 +60,18 @@ public class BarChartView extends FrameLayout {
 
   public void setData(String[] leftTitle, String[] topTitle, int[] itemData, int maxValue, String
       unit) {
+    mLeftTitleView.removeAllViews();
+    mBarViewContainer.removeAllViews();
     mLeftTitle = leftTitle;
     mTopTitle = topTitle;
     mLeftTitleUnitView.setText("(" + unit + ")");
     mItemData = itemData;
     mMaxValue = maxValue;
+
+    if (mAttachData) {
+      mAttachData = false;
+      addBarViews();
+    }
   }
 
   @Override
@@ -72,21 +80,18 @@ public class BarChartView extends FrameLayout {
     addBarViews();
   }
 
+  private int px2dip(float pxValue) {
+    final float scale = getResources().getDisplayMetrics().density;
+    return (int) (pxValue / scale + 0.5f);
+  }
+
   private void addBarViews() {
     if (null == mTopTitle || null == mLeftTitle || mAttachData) {
       return;
     }
-    int leftTitleSize = mLeftTitle.length;
     int topTitleSize = mTopTitle.length;
-    int leftTitleHeight = mLeftTitleView.getHeight() - mLeftTitleUnitView.getHeight();
-
-
-    TextView tempView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout
-            .bar_text_view,
-        mLeftTitleView, false);
-
-    int bottomMargin = (leftTitleHeight - (tempView.getHeight() * mLeftTitle.length)) /
-        (mLeftTitle.length - 2);
+    Logger.i("YZZ", " totalLeftHeight : %d  leftTitleHeight", getMeasuredHeight(), mLeftTitleView
+        .getMeasuredHeight());
     for (int i = mLeftTitle.length - 1; i >= 0; i--) {
       TextView leftTitleView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout
               .bar_text_view,
@@ -94,7 +99,7 @@ public class BarChartView extends FrameLayout {
       LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
           .WRAP_CONTENT,
           LinearLayout.LayoutParams.WRAP_CONTENT);
-      if (i != 0) {
+      if (i != mLeftTitle.length - 1) {
         params.weight = 1;
       }
       leftTitleView.setText(mLeftTitle[i]);
@@ -104,9 +109,11 @@ public class BarChartView extends FrameLayout {
     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
         .WRAP_CONTENT,
         LinearLayout.LayoutParams.MATCH_PARENT);
+    mBarViewContainer.removeAllViews();
     for (int i = 0; i < topTitleSize; i++) {
       BarView barView = new BarView(getContext());
       if (i < mItemData.length) {
+        barView.setMaxBarHeight(mLeftTitleView.getHeight());
         barView.setBarValue(mItemData[i], R.string.fragment_profit_bar_format);
         barView.setMaxValue(mMaxValue);
         barView.setTopTitle(mTopTitle[i]);
@@ -123,5 +130,14 @@ public class BarChartView extends FrameLayout {
       mBarViewContainer.setGravity(Gravity.BOTTOM);
     }
     mAttachData = true;
+  }
+
+  private int getViewHeight(View view) {
+    int w = View.MeasureSpec.makeMeasureSpec(0,
+        View.MeasureSpec.UNSPECIFIED);
+    int h = View.MeasureSpec.makeMeasureSpec(0,
+        View.MeasureSpec.UNSPECIFIED);
+    view.measure(w, h);
+    return view.getMeasuredHeight();
   }
 }

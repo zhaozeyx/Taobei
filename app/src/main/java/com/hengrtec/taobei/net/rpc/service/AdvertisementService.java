@@ -17,16 +17,22 @@ import com.hengrtec.taobei.net.rpc.model.Advertisement;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.BibiModel;
 import com.hengrtec.taobei.net.rpc.model.BibiReport;
+import com.hengrtec.taobei.net.rpc.model.CollectAdvModel;
 import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
+import com.hengrtec.taobei.net.rpc.service.params.AdvOperationParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvWatchedParams;
 import com.hengrtec.taobei.net.rpc.service.params.BibiParams;
 import com.hengrtec.taobei.net.rpc.service.params.BibiReportParams;
+import com.hengrtec.taobei.net.rpc.service.params.DoMyCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementListParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetCollectionsParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
+import com.hengrtec.taobei.net.rpc.service.params.LikeCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
 import com.hengrtec.taobei.net.rpc.service.params.SysQuestionByIdParams;
 import com.hengrtec.taobei.net.rpc.service.params.SysQuestionParams;
@@ -88,4 +94,31 @@ public interface AdvertisementService {
   @POST("getquestion.do")
   Observable<Response<ResponseModel<List<Question>>>> getQuestion(@Body SysQuestionByIdParams
                                                                       params);
+
+  @POST("likeadv.do")
+  Observable<Response<ResponseModel<String>>> likeAdv(@Body AdvOperationParams
+                                                          params);
+
+  @POST("collectadv.do")
+  Observable<Response<ResponseModel<String>>> collectadv(@Body AdvOperationParams
+                                                             params);
+
+  @POST("likecomments.do")
+  Observable<Response<ResponseModel<String>>> likeComments(@Body LikeCommentParams
+                                                               params);
+
+  @POST("domycomments.do")
+  Observable<Response<ResponseModel<List<AdvertisementDetail.Comment>>>> doMycomments(@Body
+                                                                                      DoMyCommentParams
+                                                                                          params);
+
+  @POST("commentslist.do")
+  Observable<Response<ResponseModel<List<AdvertisementDetail.Comment>>>> getCommentList(@Body
+                                                                                        GetCommentListParams
+                                                                                            params);
+
+  @POST("advcollectlist.do")
+  Observable<Response<ResponseModel<List<CollectAdvModel>>>> getAdvCollectionList(@Body
+                                                                               GetCollectionsParams
+                                                                                   params);
 }

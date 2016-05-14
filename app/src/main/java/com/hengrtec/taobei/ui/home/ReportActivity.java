@@ -51,15 +51,12 @@ public class ReportActivity extends BasicTitleBarActivity {
   private static final long HOUR = 60 * 60l;
   private static final long MINUTE = 60l;
 
-  /**
-   * TODO 前两张图片是不是应该替换成别的，游民，长工
-   */
-  private static final int[] ICON_LEVEL_MALE = new int[]{R.mipmap.icon_pinnong, R.mipmap
-      .icon_pinnong
+  private static final int[] ICON_LEVEL_MALE = new int[]{R.mipmap.icon_youmin, R.mipmap
+      .icon_changgong
       , R.mipmap.icon_pinnong, R.mipmap.icon_zhongnong, R.mipmap.icon_funong, R.mipmap.icon_tucaizhu
       , R.mipmap.icon_tuhaozha, R.mipmap.icon_dafuweng};
-  private static final int[] ICON_LEVEL_FEMALE = new int[]{R.mipmap.icon_pinnong, R.mipmap
-      .icon_pinnong
+  private static final int[] ICON_LEVEL_FEMALE = new int[]{R.mipmap.icon_youmin, R.mipmap
+      .icon_changgong
       , R.mipmap.icon_pinnong, R.mipmap.icon_zhongnong, R.mipmap.icon_funong, R.mipmap.icon_tucaizhu
       , R.mipmap.icon_baifumei, R.mipmap.icon_dafuweng};
 

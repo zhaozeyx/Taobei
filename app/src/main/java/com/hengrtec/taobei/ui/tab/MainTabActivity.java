@@ -32,8 +32,10 @@ import com.hengrtec.taobei.ui.commonevent.UserAvatarClickedEvent;
 import com.hengrtec.taobei.ui.home.HomeFragment;
 import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.nearby.NearbyFragment;
+import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
+import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.squareup.otto.Subscribe;
@@ -197,6 +199,8 @@ public class MainTabActivity extends BaseTabActivity {
             .drawer_total_profit_login) + " " + mContext.getString(R.string
             .drawer_total_profit_withdraw)).build();
       }
+      ImageLoader.loadOptimizedHttpImage(mContext, info.getAvart()).placeholder(R.drawable
+          .src_avatar_default).into(mUserAvatarView);
     }
 
     @Override
@@ -211,6 +215,7 @@ public class MainTabActivity extends BaseTabActivity {
         case R.id.btn_attention:
           break;
         case R.id.btn_collection:
+          mContext.startActivity(new Intent(mContext, CollectionActivity.class));
           break;
         case R.id.btn_search:
           break;

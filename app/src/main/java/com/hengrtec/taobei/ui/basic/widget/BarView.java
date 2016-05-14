@@ -47,6 +47,7 @@ public class BarView extends FrameLayout {
   private int mMaxValue = -1;
   private int mBarValue = -1;
   private boolean mAttachData = false;
+  private int mMaxBarHeight;
 
   public BarView(Context context) {
     super(context);
@@ -94,6 +95,10 @@ public class BarView extends FrameLayout {
     mMaxValue = max;
   }
 
+  public void setMaxBarHeight(int height) {
+    mMaxBarHeight = height;
+  }
+
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -101,21 +106,18 @@ public class BarView extends FrameLayout {
   }
 
   private void updateBar() {
-    if (-1 == mBarValue || -1 == mMaxValue || 0 == mMaxValue || mAttachData) {
+    if (-1 == mBarValue || mMaxValue <= 0 || mMaxBarHeight == 0 || mAttachData) {
       return;
     }
-    int showHeight = getMeasuredHeight();
-    Logger.d("YZZ", "measuredHeight : %d   height : ", getMeasuredHeight(), getHeight());
     float percent = (float) mBarValue / (float) mMaxValue;
-    Logger.d("YZZ", "percent : %f : ", percent);
     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(mBarView
         .getMeasuredWidth(),
         mBarView.getMinimumHeight());
     if (mBarValue != 0) {
       params = new RelativeLayout.LayoutParams(mBarView.getMeasuredWidth(),
-          ((int) (percent * showHeight)) / 2);
+          ((int) (percent * mMaxBarHeight)));
     }
-    Logger.d("YZZ", "final -height :%d  density : %d ", ((int) (percent * showHeight)), (int)
+    Logger.d("YZZ", "final -height :%d  density : %d ", ((int) (percent * mMaxBarHeight)), (int)
         getResources().getDisplayMetrics().scaledDensity);
     params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
     mBarView.setLayoutParams(params);

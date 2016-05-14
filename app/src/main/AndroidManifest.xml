@@ -71,6 +71,13 @@
     <activity
         android:name=".ui.home.ReportActivity"
         android:screenOrientation="portrait"/>
+
+    <activity
+        android:name=".ui.profile.CollectionActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.ProfileDetailActivity"
+        android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

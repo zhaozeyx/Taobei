@@ -11,8 +11,10 @@
  */
 package com.hengrtec.taobei.ui.profile;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import butterknife.OnClick;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
+import com.hengrtec.taobei.ui.login.LoginWayActivity;
+import com.hengrtec.taobei.ui.login.RegisterActivity;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -51,7 +55,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
   @Bind(R.id.message_center)
   RelativeLayout mMessageCenterView;
   @Bind(R.id.icon_new_honour)
-  TextView mIconNewHonour;
+  ImageView mIconNewHonour;
   @Bind(R.id.member_honour)
   RelativeLayout mMemberHonourView;
   @Bind(R.id.member_achievement_label)
@@ -84,7 +88,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
       mUnLoginContainer.setVisibility(View.VISIBLE);
       mAvatarView.setVisibility(View.GONE);
     }
-    // TODO 设置其它信息
+
     if (info.getTodayBenefit() == 0) {
       mProfitView.setText(R.string.fragment_profile_no_profit);
     } else {
@@ -126,18 +130,19 @@ public class ProfileFragment extends BasicTitleBarFragment {
     ButterKnife.unbind(this);
   }
 
-  @OnClick({R.id.btn_register, R.id.btn_login, R.id.un_login_container, R.id.avatar, R.id
+  @OnClick({R.id.btn_register, R.id.btn_login, R.id.avatar, R.id
       .icon_new_message, R.id.message_center, R.id.member_honour, R.id.member_achievement, R.id
       .watched, R.id.comments, R.id.invite_friends})
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.btn_register:
+        startActivity(new Intent(getActivity(), RegisterActivity.class));
         break;
       case R.id.btn_login:
-        break;
-      case R.id.un_login_container:
+        startActivity(new Intent(getActivity(), LoginWayActivity.class));
         break;
       case R.id.avatar:
+        startActivity(new Intent(getActivity(), ProfileDetailActivity.class));
         break;
       case R.id.icon_new_message:
         break;

@@ -51,6 +51,8 @@ public class BibiModel {
   private String rankingPercentage;
   private int totalBenefit;
   private int whichDay;
+  private int viewTimes;
+  private int playDuration;
 
   public int getAdvQuantity() {
     return advQuantity;
@@ -122,6 +124,22 @@ public class BibiModel {
 
   public void setWhichDay(int whichDay) {
     this.whichDay = whichDay;
+  }
+
+  public int getViewTimes() {
+    return viewTimes;
+  }
+
+  public void setViewTimes(int viewTimes) {
+    this.viewTimes = viewTimes;
+  }
+
+  public int getPlayDuration() {
+    return playDuration;
+  }
+
+  public void setPlayDuration(int playDuration) {
+    this.playDuration = playDuration;
   }
 
   public static class BenefitsBean {

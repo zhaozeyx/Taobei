@@ -51,7 +51,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="12dp"
-      android:background="@mipmap/bg_dialog_profit_red_bag"
+      android:background="@mipmap/bg_dialog_profit_bbj"
       android:gravity="center_horizontal|bottom"
       android:orientation="horizontal"
       >

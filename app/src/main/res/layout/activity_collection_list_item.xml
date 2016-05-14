@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingBottom="10dp"
+      android:paddingTop="10dp"
+      >
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@mipmap/icon_title_block_yellow"
+        android:drawablePadding="7dp"
+        android:gravity="center"
+        android:text="@string/activity_collection_first_person"
+        style="@style/Widget.App.TextView.Large.Secondary"
+        />
+
+    <TextView
+        android:id="@+id/collection_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/user"
+        tools:text="@string/activity_collection_label"
+        style="@style/Widget.App.TextView.Small.Secondary"
+        />
+
+    <TextView
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="7dp"
+        android:text="@string/activity_collection_btn_delete"
+        style="@style/Widget.App.TextView.Medium.RedDark"
+        />
+
+  </RelativeLayout>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="207.5dp"
+      android:background="@android:color/white"
+      android:paddingBottom="7dp"
+      android:paddingLeft="8.5dp"
+      android:paddingRight="8.5dp"
+      android:paddingTop="7dp"
+      >
+    <ImageView
+        android:id="@+id/adv_snapshot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:id="@+id/adv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.4"
+        android:background="@android:color/black"
+        android:padding="8dp"
+        tools:text="广告名字名字命子"
+        style="@style/Widget.App.TextView.Large.White"
+        />
+  </RelativeLayout>
+
+</LinearLayout>

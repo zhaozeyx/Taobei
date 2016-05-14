@@ -21,11 +21,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,11 +42,16 @@ import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
+import com.hengrtec.taobei.net.rpc.service.params.AdvOperationParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
+import com.hengrtec.taobei.net.rpc.service.params.DoMyCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
+import com.hengrtec.taobei.net.rpc.service.params.LikeCommentParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.home.view.DetailProfitInfoView;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
@@ -73,6 +78,7 @@ import rx.functions.Func1;
  * @version [Taobei Client V20160411, 16/4/21]
  */
 public class AdvertisementDetailActivity extends BasicTitleBarActivity {
+  private static final int MAX_COUNT = 20;
   private static final String TAG = "AdvertisementDetailActivity";
   private static final int ORDER_TIME = 0;
   private static final int ORDER_HOT = 1;
@@ -133,14 +139,13 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   @Bind(R.id.btn_send)
   View mBtnSend;
   @Bind(R.id.scrollView)
-  ScrollView mScrollView;
-  @Bind(R.id.view_more)
-  View mLoadMoreView;
-
+  InterceptScrollView mScrollView;
   @Inject
   AdvertisementService mAdvertisementService;
   @Bind(R.id.detail_profit_info)
   DetailProfitInfoView mDetailProfitInfoView;
+  @Bind(R.id.view_more)
+  TextView mLoadMoreView;
 
   private int mAdvId;
   private AdvertisementDetail mDetail;
@@ -148,6 +153,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   private AdvPlayInfo mAdvPlayInfo;
 
   private AlertDialog mProfitDialog;
+
+  private int mCurrentPage = 1;
+  private int mCurrentOrder = ORDER_TIME;
+  private int mServerOrderFlag = mCurrentOrder + 1;
+  private boolean mIsLoading = false;
+  private boolean mHasMore = false;
+
+  private List<AdvertisementDetail.Comment> mMyCommentsCache = new ArrayList<>();
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -158,6 +171,13 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       finish();
       return;
     }
+    mScrollView.setOnTouchListener(new View.OnTouchListener() {
+      @Override
+      public boolean onTouch(View v, MotionEvent event) {
+        disabledEditText();
+        return false;
+      }
+    });
     inject();
     initRecyclerView();
     initProfitInfoViewListener();
@@ -174,6 +194,52 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     mCommentListView.setLayoutManager(new LinearLayoutManager(this));
     mListAdapter = new CommentListAdapter(this);
     mCommentListView.setAdapter(mListAdapter);
+
+    mScrollView.setOnOverScrolledListener(new InterceptScrollView.OnOverScrolledListener() {
+      @Override
+      public void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+        if (!mIsLoading && mHasMore) {
+          loadMore();
+        }
+      }
+    });
+    //mCommentListView.setupMoreListener(new OnMoreListener() {
+    //  @Override
+    //  public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int
+    //      maxLastVisiblePosition) {
+    //
+    //  }
+    //}, 4);
+  }
+
+  private void loadMore() {
+    mIsLoading = true;
+    manageRpcCall(mAdvertisementService.getCommentList(new GetCommentListParams(mAdvId,
+        getComponent().loginSession().getUserId(), mCurrentPage, MAX_COUNT,
+        mServerOrderFlag)), new UiRpcSubscriber<List<AdvertisementDetail.Comment>>
+        (AdvertisementDetailActivity.this) {
+
+      @Override
+      protected void onSuccess(List<AdvertisementDetail.Comment> comments) {
+        if (null == comments || comments.size() < MAX_COUNT) {
+          mHasMore = false;
+          mLoadMoreView.setVisibility(View.GONE);
+        } else {
+          mHasMore = true;
+          mCurrentPage++;
+          mLoadMoreView.setVisibility(View.VISIBLE);
+        }
+        mDetail.getCommentsTimeList().addAll(0, comments);
+        mDetail.getCommentsHotList().addAll(mDetail.getCommentsHotList().size() -
+            mMyCommentsCache.size(), comments);
+        mListAdapter.notifyDataSetChanged();
+      }
+
+      @Override
+      protected void onEnd() {
+        mIsLoading = false;
+      }
+    });
   }
 
   private void initProfitInfoViewListener() {
@@ -202,6 +268,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       @Override
       public void onSegmentControlClick(int index) {
         List<AdvertisementDetail.Comment> list;
+        mCurrentOrder = index;
         switch (index) {
           case ORDER_TIME:
             list = mDetail.getCommentsTimeList();
@@ -213,6 +280,8 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
             list = mDetail.getCommentsTimeList();
             break;
         }
+        // 服务器接口 1 是按照时间排序 2 是按照热度排序
+        mServerOrderFlag = mCurrentOrder + 1;
         mListAdapter.clear();
         mListAdapter.addAll(list);
         mListAdapter.notifyDataSetChanged();
@@ -276,7 +345,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     mActivityDescription.setText(detail.getActivities());
     addActivityTags(detail);
 
+    mBtnCollect.setSelected(mDetail.isCollected());
+    mBtnPraise.setSelected(mDetail.isHeartsClicked());
+
+    mListAdapter.clear();
     mListAdapter.addAll(detail.getCommentsTimeList());
+    mHasMore = null != detail.getCommentsTimeList() && detail.getCommentsTimeList().size() >=
+        MAX_COUNT;
+    mLoadMoreView.setVisibility(mHasMore ? View.VISIBLE : View.GONE);
     mListAdapter.notifyDataSetChanged();
 
     refreshDetailInfoView(mDetail, 0, false, false);
@@ -327,7 +403,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   }
 
   @OnClick({R.id.btn_share_moments, R.id.btn_share_friends, R.id.edit_text, R.id.btn_praise, R.id
-      .btn_collect, R.id.btn_comment, R.id.btn_send, R.id.edit_disable_text, R.id.view_more, R.id
+      .btn_collect, R.id.btn_comment, R.id.btn_send, R.id.edit_disable_text, R.id
       .adv_info})
   public void onClick(View view) {
     switch (view.getId()) {
@@ -344,24 +420,92 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         showInputWindow(mEditText);
         break;
       case R.id.btn_praise:
+        performLikeAdvBtnClicked();
         break;
       case R.id.btn_collect:
+        performCollectAdvBtnClicked();
         break;
       case R.id.btn_comment:
-        //mScrollView.smoothScrollTo(mSegmentControl.getScrollX(), (int) mSegmentControl.getRw);
-        mCommentListView.scrollToPosition(0);
+        mScrollView.scrollTo(0, mSegmentControl.getScrollY());
         break;
       case R.id.btn_send:
-        disabledEditText();
-        break;
-      case R.id.view_more:
-        // TODO 加载更多
+        if (TextUtils.isEmpty(mEditText.getEditableText())) {
+          return;
+        }
+        performBtnSendClicked();
         break;
       case R.id.adv_info:
         performAdvInfoClicked();
         break;
     }
+  }
 
+  private void performBtnSendClicked() {
+    disabledEditText();
+    manageRpcCall(mAdvertisementService.doMycomments(new DoMyCommentParams(mAdvId, getComponent()
+        .loginSession().getUserId(), mEditText.getText().toString())), new
+        UiRpcSubscriber<List<AdvertisementDetail.Comment>>(this) {
+
+
+          @Override
+          protected void onSuccess(List<AdvertisementDetail.Comment> comments) {
+            mMyCommentsCache.addAll(comments);
+            mDetail.getCommentsHotList().addAll(comments);
+            mDetail.getCommentsTimeList().addAll(0, comments);
+            mListAdapter.clear();
+            if (mCurrentOrder == ORDER_TIME) {
+              mListAdapter.addAll(mDetail.getCommentsTimeList());
+            } else if (mCurrentOrder == ORDER_HOT) {
+              mListAdapter.addAll(mDetail.getCommentsHotList());
+            }
+            mListAdapter.notifyDataSetChanged();
+          }
+
+          @Override
+          protected void onEnd() {
+
+          }
+        });
+  }
+
+  private void performLikeAdvBtnClicked() {
+    mDetail.setHeartsClicked(!mDetail.isHeartsClicked());
+    mBtnPraise.setSelected(mDetail.isHeartsClicked());
+    manageRpcCall(mAdvertisementService.likeAdv(new AdvOperationParams(mDetail.isHeartsClicked()
+        ? AdvOperationParams.FLAG_TRUE : AdvOperationParams.FLAG_FALSE
+        , String.valueOf(mAdvId), getComponent().loginSession().getUserId())), new
+        UiRpcSubscriber<String>(this) {
+
+
+          @Override
+          protected void onSuccess(String s) {
+
+          }
+
+          @Override
+          protected void onEnd() {
+
+          }
+        });
+  }
+
+  private void performCollectAdvBtnClicked() {
+    mDetail.setCollected(!mDetail.isCollected());
+    mBtnCollect.setSelected(mDetail.isCollected());
+    manageRpcCall(mAdvertisementService.collectadv(new AdvOperationParams(mDetail.isCollected()
+        ? AdvOperationParams.FLAG_TRUE : AdvOperationParams.FLAG_FALSE, String.valueOf(mAdvId),
+        getComponent().loginSession().getUserId())), new UiRpcSubscriber<String>(this) {
+
+      @Override
+      protected void onSuccess(String s) {
+
+      }
+
+      @Override
+      protected void onEnd() {
+
+      }
+    });
   }
 
   /**
@@ -532,7 +676,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         getComponent().loginSession().getUserInfo().getUserName()));
   }
 
-  static class CommentListAdapter extends RecyclerView.Adapter<ViewHolder> {
+  class CommentListAdapter extends RecyclerView.Adapter<ViewHolder> {
     private Context mContext;
     private List<AdvertisementDetail.Comment> mData = new ArrayList<>();
 
@@ -559,13 +703,26 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-      AdvertisementDetail.Comment comment = mData.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+      final AdvertisementDetail.Comment comment = mData.get(position);
       ImageLoader.loadOptimizedHttpImage(mContext, comment.getAvart()).placeholder(R.mipmap
           .src_avatar_default_drawer).into(holder.userAvatar);
       holder.userName.setText(comment.getUserName());
       holder.time.setText(String.valueOf(comment.getCommentTime()));
       holder.btnPraise.setText(String.valueOf(comment.getHearts()));
+      holder.btnPraise.setSelected(comment.isClickHearts());
+      holder.btnPraise.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          if (comment.isClickHearts()) {
+            return;
+          }
+          comment.setClickHearts(true);
+          holder.btnPraise.setSelected(comment.isClickHearts());
+          holder.btnPraise.setText(String.valueOf(comment.getHearts() + 1));
+          likeComment(comment.getCommentId());
+        }
+      });
       holder.content.setText(comment.getContents());
     }
 
@@ -574,7 +731,24 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       return mData.size();
     }
 
+    private void likeComment(String commentId) {
+      manageRpcCall(mAdvertisementService.likeComments(new LikeCommentParams(commentId,
+          getComponent().loginSession().getUserId())), new UiRpcSubscriber<String>(mContext) {
+
+
+        @Override
+        protected void onSuccess(String s) {
+        }
+
+        @Override
+        protected void onEnd() {
+
+        }
+      });
+    }
+
   }
+
 
   static class ViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.user_avatar)
@@ -594,9 +768,9 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     }
   }
 
-    public static Intent makeIntent(Context context, int advId) {
-      Intent intent = new Intent(context, AdvertisementDetailActivity.class);
-      intent.putExtra(BUNDLE_KEY_ADV_ID, advId);
-      return intent;
-    }
+  public static Intent makeIntent(Context context, int advId) {
+    Intent intent = new Intent(context, AdvertisementDetailActivity.class);
+    intent.putExtra(BUNDLE_KEY_ADV_ID, advId);
+    return intent;
+  }
 }
