@@ -1,6 +1,7 @@
 package com.hengrtec.taobei;
 
 import android.app.Application;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.injection.DaggerGlobalComponent;
 import com.hengrtec.taobei.injection.GlobalComponent;
@@ -17,6 +18,7 @@ public class CustomApp extends Application {
   public void onCreate() {
     super.onCreate();
     Logger.init();
+    Fresco.initialize(this);
     mGlobalComponent = DaggerGlobalComponent.builder().globalModule(new GlobalModule(this)).build();
   }
 

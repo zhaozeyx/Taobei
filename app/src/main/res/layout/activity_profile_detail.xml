@@ -55,6 +55,7 @@
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
           android:text="@string/activity_profile_detail_label_tag"
+          android:paddingTop="?android:attr/dividerPadding"
           style="@style/Widget.App.TextView.Medium.Primary"
           />
 

@@ -56,6 +56,7 @@ public class CollectionActivity extends BasicTitleBarActivity {
 
   @Inject
   AdvertisementService mAdvService;
+
   private CollectionListAdapter mAdapter;
 
   @Override
@@ -138,6 +139,7 @@ public class CollectionActivity extends BasicTitleBarActivity {
             mListView.setLoadingMore(false);
             mListView.setRefreshing(false);
           }
+
         });
   }
 
