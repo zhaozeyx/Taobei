@@ -14,6 +14,7 @@ package com.hengrtec.taobei.net.rpc.service;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.net.rpc.service.params.CheckVerifyCodeParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetUserInfoParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetVerifyCodeParams;
 import com.hengrtec.taobei.net.rpc.service.params.LoginParams;
 import com.hengrtec.taobei.net.rpc.service.params.LoginWithVerifyCodeParams;
@@ -44,6 +45,11 @@ public interface AuthService {
   Observable<Response<ResponseModel<UserInfo>>> loginWithPassword(@Body LoginParams params);
 
   @POST("smslogin.do")
-  Observable<Response<ResponseModel<UserInfo>>> loginWithVerifyCode(@Body LoginWithVerifyCodeParams params);
+  Observable<Response<ResponseModel<UserInfo>>> loginWithVerifyCode(@Body
+                                                                    LoginWithVerifyCodeParams
+                                                                        params);
+
+  @POST("getUserInfoById.do")
+  Observable<Response<ResponseModel<UserInfo>>> getUserInfo(@Body GetUserInfoParams params);
 
 }

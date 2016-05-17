@@ -17,6 +17,7 @@ import com.hengrtec.taobei.net.RpcCallManager;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.AppService;
 import com.hengrtec.taobei.net.rpc.service.AuthService;
+import com.hengrtec.taobei.net.rpc.service.UserService;
 import com.hengrtec.taobei.utils.preferences.CustomAppPreferences;
 import dagger.Module;
 import dagger.Provides;
@@ -38,6 +39,11 @@ public class ServiceModule {
   @Provides
   public AdvertisementService providesAdvertisementService() {
     return RetrofitFactory.createAdvertisementService();
+  }
+
+  @Provides
+  public UserService providesUserService() {
+    return RetrofitFactory.createUserService();
   }
 
   @Provides

@@ -11,13 +11,25 @@
  */
 package com.hengrtec.taobei.net.rpc.service;
 
+import com.hengrtec.taobei.net.rpc.model.ResponseModel;
+import com.hengrtec.taobei.net.rpc.model.SignInModel;
+import com.hengrtec.taobei.net.rpc.service.params.SignInParams;
+import retrofit2.Response;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+import rx.Observable;
+
 /**
- * [一句话功能简述]<BR>
- * [功能详细描述]
+ * 用户信息<BR>
  *
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/4/19]
  */
 public interface UserService {
 
+  @POST("selectcheckin.do")
+  Observable<Response<ResponseModel<SignInModel>>> selectCheckIn(@Body SignInParams params);
+
+  @POST("docheckin.do")
+  Observable<Response<ResponseModel<Boolean>>> docheckin(@Body SignInParams params);
 }

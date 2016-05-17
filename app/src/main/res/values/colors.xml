@@ -68,4 +68,7 @@
   <!-- 贝贝报告 朋友圈排名 颜色-->
   <color name="report_rank_color_primary">#a37200</color>
   <color name="report_rank_color_secondary">#bfa060</color>
+
+  <!-- 签到ITEM -->
+  <color name="dialog_sign_in_item_award_info_color">#ae841d</color>
 </resources>

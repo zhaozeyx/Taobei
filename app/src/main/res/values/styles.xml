@@ -464,4 +464,20 @@
     <item name="android:ellipsize">end</item>
   </style>
 
+  <style name="CustomDialog" parent="Theme.AppCompat.DialogWhenLarge">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style>
+
+  <!--<style name="CustomDialog" parent="android:Theme.Dialog">-->
+  <!--<item name="android:windowBackground">@drawable/custom_dialog_background</item>-->
+  <!--<item name="android:windowAnimationStyle">@null</item>-->
+  <!--<item name="android:backgroundDimEnabled">false</item>-->
+  <!--<item name="android:windowNoTitle">false</item>-->
+  <!--<item name="android:windowFullscreen">true</item>-->
+  <!--<item name="android:windowContentOverlay">@null</item>-->
+  <!--</style>-->
+
+
 </resources>

@@ -13,11 +13,24 @@ package com.hengrtec.taobei.manager;
 
 import android.text.TextUtils;
 import com.hengrtec.taobei.CustomApp;
+import com.hengrtec.taobei.injection.GlobalModule;
+import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
+import com.hengrtec.taobei.net.rpc.service.AuthService;
+import com.hengrtec.taobei.net.rpc.service.params.GetUserInfoParams;
 import com.hengrtec.taobei.ui.login.event.LoginEvent;
 import com.hengrtec.taobei.ui.login.event.LogoutEvent;
+import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
+import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.JsonConverter;
 import com.hengrtec.taobei.utils.preferences.CustomAppPreferences;
+import javax.inject.Inject;
+import retrofit2.Response;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Session<BR>
@@ -30,9 +43,15 @@ public class LoginSession {
 
   private CustomApp mContext;
   private UserInfo mUserInfo;
+  @Inject
+  AuthService mAuthService;
+
+  private Subscription mGetUserInfoSubscription;
 
   public LoginSession(CustomApp app) {
     mContext = app;
+    DaggerServiceComponent.builder().globalModule(new GlobalModule(mContext)).serviceModule(new
+        ServiceModule()).build().inject(this);
     switchUserInfo();
   }
 
@@ -55,6 +74,41 @@ public class LoginSession {
   }
 
   public void login(UserInfo userInfo) {
+    saveUserInfo(userInfo);
+  }
+
+  public void update() {
+    mGetUserInfoSubscription = mAuthService.getUserInfo(new GetUserInfoParams(getUserId()))
+        .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<Response<ResponseModel<UserInfo>>>() {
+          @Override
+          public void call(Response<ResponseModel<UserInfo>> responseModelResponse) {
+            if (null != responseModelResponse && null != responseModelResponse.body()) {
+              if (null != responseModelResponse.body().getData()) {
+                saveUserInfo(responseModelResponse.body().getData());
+                switchUserInfo();
+                mContext.getGlobalComponent().getGlobalBus().post(new UserInfoChangedEvent());
+              }
+            }
+          }
+        }, new Action1<Throwable>() {
+          @Override
+          public void call(Throwable throwable) {
+
+          }
+        }, new Action0() {
+          @Override
+          public void call() {
+
+          }
+        });
+
+    if (null != mGetUserInfoSubscription && mGetUserInfoSubscription.isUnsubscribed()) {
+      mGetUserInfoSubscription.unsubscribe();
+    }
+  }
+
+  private void saveUserInfo(UserInfo userInfo) {
     mContext.getGlobalComponent().appPreferences().put(CustomAppPreferences.KEY_USER_INFO,
         JsonConverter
             .objectToJson(userInfo));
@@ -70,9 +124,11 @@ public class LoginSession {
     mContext.getGlobalComponent().appPreferences().put(CustomAppPreferences.KEY_USER_INFO,
         "");
     mContext.getGlobalComponent().getGlobalBus().post(new LogoutEvent());
+    switchUserInfo();
   }
 
   public void onLoginStatusChanged() {
     switchUserInfo();
   }
+
 }

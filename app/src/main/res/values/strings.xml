@@ -216,4 +216,17 @@
   <string name="activity_profile_detail_value_not_set">未设置</string>
   <string name="activity_profile_detail_value_not_bind">去绑定</string>
   <string name="activity_profile_detail_add_tag">+\u0020贴标签</string>
+
+  <!-- 签到奖励对话框 -->
+  <string name="dialog_sign_in_title">每天登陆奖励</string>
+  <string name="dialog_welcome_title">欢迎你</string>
+  <string name="dialog_welcome_info">这些是7天内为你准备的奖励,\n连续登陆天数越多,\n奖品越丰富哦</string>
+  <string name="dialog_award_info_day">第%d天</string>
+  <string name="dialog_sign_in_btn_commit">签到领奖</string>
+  <string name="dialog_sign_in_btn_commit_disabled">已签到</string>
+  <string name="dialog_sign_in_award_bbj">贝贝金奖励</string>
+  <string name="dialog_sign_in_award_red_bag">现金红包奖励</string>
+  <string name="dialog_sign_in_award_adv">广告观看奖励</string>
+  <string name="dialog_sign_in_success">签到成功</string>
+  <string name="dialog_sign_in_failed">签到失败</string>
 </resources>

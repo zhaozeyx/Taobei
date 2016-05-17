@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
+import com.daimajia.androidanimations.library.YoYo;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.manager.LoginSession;
@@ -103,7 +104,7 @@ public class MainTabActivity extends BaseTabActivity {
     mDrawerController.bindData();
   }
 
-  static class DrawerLayoutController implements View.OnClickListener {
+  class DrawerLayoutController implements View.OnClickListener {
     private View mDrawerContainer;
     private ImageView mUserAvatarView;
     private TextView mUserNamView;
@@ -122,6 +123,8 @@ public class MainTabActivity extends BaseTabActivity {
     private TextView mBtnFeedBack;
 
     private Context mContext;
+
+    private SignInDialogFragment mSignInDialog;
 
     public DrawerLayoutController(Activity activity, View drawerContainer) {
       mContext = activity;
@@ -207,6 +210,7 @@ public class MainTabActivity extends BaseTabActivity {
     public void onClick(View view) {
       switch (view.getId()) {
         case R.id.sign_in:
+          showSignInDialog();
           break;
         case R.id.btn_task:
           break;
@@ -224,6 +228,12 @@ public class MainTabActivity extends BaseTabActivity {
         case R.id.btn_feed_back:
           break;
       }
+      mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    private void showSignInDialog() {
+      new SignInDialogFragment().show(getSupportFragmentManager(), "");
     }
   }
+
 }

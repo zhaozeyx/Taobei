@@ -17,6 +17,7 @@ import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.AppService;
 import com.hengrtec.taobei.net.rpc.service.AuthService;
 import com.hengrtec.taobei.net.rpc.service.NetConstant;
+import com.hengrtec.taobei.net.rpc.service.UserService;
 import com.hengrtec.taobei.utils.preferences.CustomAppPreferences;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -69,6 +70,14 @@ public class RetrofitFactory {
         .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.newThread())
         ).build();
     return retrofit.create(AuthService.class);
+  }
+
+  public static UserService createUserService() {
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(NetConstant.BASE_URL)
+        .client(createClient()).addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.newThread())
+        ).build();
+    return retrofit.create(UserService.class);
   }
 
   private static OkHttpClient createClient() {

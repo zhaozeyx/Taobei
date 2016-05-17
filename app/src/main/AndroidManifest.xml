@@ -78,6 +78,11 @@
     <activity
         android:name=".ui.profile.ProfileDetailActivity"
         android:screenOrientation="portrait"/>
+
+    <activity
+        android:name=".ui.tab.SignInDialogActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.DialogWhenLarge"/>
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

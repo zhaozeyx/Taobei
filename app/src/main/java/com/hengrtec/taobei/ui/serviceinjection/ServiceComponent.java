@@ -11,10 +11,12 @@
  */
 package com.hengrtec.taobei.ui.serviceinjection;
 
+import com.hengrtec.taobei.manager.LoginSession;
 import com.hengrtec.taobei.net.RpcCallManager;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.AppService;
 import com.hengrtec.taobei.net.rpc.service.AuthService;
+import com.hengrtec.taobei.net.rpc.service.UserService;
 import com.hengrtec.taobei.ui.home.AdvQuestionListActivity;
 import com.hengrtec.taobei.ui.home.AdvertisementDetailActivity;
 import com.hengrtec.taobei.ui.home.AdvertisementListPresenter;
@@ -29,6 +31,7 @@ import com.hengrtec.taobei.ui.login.PasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
+import com.hengrtec.taobei.ui.tab.SignInDialogFragment;
 import dagger.Component;
 
 /**
@@ -46,6 +49,8 @@ public interface ServiceComponent {
   AdvertisementService advertisementService();
 
   AuthService authService();
+
+  UserService userService();
 
   void inject(AdvertisementListPresenter presenter);
 
@@ -74,4 +79,9 @@ public interface ServiceComponent {
   void inject(DetailSysQuestionActivity activity);
 
   void inject(CollectionActivity activity);
+
+  void inject(LoginSession loginSession);
+
+  void inject(SignInDialogFragment fragment);
+
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="88dp"
+    android:layout_height="88dp"
+    android:background="@drawable/bg_dialog_sign_in_item_selector"
+    android:orientation="vertical"
+    >
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      >
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_black_secondary_selector"
+        tools:text="第1天"
+        style="@style/Widget.App.TextView.Medium"
+        />
+
+    <LinearLayout
+        android:id="@+id/award_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/day"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+      <View
+          android:layout_width="6dp"
+          android:layout_height="0.5dp"
+          android:background="@color/dialog_sign_in_item_award_info_color"
+          />
+      <TextView
+          android:id="@+id/award_info"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textColor="@color/dialog_sign_in_item_award_info_color"
+          tools:text="现金红包奖励"
+          style="@style/Widget.App.TextView.Smallest"
+          />
+      <View
+          android:layout_width="6dp"
+          android:layout_height="0.5dp"
+          android:background="@color/dialog_sign_in_item_award_info_color"
+          />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/award_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/award_info_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        tools:src="@mipmap/icon_dialog_sign_in_bbj"
+        />
+
+    <ImageView
+        android:id="@+id/icon_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:src="@mipmap/icon_dialog_sign_in_received"
+        android:visibility="gone"
+        tools:visibility="gone"
+        />
+
+  </RelativeLayout>
+  <ImageView
+      android:id="@+id/cover"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:src="@mipmap/foreground_dialog_item"
+      android:visibility="gone"
+      />
+</FrameLayout>
