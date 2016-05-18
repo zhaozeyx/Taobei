@@ -26,7 +26,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.component.log.Logger;
-import com.hengrtec.taobei.ui.basic.BasicFragment;
 import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
 
 /**
@@ -35,7 +34,7 @@ import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/4/22]
  */
-public class VideoPlayFragment extends BasicFragment {
+public class VideoPlayFragment extends BaseAdvPlayFragment {
   private static final String TAG = "VideoPlayFragment";
   private static final String BUNDLE_ARG_URL = "url";
   private static final long SPACE = 1000L;
@@ -103,8 +102,9 @@ public class VideoPlayFragment extends BasicFragment {
     mCountDownTimer = new CountDownTimer(mDuration, SPACE) {
       @Override
       public void onTick(long millisUntilFinished) {
-        mCountDownView.setText(getString(R.string.adv_play_count_down, millisUntilFinished /
-            1000L));
+        int finishTime = (int) (millisUntilFinished / 1000L);
+        mCountDownView.setText(getString(R.string.adv_play_count_down, finishTime));
+        notifyPlaying(mDuration / 1000 - finishTime);
       }
 
       @Override

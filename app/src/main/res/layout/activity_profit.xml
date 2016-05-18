@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="297dp"
+      android:background="@android:color/white"
+      android:paddingBottom="14dp"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      >
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <FrameLayout
+        android:id="@+id/btn_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_activity_profit_btn"
+        android:paddingBottom="4dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="4dp"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:drawableLeft="@mipmap/icon_chart"
+          android:drawablePadding="10dp"
+          android:text="@string/activity_profit_btn_chart"
+          style="@style/Widget.App.TextView.Large"
+          />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_activity_profit_btn"
+        android:paddingBottom="4dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="4dp"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:drawableLeft="@mipmap/icon_invite"
+          android:drawablePadding="10dp"
+          android:text="@string/activity_profit_btn_invite"
+          style="@style/Widget.App.TextView.Large"
+          />
+    </FrameLayout>
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+
+  </RelativeLayout>
+
+  <FrameLayout
+      android:id="@+id/bottom_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      ></FrameLayout>
+
+
+</LinearLayout>

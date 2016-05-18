@@ -24,7 +24,6 @@ import android.webkit.WebViewClient;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.hengrtec.taobei.R;
-import com.hengrtec.taobei.ui.basic.BasicFragment;
 
 /**
  * Web广告播放界面<BR>
@@ -32,7 +31,7 @@ import com.hengrtec.taobei.ui.basic.BasicFragment;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/5/3]
  */
-public class WebPlayFragment extends BasicFragment {
+public class WebPlayFragment extends BaseAdvPlayFragment {
   private static final String ARGS_KEY_URI = "key_uri";
   @Bind(R.id.webview)
   WebView mWebView;

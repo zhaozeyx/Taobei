@@ -8,6 +8,8 @@
   <string name="unit_bbj">枚</string>
   <string name="unit_adv_view_count">条</string>
   <string name="unit_times">次</string>
+  <string name="unit_day">日</string>
+  <string name="unit_currency_graph">(元)</string>
   <string name="format_duration">%1$d时%2$d分</string>
 
   <!-- 服务器 -->
@@ -229,4 +231,22 @@
   <string name="dialog_sign_in_award_adv">广告观看奖励</string>
   <string name="dialog_sign_in_success">签到成功</string>
   <string name="dialog_sign_in_failed">签到失败</string>
+
+  <!-- 我的收益 -->
+  <string name="activity_profit_title">我的收益</string>
+  <string name="activity_profit_btn_chart">排行榜</string>
+  <string name="activity_profit_btn_invite">邀请朋友</string>
+  <string name="activity_profit_basic_profit_type_red_bag">现金红包</string>
+  <string name="activity_profit_basic_profit_info_red_bag">可提现收益%s元</string>
+  <string name="activity_profit_basic_profit_type_bbj">贝贝金奖励</string>
+  <string name="activity_profit_basic_profit_info_bbj">%1$d个广告,%2$d个任务</string>
+  <string name="activity_profit_detail_text_label_red_bag">现金红包</string>
+  <string name="activity_profit_detail_text_label_login_reward">登录奖励</string>
+  <string name="activity_profit_detail_text_label_task_reward">任务奖励</string>
+  <string name="activity_profit_detail_text_btn_withdraw">去提现</string>
+  <string name="activity_profit_detail_text_display_red_bag_title">今日收益明细</string>
+  <string name="activity_profit_detail_text_display_bbj_title">今日贝贝金明细</string>
+  <string name="activity_profit_detail_graph_display_red_bag_title">账户总收益</string>
+  <string name="activity_profit_detail_graph_title_red_bag">收益数据表</string>
+  <string name="activity_profit_detail_graph_title_bbj">收益数据表</string>
 </resources>

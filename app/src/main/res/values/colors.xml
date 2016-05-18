@@ -71,4 +71,8 @@
 
   <!-- 签到ITEM -->
   <color name="dialog_sign_in_item_award_info_color">#ae841d</color>
+
+  <!-- 收益 -->
+  <color name="activity_profit_font_color_primary">#6b6b6b</color>
+  <color name="activity_profit_bbj_font_color_primary">#ae841d</color>
 </resources>

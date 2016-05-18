@@ -134,7 +134,7 @@ public class ProfitFragment extends BasicTitleBarFragment {
   @Override
   public void onHiddenChanged(boolean hidden) {
     super.onHiddenChanged(hidden);
-    if (null != mAdvService) {
+    if (null != mAdvService && !hidden) {
       initData();
     }
   }

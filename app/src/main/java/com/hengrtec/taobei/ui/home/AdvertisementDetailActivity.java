@@ -50,8 +50,10 @@ import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
 import com.hengrtec.taobei.net.rpc.service.params.LikeCommentParams;
+import com.hengrtec.taobei.net.rpc.service.params.RecordUserPlayDurationParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView;
+import com.hengrtec.taobei.ui.home.event.PlayNotCompletedEvent;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.home.view.DetailProfitInfoView;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
@@ -674,6 +676,24 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         .dialog_congratulations));
     congratulationsView.setText(getString(R.string.adv_detail_dialog_congratulations,
         getComponent().loginSession().getUserInfo().getUserName()));
+  }
+
+  @Subscribe
+  public void performPlayNotCompletedEvent(PlayNotCompletedEvent event) {
+    manageRpcCall(mAdvertisementService.recorUserPlayDuration(new RecordUserPlayDurationParams
+        (getComponent().loginSession().getUserId(), mAdvId, event.playTime)), new
+        UiRpcSubscriber<String>(this) {
+
+
+          @Override
+          protected void onSuccess(String s) {
+          }
+
+          @Override
+          protected void onEnd() {
+
+          }
+        });
   }
 
   class CommentListAdapter extends RecyclerView.Adapter<ViewHolder> {

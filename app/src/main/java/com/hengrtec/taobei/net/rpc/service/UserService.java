@@ -11,8 +11,10 @@
  */
 package com.hengrtec.taobei.net.rpc.service;
 
+import com.hengrtec.taobei.net.rpc.model.MyBenefitModel;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.model.SignInModel;
+import com.hengrtec.taobei.net.rpc.service.params.MyBenifitParams;
 import com.hengrtec.taobei.net.rpc.service.params.SignInParams;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -32,4 +34,7 @@ public interface UserService {
 
   @POST("docheckin.do")
   Observable<Response<ResponseModel<Boolean>>> docheckin(@Body SignInParams params);
+
+  @POST("mybenefit.do")
+  Observable<Response<ResponseModel<MyBenefitModel>>> myBenefit(@Body MyBenifitParams params);
 }

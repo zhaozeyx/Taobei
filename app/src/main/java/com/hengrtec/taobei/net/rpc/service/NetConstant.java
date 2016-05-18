@@ -18,8 +18,8 @@ package com.hengrtec.taobei.net.rpc.service;
  * @version [Taobei Client V20160411, 16/4/19]
  */
 public class NetConstant {
-  //public static final String BASE_URL = "http://139.129.133.223/api/";
-  public static final String BASE_URL = "http://192.168.15.201:8080/taobei/api/";
+  public static final String BASE_URL = "http://139.129.133.223/api/";
+  //public static final String BASE_URL = "http://192.168.15.201:8080/taobei/api/";
 
   private NetConstant() {
 

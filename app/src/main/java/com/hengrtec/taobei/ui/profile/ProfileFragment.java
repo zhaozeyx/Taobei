@@ -132,7 +132,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
 
   @OnClick({R.id.btn_register, R.id.btn_login, R.id.avatar, R.id
       .icon_new_message, R.id.message_center, R.id.member_honour, R.id.member_achievement, R.id
-      .watched, R.id.comments, R.id.invite_friends})
+      .watched, R.id.comments, R.id.invite_friends, R.id.btn_red_bag, R.id.btn_bbj})
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.btn_register:
@@ -157,6 +157,12 @@ public class ProfileFragment extends BasicTitleBarFragment {
       case R.id.comments:
         break;
       case R.id.invite_friends:
+        break;
+      case R.id.btn_red_bag:
+        startActivity(ProfitActivity.makeRedBagIntent(getActivity()));
+        break;
+      case R.id.btn_bbj:
+        startActivity(ProfitActivity.makeBBJIntent(getActivity()));
         break;
     }
   }

@@ -14,7 +14,6 @@ package com.hengrtec.taobei.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import com.hengrtec.taobei.CustomApp;
@@ -25,8 +24,10 @@ import com.hengrtec.taobei.net.rpc.model.AdvQuestionState;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.AdvWatchedParams;
+import com.hengrtec.taobei.net.rpc.service.params.RecordUserPlayDurationParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
+import com.hengrtec.taobei.ui.home.event.PlayNotCompletedEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.squareup.otto.Subscribe;
@@ -56,6 +57,9 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
   @Inject
   AdvertisementService mAdvService;
 
+  private boolean mPlayCompleted = false;
+  private int mPlayingTime = 0;
+
   @Override
   protected void afterCreate(Bundle savedInstance) {
     inject();
@@ -65,7 +69,7 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
     mBenefitType = getIntent().getStringExtra(BUNDLE_KEY_ADV_BENEFIT_TYPE);
     mWatchId = getIntent().getStringExtra(BUNDLE_KEY_WATCH_ID);
     mBenefitFinal = getIntent().getStringExtra(BUNDLE_KEY_BENEFIT_FINAL);
-    Fragment fragment;
+    BaseAdvPlayFragment fragment;
     switch (mAdvType) {
       case AdvertisementConstant.ADV_TYPE_VIDEO:
         fragment = VideoPlayFragment.newInstance(mAdvUrl);
@@ -80,6 +84,13 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
         fragment = VideoPlayFragment.newInstance(mAdvUrl);
         break;
     }
+
+    fragment.setOnPlayingListener(new BaseAdvPlayFragment.OnPlayingListener() {
+      @Override
+      public void onPlaying(int playTime) {
+        mPlayingTime = playTime;
+      }
+    });
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     transaction.add(R.id.fragment_container, fragment,
@@ -113,11 +124,11 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
 
   @Subscribe
   public void onPlayCompleted(PlayCompletedEvent event) {
+    mPlayCompleted = true;
     manageRpcCall(mAdvService.advWatched(new AdvWatchedParams(mWatchId,
         String.valueOf(getComponent().loginSession().getUserId()), String.valueOf(mAdvId),
         mBenefitType, String.valueOf(event.timeLength))), new UiRpcSubscriber<AdvQuestionState>
         (this) {
-
 
       @Override
       protected void onSuccess(AdvQuestionState state) {
@@ -127,8 +138,6 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
               mAdvId, mWatchId));
           finish();
         } else {
-          // TODO 关闭本界面，返回详情界面
-          // TODO 领取红包？？？
           setResult(RESULT_OK);
           finish();
         }
@@ -139,5 +148,13 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
 
       }
     });
+  }
+
+  @Override
+  protected void onDestroy() {
+    if (!mPlayCompleted) {
+      getComponent().getGlobalBus().post(new PlayNotCompletedEvent(mPlayingTime));
+    }
+    super.onDestroy();
   }
 }

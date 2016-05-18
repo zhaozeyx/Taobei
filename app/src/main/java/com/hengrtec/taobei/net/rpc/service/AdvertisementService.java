@@ -33,6 +33,7 @@ import com.hengrtec.taobei.net.rpc.service.params.GetCollectionsParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
 import com.hengrtec.taobei.net.rpc.service.params.LikeCommentParams;
+import com.hengrtec.taobei.net.rpc.service.params.RecordUserPlayDurationParams;
 import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
 import com.hengrtec.taobei.net.rpc.service.params.SysQuestionByIdParams;
 import com.hengrtec.taobei.net.rpc.service.params.SysQuestionParams;
@@ -119,6 +120,12 @@ public interface AdvertisementService {
 
   @POST("advcollectlist.do")
   Observable<Response<ResponseModel<List<CollectAdvModel>>>> getAdvCollectionList(@Body
-                                                                               GetCollectionsParams
-                                                                                   params);
+                                                                                  GetCollectionsParams
+                                                                                      params);
+
+  @POST("recordUserPlayDuration.do")
+  Observable<Response<ResponseModel<String>>> recorUserPlayDuration(@Body
+                                                                    RecordUserPlayDurationParams
+                                                                        params);
+
 }

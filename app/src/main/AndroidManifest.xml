@@ -80,9 +80,16 @@
         android:screenOrientation="portrait"/>
 
     <activity
-        android:name=".ui.tab.SignInDialogActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.DialogWhenLarge"/>
+        android:name=".ui.profile.ProfitActivity"
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="com.hengrtec.taobei.ui.profile.ProfitActivity.RED_BAG"/>
+        <action android:name="com.hengrtec.taobei.ui.profile.ProfitActivity.BBJ"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

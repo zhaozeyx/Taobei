@@ -30,6 +30,7 @@ import com.hengrtec.taobei.ui.login.LoginWithVerifyCodeFragment;
 import com.hengrtec.taobei.ui.login.PasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
+import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
 import com.hengrtec.taobei.ui.tab.SignInDialogFragment;
 import dagger.Component;
@@ -83,5 +84,7 @@ public interface ServiceComponent {
   void inject(LoginSession loginSession);
 
   void inject(SignInDialogFragment fragment);
+
+  void inject(ProfitActivity activity);
 
 }

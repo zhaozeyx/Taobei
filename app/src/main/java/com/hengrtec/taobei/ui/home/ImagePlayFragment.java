@@ -26,7 +26,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.hengrtec.taobei.R;
-import com.hengrtec.taobei.ui.basic.BasicFragment;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -37,10 +36,10 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/5/3]
  */
-public class ImagePlayFragment extends BasicFragment {
+public class ImagePlayFragment extends BaseAdvPlayFragment {
   private static final String TAG = "ImagePlayFragment";
   private static final String ARGS_KEY_IMG_URI = "img_uri";
-  private static final long TIME_LAST = 6 * 1000L;
+  private static final int TIME_LAST = 6 * 1000;
   private static final long TIME_INTERVAL = 1000L;
   private static final float SCALE_SIZE = 2.0f;
   @Bind(R.id.img_view)
@@ -52,7 +51,9 @@ public class ImagePlayFragment extends BasicFragment {
   private CountDownTimer mCountDownTimer = new CountDownTimer(TIME_LAST, TIME_INTERVAL) {
     @Override
     public void onTick(long l) {
+      int timeLeave = (int) (l / 1000);
       mCountDownView.setText(getString(R.string.adv_play_count_down, l / 1000));
+      notifyPlaying(TIME_LAST / 1000 - timeLeave);
     }
 
     @Override

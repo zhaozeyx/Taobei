@@ -66,6 +66,7 @@
           android:paddingTop="8dp"
           >
         <LinearLayout
+            android:id="@+id/btn_red_bag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -134,6 +135,7 @@
             />
 
         <LinearLayout
+            android:id="@+id/btn_bbj"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -182,9 +184,9 @@
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
           android:layout_marginLeft="7dp"
-          android:gravity="center"
           android:layout_toRightOf="@id/message_center_label"
           android:background="@drawable/bg_new_count"
+          android:gravity="center"
           style="@style/Widget.App.TextView.Smallest.White"
           />
       <ImageView
