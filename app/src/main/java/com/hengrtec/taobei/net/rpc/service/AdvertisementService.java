@@ -127,8 +127,6 @@ public interface AdvertisementService {
   Observable<Response<ResponseModel<List<CollectAdvModel>>>> getAdvSettingsList(@Body
                                                                                 GetSettingsParams
                                                                                           params);
-                                                                                  GetCollectionsParams
-                                                                                      params);
 
   @POST("recordUserPlayDuration.do")
   Observable<Response<ResponseModel<String>>> recorUserPlayDuration(@Body

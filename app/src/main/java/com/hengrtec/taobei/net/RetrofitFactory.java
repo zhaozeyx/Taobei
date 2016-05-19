@@ -72,9 +72,9 @@ public class RetrofitFactory {
     return retrofit.create(AuthService.class);
   }
 
-  public static UserService createUserService() {
+  public static UserService createUserService(CustomAppPreferences preferences) {
     Retrofit retrofit = new Retrofit.Builder().baseUrl(NetConstant.BASE_URL)
-        .client(createClient()).addConverterFactory(GsonConverterFactory.create())
+        .client(createClient(preferences)).addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.newThread())
         ).build();
     return retrofit.create(UserService.class);

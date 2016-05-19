@@ -42,8 +42,8 @@ public class ServiceModule {
   }
 
   @Provides
-  public UserService providesUserService() {
-    return RetrofitFactory.createUserService();
+  public UserService providesUserService(CustomAppPreferences appPreferences) {
+    return RetrofitFactory.createUserService(appPreferences);
   }
 
   @Provides

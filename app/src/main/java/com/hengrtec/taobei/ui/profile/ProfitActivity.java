@@ -20,16 +20,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.FrameLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalModule;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.rpc.model.MyBenefitModel;
 import com.hengrtec.taobei.net.rpc.service.UserService;
-import com.hengrtec.taobei.net.rpc.service.params.MyBenifitParams;
+import com.hengrtec.taobei.net.rpc.service.params.MyBenefitParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
@@ -80,7 +82,7 @@ public class ProfitActivity extends BasicTitleBarActivity {
 
   private void loadData() {
     showProgressDialog("", true);
-    manageRpcCall(mUserService.myBenefit(new MyBenifitParams(getComponent().loginSession()
+    manageRpcCall(mUserService.myBenefit(new MyBenefitParams(getComponent().loginSession()
         .getUserId())), new UiRpcSubscriber<MyBenefitModel>(this) {
 
       @Override
@@ -173,6 +175,30 @@ public class ProfitActivity extends BasicTitleBarActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ButterKnife.bind(this);
+  }
+
+  @OnClick(R.id.btn_chart)
+  public void performBtnChartsClicked() {
+    startActivity(new Intent(this, ChartsActivity.class));
+  }
+
+  @Override
+  public boolean initializeTitleBar() {
+    setMiddleTitle(R.string.activity_profit_title);
+    setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
+    setRightImgButton(R.mipmap.icon_title_bar_more, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO 收益记录
+        startActivity(new Intent(ProfitActivity.this, ProfitRecordsActivity.class));
+      }
+    });
+    return true;
   }
 
   private class TopPagerAdapter extends FragmentPagerAdapter {
