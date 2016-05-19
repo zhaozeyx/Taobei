@@ -21,6 +21,7 @@ public class DateUtils {
       new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
   public static final String FORMAT_YEAR_MONTH = "yy-MM";
+  public static final String FORMAT_HOUR_MINUTE = "HH-mm";
 
   /**
    * 转换的时间格式

@@ -4,78 +4,82 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="12dp"
     android:paddingLeft="17dp"
     android:paddingRight="17dp"
-    android:paddingTop="12dp"
     >
   <LinearLayout
       android:id="@+id/content_container"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center_vertical"
       android:orientation="horizontal"
       android:paddingBottom="11dp"
-      android:paddingTop="16dp"
+      android:paddingTop="11dp"
       >
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="17dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         >
-      <TextView
-          android:id="@+id/date"
+      <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_centerHorizontal="true"
-          tools:text="02-12"
-          style="@style/Widget.App.TextView.Medium.Primary"
-          />
-      <TextView
-          android:id="@+id/time"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/date"
-          android:layout_centerHorizontal="true"
-          tools:text="10:12"
-          style="@style/Widget.App.TextView.Medium.Primary"
-          />
-    </RelativeLayout>
+          android:layout_marginRight="17dp"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            tools:text="02-12"
+            style="@style/Widget.App.TextView.Medium.Primary"
+            />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="57dp"
-        android:layout_height="57dp"
-        android:layout_marginRight="17dp"
-        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-      <TextView
-          android:id="@+id/profit_single"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginRight="12dp"
-          tools:text="+5.00"
-          style="@style/Widget.App.TextView.Medium.RedDark"
-          />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            tools:text="10:12"
+            style="@style/Widget.App.TextView.Medium.Primary"
+            />
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_profit_records_item_child_info_profit_watch_adv"
+            style="@style/Widget.App.TextView.Medium.Primary"
+            />
+
+      </LinearLayout>
 
       <TextView
+          android:id="@+id/description"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_toRightOf="@id/profit_single"
-          android:text="@string/activity_profit_records_item_child_info_profit_watch_adv"
-          style="@style/Widget.App.TextView.Medium.Primary"
-          />
-
-      <TextView android:id="@+id/description"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/profit_single"
           android:layout_marginTop="6dp"
           android:text="@string/activity_profit_records_item_child_info_pay_success"
           style="@style/Widget.App.TextView.Medium.Secondary"
           />
-    </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/profit_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:textColor="@color/font_color_red_dark"
+        tools:text="+5.00"
+        style="@style/Widget.App.TextView.XXLarge"
+        />
+
   </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="0.5dp"
+      android:layout_alignBottom="@id/content_container"
+      android:background="@color/bg_color_divider"
+      />
 </RelativeLayout>

@@ -143,6 +143,11 @@ public class ProfitRecordsActivity extends BasicTitleBarActivity {
   }
 
   class RecordListAdapter extends RecyclerView.Adapter<ChildViewHolder> {
+    private final String INCOME = "1";
+    // 消费
+    private final String CONSUME = "0";
+    // 取现
+    private final String WITHDRAWALS = "2";
     private List<ProfitRecordModel> mData = new ArrayList<>();
 
     public RecordListAdapter() {
@@ -170,25 +175,24 @@ public class ProfitRecordsActivity extends BasicTitleBarActivity {
       ProfitRecordModel model = mData.get(position);
       holder.mDateView.setText(DateUtils.getFormatDateTime(new Date(model.getRecordTime()),
           DateUtils.FORMAT_YEAR_MONTH));
-      holder.mTimeView.setText(DateUtils.getOneHourTimeSlot(model.getRecordTime()));
-      holder.mProfitSingleView.setText("+" + model.getBenefit());
+      holder.mTimeView.setText((DateUtils.getFormatDateTime(new Date(model.getRecordTime()),
+          DateUtils.FORMAT_HOUR_MINUTE)));
       holder.mDescriptionView.setText(model.getRecordDesc());
+      holder.mInfoTitleView.setText(model.getRecordTitle());
+      switch (model.getBenefitType()) {
+        case CONSUME:
+        case WITHDRAWALS:
+          holder.mProfitSingleView.setText("-" + model.getBenefit());
+          break;
+        default:
+          holder.mProfitSingleView.setText("+" + model.getBenefit());
+          break;
+      }
     }
 
     @Override
     public int getItemCount() {
       return mData.size();
-    }
-  }
-
-  static class GroupViewHolder {
-    @Bind(R.id.date)
-    TextView mDateView;
-    @Bind(R.id.total_profit)
-    TextView mTotalProfitView;
-
-    GroupViewHolder(View view) {
-      ButterKnife.bind(this, view);
     }
   }
 
@@ -201,6 +205,8 @@ public class ProfitRecordsActivity extends BasicTitleBarActivity {
     TextView mProfitSingleView;
     @Bind(R.id.description)
     TextView mDescriptionView;
+    @Bind(R.id.info_title)
+    TextView mInfoTitleView;
 
     public ChildViewHolder(View view) {
       super(view);
