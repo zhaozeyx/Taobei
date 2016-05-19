@@ -30,7 +30,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
         android:layout_toRightOf="@id/user"
-        tools:text="@string/activity_collection_label"
+        tools:text="@string/activity_comment_label"
         style="@style/Widget.App.TextView.Small.Secondary"
         />
 
@@ -46,6 +46,7 @@
         />
 
   </RelativeLayout>
+
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="207.5dp"
@@ -55,10 +56,40 @@
       android:paddingRight="8.5dp"
       android:paddingTop="7dp"
       >
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="我想说的是本人沙发上发生的发生的发生的方式发送到"
+        style="@style/Widget.App.TextView.Medium.Primary"
+        />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="4dp"
+        tools:text="2小时前"
+        style="@style/Widget.App.TextView.Small.Secondary"
+        />
+
+    <TextView
+        android:id="@+id/praise_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/time"
+        android:layout_toRightOf="@id/time"
+        tools:text="获得了12个赞"
+        style="@style/Widget.App.TextView.Small.Secondary"
+        />
+
     <ImageView
         android:id="@+id/adv_snapshot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/time"
+        android:layout_marginTop="6dp"
         android:scaleType="centerCrop"
         />
     <TextView

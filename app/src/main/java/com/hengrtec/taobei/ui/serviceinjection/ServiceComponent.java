@@ -31,12 +31,12 @@ import com.hengrtec.taobei.ui.login.PasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
 import com.hengrtec.taobei.ui.profile.ChartsActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
+import com.hengrtec.taobei.ui.profile.CommentListActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profile.ProfitRecordsActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
 import com.hengrtec.taobei.ui.tab.SignInDialogFragment;
-
 import dagger.Component;
 
 /**
@@ -84,6 +84,7 @@ public interface ServiceComponent {
   void inject(DetailSysQuestionActivity activity);
 
   void inject(CollectionActivity activity);
+
   void inject(PrimaryActivity activity);
 
   void inject(LoginSession loginSession);
@@ -95,5 +96,7 @@ public interface ServiceComponent {
   void inject(ProfitRecordsActivity activity);
 
   void inject(ChartsActivity activity);
+
+  void inject(CommentListActivity activity);
 
 }

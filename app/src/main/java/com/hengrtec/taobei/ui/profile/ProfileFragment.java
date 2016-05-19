@@ -155,6 +155,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
       case R.id.watched:
         break;
       case R.id.comments:
+        startActivity(new Intent(getActivity(), CommentListActivity.class));
         break;
       case R.id.invite_friends:
         break;

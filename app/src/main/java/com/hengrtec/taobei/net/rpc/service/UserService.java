@@ -11,11 +11,14 @@
  */
 package com.hengrtec.taobei.net.rpc.service;
 
+import com.hengrtec.taobei.net.rpc.model.CommentModel;
 import com.hengrtec.taobei.net.rpc.model.FriendsCircleModel;
 import com.hengrtec.taobei.net.rpc.model.MyBenefitModel;
 import com.hengrtec.taobei.net.rpc.model.ProfitRecordModel;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.model.SignInModel;
+import com.hengrtec.taobei.net.rpc.service.params.CommentParams;
+import com.hengrtec.taobei.net.rpc.service.params.DeleteCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.FriendsCircleParams;
 import com.hengrtec.taobei.net.rpc.service.params.MyBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.ProfitRecordsParams;
@@ -52,5 +55,11 @@ public interface UserService {
   Observable<Response<ResponseModel<List<FriendsCircleModel>>>> friendsCircle(@Body
                                                                               FriendsCircleParams
                                                                                   params);
+
+  @POST("mycommentslist.do")
+  Observable<Response<ResponseModel<List<CommentModel>>>> myCommentList(@Body CommentParams params);
+
+  @POST("delcomment.do")
+  Observable<Response<ResponseModel<String>>> deleteComment(@Body DeleteCommentParams params);
 
 }

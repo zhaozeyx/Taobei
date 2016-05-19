@@ -59,6 +59,7 @@ import com.hengrtec.taobei.ui.home.view.DetailProfitInfoView;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.AdvertisementValueBindUtils;
+import com.hengrtec.taobei.utils.DateUtils;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.sevenheaven.segmentcontrol.SegmentControl;
 import com.squareup.otto.Subscribe;
@@ -728,7 +729,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       ImageLoader.loadOptimizedHttpImage(mContext, comment.getAvart()).placeholder(R.mipmap
           .src_avatar_default_drawer).into(holder.userAvatar);
       holder.userName.setText(comment.getUserName());
-      holder.time.setText(String.valueOf(comment.getCommentTime()));
+      holder.time.setText(DateUtils.getDisplayTime(comment.getCommentTime(), mContext));
       holder.btnPraise.setText(String.valueOf(comment.getHearts()));
       holder.btnPraise.setSelected(comment.isClickHearts());
       holder.btnPraise.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,8 @@
 package com.hengrtec.taobei.utils;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import com.hengrtec.taobei.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +24,7 @@ public class DateUtils {
 
   public static final String FORMAT_YEAR_MONTH = "yy-MM";
   public static final String FORMAT_HOUR_MINUTE = "HH-mm";
+  public static final String FORMAT_FULL_TIME = "yyyy-MM-dd HH:MM";
 
   /**
    * 转换的时间格式
@@ -37,6 +40,8 @@ public class DateUtils {
    * 一小时的毫秒数
    */
   private static final long ONE_HOUR_IN_MILLISECOND = 60 * 60 * 1000;
+
+  private static final long ONE_MINUTE_IN_MILIISECOND = 60 * 1000;
 
   /**
    * 根据给定的格式与时间(Date类型的)，返回时间字符串。最常用。<BR>
@@ -82,6 +87,15 @@ public class DateUtils {
     return format.format(tomorrow).equals(format.format(new Date(time)));
   }
 
+  public static boolean isToday(long time) {
+    Calendar c = Calendar.getInstance();
+    c.set(Calendar.DATE, c.get(Calendar.DATE));
+    Date tomorrow = c.getTime();
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+    return format.format(tomorrow).equals(format.format(new Date(time)));
+  }
+
   /**
    * 判断送达时间是否是今天
    *
@@ -107,6 +121,23 @@ public class DateUtils {
     long startTime = endTime - ONE_HOUR_IN_MILLISECOND;
     String startTimeStr = getFormatDateTime(new Date(startTime), TIMESLOT_FORMAT);
     return startTimeStr + "-" + endTimeStr;
+  }
+
+  public static String getDisplayTime(long time, Context context) {
+    if (isToday(time)) {
+      long timeTemp = System.currentTimeMillis() - time;
+      int hour = (int) (timeTemp / ONE_HOUR_IN_MILLISECOND);
+      if (hour > 0) {
+        return context.getString(R.string.time_format_hour, hour);
+      }
+      int minute = (int) (timeTemp / ONE_MINUTE_IN_MILIISECOND);
+      if (minute > 0) {
+        return context.getString(R.string.time_format_minute, minute);
+      } else {
+        return context.getString(R.string.time_format_just);
+      }
+    }
+    return getFormatDateTime(new Date(time), FORMAT_FULL_TIME);
   }
 
   /**

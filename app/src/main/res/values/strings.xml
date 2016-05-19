@@ -12,6 +12,9 @@
   <string name="refresh_load_more">加载更多</string>
   <string name="unit_day">日</string>
   <string name="unit_currency_graph">(元)</string>
+  <string name="time_format_minute">%d分钟前</string>
+  <string name="time_format_hour">%d小时前</string>
+  <string name="time_format_just">刚刚</string>
 
   <!-- 服务器 -->
   <string name="network_not_normal">网络不给力</string>
@@ -290,4 +293,9 @@
   <string name="activity_profit_records_item_group_label_earn">赚取</string>
   <string name="activity_profit_records_item_child_info_profit_watch_adv">观看广告收入</string>
   <string name="activity_profit_records_item_child_info_pay_success">已支付观看广告收入,支付成功</string>
+
+  <!-- 我评论的 -->
+  <string name="activity_comment_title">我评论的</string>
+  <string name="activity_comment_label">我评价了广告</string>
+  <string name="activity_comment_be_praised">获得了%d个赞</string>
 </resources>
