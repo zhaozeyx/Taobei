@@ -21,8 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalModule;
@@ -38,9 +37,14 @@ import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 收藏列表界面<BR>
@@ -108,8 +112,6 @@ public class CollectionActivity extends BasicTitleBarActivity {
     manageRpcCall(mAdvService.getAdvCollectionList(new GetCollectionsParams(getComponent()
         .loginSession().getUserId(), mCurrentPage, PAGE_SIZE)), new
         UiRpcSubscriber<List<CollectAdvModel>>(this) {
-
-
           @Override
           protected void onSuccess(List<CollectAdvModel> advertisements) {
             mListView.getEmptyView().setVisibility(null == advertisements || advertisements.size

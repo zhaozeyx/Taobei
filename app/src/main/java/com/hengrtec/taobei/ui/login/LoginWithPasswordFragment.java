@@ -18,9 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalModule;
@@ -35,7 +33,12 @@ import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.ui.tab.MainTabActivity;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
+
 import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 密码登录界面<BR>
@@ -61,7 +64,6 @@ public class LoginWithPasswordFragment extends BasicTitleBarFragment {
   TextView mBtnRegister;
   @Bind(R.id.btn_forget_password)
   TextView mBtnForgetPassword;
-
   @Inject
   AuthService mAuthService;
 

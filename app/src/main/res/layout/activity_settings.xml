@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/setting_qingchuhuancun"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_account"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/icon_arrow"
+                        android:text="@string/activity_settings_phone_num"
+                        android:textColor="@color/font_color_light_gray"
+                        android:textSize="@dimen/font_size_large" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/font_color_space"
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/activity_settings_cross_screen"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+
+                    <ToggleButton
+                        android:id="@+id/mTogBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/toggle_btn"
+                        android:checked="false"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/font_color_space"
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/activity_settings_ad_notification"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+
+                    <ToggleButton
+                        android:id="@+id/mTogBtn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/toggle_btn"
+                        android:checked="false"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#DEE2E3" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_system_notification"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+
+                    <ToggleButton
+                        android:id="@+id/mTogBtn3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/toggle_btn"
+                        android:checked="false"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#DEE2E3" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_use_flow"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large"
+
+                        />
+
+
+                    <ToggleButton
+                        android:id="@+id/mTogBtn4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/toggle_btn"
+                        android:checked="false"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/font_color_space"
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_wifi_video_cache"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large"
+
+                        />
+
+
+                    <ToggleButton
+                        android:id="@+id/mTogBtn5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/toggle_btn"
+                        android:checked="false"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#DEE2E3" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_video_cache"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+
+                    <ToggleButton
+                        android:id="@+id/mTogBtn6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/toggle_btn"
+                        android:checked="false"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#DEE2E3" />
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_clear_cache"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+
+                        android:text="@string/activity_settings_cache"
+                        android:textColor="@color/font_color_light_gray"
+                        android:textSize="@dimen/font_size_large" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/font_color_space"
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_questionnaire"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/icon_arrow"
+                        android:text=""
+                        android:textColor="@color/font_color_light_gray"
+                        android:textSize="@dimen/font_size_large" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#DEE2E3" />
+                <RelativeLayout
+                    android:id="@+id/rl_primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_feedback"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/icon_arrow"
+                        android:text=""
+                        android:textColor="@color/font_color_light_gray"
+                        android:textSize="@dimen/font_size_large" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/font_color_space"
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_new_version"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/icon_arrow"
+                        android:text=""
+                        android:textColor="@color/font_color_light_gray"
+                        android:textSize="@dimen/font_size_large" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#DEE2E3" />
+                <RelativeLayout
+
+                    android:id="@+id/rl_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/activity_settings_about"
+                        android:textColor="@color/font_color_primary"
+                        android:textSize="@dimen/font_size_large" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/icon_arrow"
+                        android:text=""
+                        android:textColor="@color/font_color_light_gray"
+                        android:textSize="@dimen/font_size_large" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/font_color_space"
+                    android:orientation="vertical" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/font_color_yellow"
+                    android:text="@string/activity_log_off" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
