@@ -34,14 +34,15 @@
         style="@style/Widget.App.TextView.Small.Secondary"
         />
 
-    <TextView
+    <ImageView
         android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="7dp"
-        android:text="@string/activity_collection_btn_delete"
+        android:padding="5dp"
+        android:src="@mipmap/icon_comment_list_btn_delete"
         style="@style/Widget.App.TextView.Medium.RedDark"
         />
 

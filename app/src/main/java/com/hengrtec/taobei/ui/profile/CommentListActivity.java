@@ -212,7 +212,7 @@ public class CommentListActivity extends BasicTitleBarActivity {
 
   class CommentViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.btn_delete)
-    TextView mBtnDelete;
+    ImageView mBtnDelete;
     @Bind(R.id.comment)
     TextView mCommentView;
     @Bind(R.id.time)
