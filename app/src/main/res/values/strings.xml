@@ -284,7 +284,10 @@
   <string name="activity_profit_detail_graph_title_red_bag">收益数据表</string>
   <string name="activity_profit_detail_graph_title_bbj">收益数据表</string>
   <string name="share">分享</string>
-
+<!--我的账户-->
+  <string name="myaccount">我的账户</string>
+  <string name="my_account_wallet">钱包</string>
+  <string name="my_account_withdraw">提现</string>
   <!-- 排行榜 -->
   <string name="activity_charts_title">排行榜</string>
 

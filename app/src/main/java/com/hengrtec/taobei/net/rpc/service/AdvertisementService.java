@@ -128,6 +128,7 @@ public interface AdvertisementService {
                                                                                 GetSettingsParams
                                                                                           params);
 
+
   @POST("recordUserPlayDuration.do")
   Observable<Response<ResponseModel<String>>> recorUserPlayDuration(@Body
                                                                     RecordUserPlayDurationParams

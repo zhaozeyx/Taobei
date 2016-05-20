@@ -4,7 +4,7 @@
  * 描    述: [该类的简要描述]
  * 创建人: zhaozeyang
  * 创建时间:16/5/17
- * 
+ *
  * 修改人：
  * 修改时间:
  * 修改内容：[修改内容]
@@ -37,30 +37,26 @@ public class RedBagTextProfitDetailFragment extends BaseTextProfitDetailFragment
     return fragment;
   }
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  @Nullable @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
     mModel = getArguments().getParcelable(BUNDLE_KYE_MODEL);
     return super.onCreateView(inflater, container, savedInstanceState);
   }
 
-  @Override
-  protected int getDisplayTitleColor() {
+  @Override protected int getDisplayTitleColor() {
     return R.color.font_color_primary;
   }
 
-  @Override
-  protected int getDisplayTitle() {
+  @Override protected int getDisplayTitle() {
     return R.string.activity_profit_detail_text_display_red_bag_title;
   }
 
-  @Override
-  protected boolean showWithdrawBtn() {
+  @Override protected boolean showWithdrawBtn() {
     return true;
   }
 
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState) {
+  @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     bindData();
   }

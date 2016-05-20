@@ -70,7 +70,22 @@ public class ProfileFragment extends BasicTitleBarFragment {
   RelativeLayout mCommentsView;
   @Bind(R.id.invite_friends)
   RelativeLayout mInviteFriendsView;
-
+  @Bind(R.id.btn_red_bag)
+  LinearLayout btnRedBag;
+  @Bind(R.id.ll_my_acount)
+  LinearLayout llMyAcount;
+  @Bind(R.id.btn_bbj)
+  LinearLayout btnBbj;
+  @Bind(R.id.message_center_label)
+  TextView messageCenterLabel;
+  @Bind(R.id.member_honour_label)
+  TextView memberHonourLabel;
+  @Bind(R.id.member_watched_label)
+  TextView memberWatchedLabel;
+  @Bind(R.id.member_comments_label)
+  TextView memberCommentsLabel;
+  @Bind(R.id.member_invite_friends_label)
+  TextView memberInviteFriendsLabel;
   @Override
   protected void onCreateViewCompleted(View view) {
     ButterKnife.bind(this, view);
@@ -130,7 +145,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
     ButterKnife.unbind(this);
   }
 
-  @OnClick({R.id.btn_register, R.id.btn_login, R.id.avatar, R.id
+  @OnClick({R.id.btn_register,R.id.ll_my_acount, R.id.btn_login, R.id.avatar, R.id
       .icon_new_message, R.id.message_center, R.id.member_honour, R.id.member_achievement, R.id
       .watched, R.id.comments, R.id.invite_friends, R.id.btn_red_bag, R.id.btn_bbj})
   public void onClick(View view) {
@@ -156,6 +171,9 @@ public class ProfileFragment extends BasicTitleBarFragment {
         break;
       case R.id.comments:
         startActivity(new Intent(getActivity(), CommentListActivity.class));
+        break;
+      case R.id.ll_my_acount:
+        startActivity(new Intent(getActivity(), MyAccountActivity.class));
         break;
       case R.id.invite_friends:
         break;

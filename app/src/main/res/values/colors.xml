@@ -77,4 +77,8 @@
   <!-- 收益 -->
   <color name="activity_profit_font_color_primary">#6b6b6b</color>
   <color name="activity_profit_bbj_font_color_primary">#ae841d</color>
+  <!--账户-->
+
+  <color name="colorYellow">#FFFF00</color>
+  <color name="colorWhite">#FFFFFF</color>
 </resources>

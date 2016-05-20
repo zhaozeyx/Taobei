@@ -168,6 +168,9 @@
         android:name=".ui.profile.SettingsActivity"
         android:screenOrientation="portrait"/>
     <activity
+        android:name=".ui.profile.MyAccountActivity"
+        android:screenOrientation="portrait"/>
+    <activity
         android:name=".ui.profile.PrimaryActivity"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="stateHidden"/>
