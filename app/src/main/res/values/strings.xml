@@ -204,53 +204,53 @@
   <string name="activity_collection_adv_type_h5">微场景</string>
   <string name="activity_collection_btn_delete">删除</string>
 
-    <!-- 个人详情 -->
-    <string name="activity_profile_detail_label_avatar">头像</string>
-    <string name="activity_profile_detail_label_tag">标签</string>
-    <string name="activity_profile_detail_label_certify">成为认证会员</string>
-    <string name="activity_profile_detail_label_phone">手机号码</string>
-    <string name="activity_profile_detail_label_nick_name">昵称</string>
-    <string name="activity_profile_detail_label_introduction">自我介绍</string>
-    <string name="activity_profile_detail_label_gender">性别</string>
-    <string name="activity_profile_detail_label_age">年龄</string>
-    <string name="activity_profile_detail_label_city">所在城市</string>
-    <string name="activity_profile_detail_label_birthplace">出生地</string>
-    <string name="activity_profile_detail_label_profession">职业</string>
-    <string name="activity_profile_detail_label_education">学历</string>
-    <string name="activity_profile_detail_label_account_bind">账号绑定</string>
-    <string name="activity_profile_detail_value_not_certify">去认证</string>
-    <string name="activity_profile_detail_value_not_set">未设置</string>
-    <string name="activity_profile_detail_value_not_bind">去绑定</string>
-    <string name="activity_profile_detail_add_tag">+\u0020贴标签</string>
-    <!-- 设置 -->
-    <string name="activity_settings_title">设置</string>
-    <string name="activity_settings_phone_num">手机号码激活</string>
-    <string name="activity_settings_account">账号与安全</string>
-    <string name="activity_settings_cross_screen">开启横屏模式</string>
-    <string name="activity_settings_ad_notification">预告广告正式投放提醒设置</string>
-    <string name="activity_settings_system_notification">系统通知</string>
-    <string name="activity_settings_use_flow">使用流量时通知我</string>
-    <string name="activity_settings_wifi_video_cache">Wifi下自动缓存每日的广告</string>
-    <string name="activity_settings_video_cache">自动缓存已收藏的广告视频</string>
-    <string name="activity_settings_clear_cache">清理缓存</string>
-    <string name="activity_settings_cache">缓存200M</string>
-    <string name="activity_settings_questionnaire">淘贝用户问卷调查</string>
-    <string name="activity_settings_feedback">意见反馈</string>
-    <string name="activity_settings_new_version">检查新版本</string>
-    <string name="activity_settings_about">关于</string>
-    <string name="activity_log_off">退出登录</string>
-    <string name="activity_send">发送</string>
-    <string name="activity_settings_primary_title">意见反馈</string>
-    <string name="activity_settings_primary_question1">是否喜欢我们的APP产品</string>
-    <string name="activity_settings_primary_answer1">喜欢</string>
-    <string name="activity_settings_primary_answer2">不喜欢</string>
-    <string name="activity_settings_primary_answer3">一般</string>
-    <string name="activity_settings_primary_answer_1">考虑考虑</string>
-    <string name="activity_settings_primary_answer_2">会</string>
-    <string name="activity_settings_primary_answer_3">不会</string>
-    <string name="activity_settings_primary_question2">您是否愿意介绍您的朋友使用我们的产品</string>
-    <string name="activity_settings_primary_success">反馈成功</string>
-    <string name="activity_settings_send_primary">发送</string>
+  <!-- 个人详情 -->
+  <string name="activity_profile_detail_label_avatar">头像</string>
+  <string name="activity_profile_detail_label_tag">标签</string>
+  <string name="activity_profile_detail_label_certify">成为认证会员</string>
+  <string name="activity_profile_detail_label_phone">手机号码</string>
+  <string name="activity_profile_detail_label_nick_name">昵称</string>
+  <string name="activity_profile_detail_label_introduction">自我介绍</string>
+  <string name="activity_profile_detail_label_gender">性别</string>
+  <string name="activity_profile_detail_label_age">年龄</string>
+  <string name="activity_profile_detail_label_city">所在城市</string>
+  <string name="activity_profile_detail_label_birthplace">出生地</string>
+  <string name="activity_profile_detail_label_profession">职业</string>
+  <string name="activity_profile_detail_label_education">学历</string>
+  <string name="activity_profile_detail_label_account_bind">账号绑定</string>
+  <string name="activity_profile_detail_value_not_certify">去认证</string>
+  <string name="activity_profile_detail_value_not_set">未设置</string>
+  <string name="activity_profile_detail_value_not_bind">去绑定</string>
+  <string name="activity_profile_detail_add_tag">+\u0020贴标签</string>
+  <!-- 设置 -->
+  <string name="activity_settings_title">设置</string>
+  <string name="activity_settings_phone_num">手机号码激活</string>
+  <string name="activity_settings_account">账号与安全</string>
+  <string name="activity_settings_cross_screen">开启横屏模式</string>
+  <string name="activity_settings_ad_notification">预告广告正式投放提醒设置</string>
+  <string name="activity_settings_system_notification">系统通知</string>
+  <string name="activity_settings_use_flow">使用流量时通知我</string>
+  <string name="activity_settings_wifi_video_cache">Wifi下自动缓存每日的广告</string>
+  <string name="activity_settings_video_cache">自动缓存已收藏的广告视频</string>
+  <string name="activity_settings_clear_cache">清理缓存</string>
+  <string name="activity_settings_cache">缓存200M</string>
+  <string name="activity_settings_questionnaire">淘贝用户问卷调查</string>
+  <string name="activity_settings_feedback">意见反馈</string>
+  <string name="activity_settings_new_version">检查新版本</string>
+  <string name="activity_settings_about">关于</string>
+  <string name="activity_log_off">退出登录</string>
+  <string name="activity_send">发送</string>
+  <string name="activity_settings_primary_title">意见反馈</string>
+  <string name="activity_settings_primary_question1">是否喜欢我们的APP产品</string>
+  <string name="activity_settings_primary_answer1">喜欢</string>
+  <string name="activity_settings_primary_answer2">不喜欢</string>
+  <string name="activity_settings_primary_answer3">一般</string>
+  <string name="activity_settings_primary_answer_1">考虑考虑</string>
+  <string name="activity_settings_primary_answer_2">会</string>
+  <string name="activity_settings_primary_answer_3">不会</string>
+  <string name="activity_settings_primary_question2">您是否愿意介绍您的朋友使用我们的产品</string>
+  <string name="activity_settings_primary_success">反馈成功</string>
+  <string name="activity_settings_send_primary">发送</string>
 
 
   <!-- 签到奖励对话框 -->
@@ -301,4 +301,13 @@
   <string name="activity_comment_title">我评论的</string>
   <string name="activity_comment_label">我评价了广告</string>
   <string name="activity_comment_be_praised">获得了%d个赞</string>
+
+  <!-- 消息中心列表 -->
+  <string name="activity_message_list_title">消息</string>
+  <string name="activity_message_list_title_bar_cancel_delete">取消</string>
+  <string name="activity_message_list_btn_choose_all">全选</string>
+  <string name="activity_message_list_praise_info">赞了你的评论</string>
+
+  <!--消息详情-->
+  <string name="activity_message_detail">消息</string>
 </resources>

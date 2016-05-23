@@ -162,6 +162,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
       case R.id.icon_new_message:
         break;
       case R.id.message_center:
+        startActivity(new Intent(getActivity(), MessageListActivity.class));
         break;
       case R.id.member_honour:
         break;

@@ -60,7 +60,9 @@ public abstract class BasicTitleBarActivity extends BasicActivity implements
     afterCreate(savedInstanceState);
   }
 
-  protected abstract void afterCreate(Bundle savedInstance);
+  protected void afterCreate(Bundle savedInstance) {
+
+  }
 
   /**
    * 标题栏初始化 <BR>

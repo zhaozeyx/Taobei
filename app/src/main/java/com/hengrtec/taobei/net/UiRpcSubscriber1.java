@@ -39,11 +39,11 @@ public abstract class UiRpcSubscriber1<T> extends Subscriber<T> {
 
   @Override
   public final void onNext(T t) {
+    onSuccess(t);
     onCompleted();
   }
 
   public void onApiError(RpcApiError apiError) {
-
   }
 
   public void onHttpError(RpcHttpError httpError) {

@@ -49,6 +49,8 @@ public class ProfitActivity extends BasicTitleBarActivity {
       ".ProfitActivity.RED_BAG";
   private static final String ACTION_START_FOR_BBJ = "com.hengrtec.taobei.ui.profile" +
       ".ProfitActivity.BBJ";
+  private static final int PAGE_INDEX_RED_BAG = 0;
+  private static final int PAGE_INDEX_BBJ = 1;
 
   @Bind(R.id.view_pager)
   ViewPager mViewPager;
@@ -144,7 +146,7 @@ public class ProfitActivity extends BasicTitleBarActivity {
       mDetailBBJFragment = BBJGraphProfitDetailFragment.newInstance(model);
       mDetailRedBagFragment = RedBagGraphProfitDetailFragment.newInstance(model);
     } else {
-      mDetailRedBagFragment = RedBagGraphProfitDetailFragment.newInstance(model);
+      mDetailRedBagFragment = RedBagTextProfitDetailFragment.newInstance(model);
       mDetailBBJFragment = BBJTextProfitDetailFragment.newInstance(model);
     }
     transaction.add(R.id.bottom_container, mDetailBBJFragment);
@@ -157,10 +159,12 @@ public class ProfitActivity extends BasicTitleBarActivity {
       case ACTION_START_FOR_RED_BAG:
         transaction.hide(mDetailBBJFragment);
         transaction.show(mDetailRedBagFragment);
+        mViewPager.setCurrentItem(PAGE_INDEX_RED_BAG);
         break;
       case ACTION_START_FOR_BBJ:
         transaction.show(mDetailBBJFragment);
         transaction.hide(mDetailRedBagFragment);
+        mViewPager.setCurrentItem(PAGE_INDEX_BBJ);
         break;
     }
     transaction.commitAllowingStateLoss();

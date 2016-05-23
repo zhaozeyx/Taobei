@@ -85,6 +85,7 @@
         android:minWidth="@dimen/title_bar_height"
         android:paddingLeft="@dimen/margin_medium"
         android:paddingRight="@dimen/margin_medium"
+        android:textColor="@android:color/white"
         android:visibility="gone"
         tools:text="Right"
         tools:visibility="visible"

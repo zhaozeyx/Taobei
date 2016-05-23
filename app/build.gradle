@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 buildscript {
     repositories {
@@ -8,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        classpath 'io.realm:realm-gradle-plugin:0.91.0'
     }
 }
 
@@ -130,6 +132,8 @@ dependencies {
             transitive = true
         }
         compile 'com.google.zxing:core:3.2.1'
+        compile 'com.android.support:design:23.3.0'
+
     }
     compile 'com.android.support:design:23.3.0'
 }

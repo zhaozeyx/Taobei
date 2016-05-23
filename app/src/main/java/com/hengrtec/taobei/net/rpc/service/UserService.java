@@ -13,6 +13,7 @@ package com.hengrtec.taobei.net.rpc.service;
 
 import com.hengrtec.taobei.net.rpc.model.CommentModel;
 import com.hengrtec.taobei.net.rpc.model.FriendsCircleModel;
+import com.hengrtec.taobei.net.rpc.model.GrabMyMessageModel;
 import com.hengrtec.taobei.net.rpc.model.MyBenefitModel;
 import com.hengrtec.taobei.net.rpc.model.ProfitRecordModel;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
@@ -20,6 +21,7 @@ import com.hengrtec.taobei.net.rpc.model.SignInModel;
 import com.hengrtec.taobei.net.rpc.service.params.CommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.DeleteCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.FriendsCircleParams;
+import com.hengrtec.taobei.net.rpc.service.params.GrabMyMessageParams;
 import com.hengrtec.taobei.net.rpc.service.params.MyBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.ProfitRecordsParams;
 import com.hengrtec.taobei.net.rpc.service.params.SignInParams;
@@ -61,5 +63,9 @@ public interface UserService {
 
   @POST("delcomment.do")
   Observable<Response<ResponseModel<String>>> deleteComment(@Body DeleteCommentParams params);
+
+  @POST("grabmymessage.do")
+  Observable<Response<ResponseModel<GrabMyMessageModel>>> grabMyMessage(@Body GrabMyMessageParams
+                                                                            params);
 
 }

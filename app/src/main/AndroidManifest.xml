@@ -180,6 +180,12 @@
     <activity
         android:name=".ui.profile.CommentListActivity"
         android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.MessageListActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.MessageDetailActivity"
+        android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

@@ -45,4 +45,11 @@
     <item>买买买</item>
     <item>超有钱太任性</item>
   </array>
+
+  <array name="message_list_type">
+    <item>系统通知</item>
+    <item>活动广播</item>
+    <item>赞</item>
+  </array>
+
 </resources>

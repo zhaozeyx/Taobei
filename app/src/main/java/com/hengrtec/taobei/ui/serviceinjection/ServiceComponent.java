@@ -29,9 +29,11 @@ import com.hengrtec.taobei.ui.login.LoginWithPasswordFragment;
 import com.hengrtec.taobei.ui.login.LoginWithVerifyCodeFragment;
 import com.hengrtec.taobei.ui.login.PasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
+import com.hengrtec.taobei.ui.profile.BaseMessageListFragment;
 import com.hengrtec.taobei.ui.profile.ChartsActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.CommentListActivity;
+import com.hengrtec.taobei.ui.profile.MessageListActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profile.ProfitRecordsActivity;
@@ -98,5 +100,9 @@ public interface ServiceComponent {
   void inject(ChartsActivity activity);
 
   void inject(CommentListActivity activity);
+
+  void inject(BaseMessageListFragment fragment);
+
+  void inject(MessageListActivity activity);
 
 }

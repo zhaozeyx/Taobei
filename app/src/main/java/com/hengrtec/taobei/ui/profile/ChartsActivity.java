@@ -45,7 +45,7 @@ import javax.inject.Inject;
  * @version [Taobei Client V20160411, 16/5/18]
  */
 public class ChartsActivity extends BasicTitleBarActivity {
-  private static final int MAX_COUNT = Integer.MAX_VALUE;
+  private static final int MAX_COUNT = 10;
   @Bind(R.id.charts_list)
   SuperRecyclerView mChartsListView;
 
