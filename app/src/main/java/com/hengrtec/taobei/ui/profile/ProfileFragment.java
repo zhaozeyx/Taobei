@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.ui.profile;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,13 +22,14 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.manager.UserInfoChangedEvent;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
 import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
-import com.hengrtec.taobei.utils.imageloader.ImageLoader;
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.squareup.otto.Subscribe;
 
 /**
  * 个人页面<BR>
@@ -43,7 +45,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
   @Bind(R.id.un_login_container)
   LinearLayout mUnLoginContainer;
   @Bind(R.id.avatar)
-  CircleImageView mAvatarView;
+  SimpleDraweeView mAvatarView;
   @Bind(R.id.profit)
   TextView mProfitView;
   @Bind(R.id.account)
@@ -86,6 +88,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
   TextView memberCommentsLabel;
   @Bind(R.id.member_invite_friends_label)
   TextView memberInviteFriendsLabel;
+
   @Override
   protected void onCreateViewCompleted(View view) {
     ButterKnife.bind(this, view);
@@ -97,8 +100,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
     if (getComponent().isLogin()) {
       mUnLoginContainer.setVisibility(View.GONE);
       mAvatarView.setVisibility(View.VISIBLE);
-      ImageLoader.loadOptimizedHttpImage(getActivity(), info.getAvart()).placeholder(R.mipmap
-          .src_avatar_default_drawer).into(mAvatarView);
+      mAvatarView.setImageURI(Uri.parse(info.getAvart()));
     } else {
       mUnLoginContainer.setVisibility(View.VISIBLE);
       mAvatarView.setVisibility(View.GONE);
@@ -114,6 +116,11 @@ public class ProfileFragment extends BasicTitleBarFragment {
         .getMoney())));
     mVirtualMoney.setText(getString(R.string.fragment_profile_virtual_money_value, info
         .getVirtualMoney()));
+  }
+
+  @Subscribe
+  public void onUserInfoChanged(UserInfoChangedEvent event) {
+    initView();
   }
 
   @Override
@@ -145,7 +152,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
     ButterKnife.unbind(this);
   }
 
-  @OnClick({R.id.btn_register,R.id.ll_my_acount, R.id.btn_login, R.id.avatar, R.id
+  @OnClick({R.id.btn_register, R.id.ll_my_acount, R.id.btn_login, R.id.avatar, R.id
       .icon_new_message, R.id.message_center, R.id.member_honour, R.id.member_achievement, R.id
       .watched, R.id.comments, R.id.invite_friends, R.id.btn_red_bag, R.id.btn_bbj})
   public void onClick(View view) {

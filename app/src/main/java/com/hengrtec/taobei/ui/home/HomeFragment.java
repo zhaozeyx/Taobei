@@ -13,6 +13,7 @@ package com.hengrtec.taobei.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,14 +21,16 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalBus;
+import com.hengrtec.taobei.manager.UserInfoChangedEvent;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
 import com.hengrtec.taobei.ui.commonevent.UserAvatarClickedEvent;
-import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.sevenheaven.segmentcontrol.SegmentControl;
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 
 /**
@@ -92,8 +95,11 @@ public class HomeFragment extends BasicTitleBarFragment implements HomeView {
       }
     }, getResources().getStringArray(R.array.home_title_bar_tab_titles));
     setUserAvatarVisible(true);
-    ImageLoader.loadOptimizedHttpImage(getActivity(), "").placeholder(R.drawable.ic_launcher)
-        .into(getUserAvatarView());
+    //ImageLoader.loadOptimizedHttpImage(getActivity(), getComponent().loginSession().getUserInfo()
+    //    .getAvart()).placeholder(R.mipmap.src_avatar_default_drawer)
+    //    .into(getUserAvatarView());
+    ((SimpleDraweeView) getUserAvatarView()).setImageURI(Uri.parse(getComponent().loginSession()
+        .getUserInfo().getAvart()));
 
     getUserAvatarView().setOnClickListener(new View.OnClickListener() {
       @Override
@@ -110,6 +116,12 @@ public class HomeFragment extends BasicTitleBarFragment implements HomeView {
       }
     });
     return true;
+  }
+
+  @Subscribe
+  public void handleUnserInfoChanged(UserInfoChangedEvent event) {
+    ((SimpleDraweeView) getUserAvatarView()).setImageURI(Uri.parse(getComponent().loginSession()
+        .getUserInfo().getAvart()));
   }
 
   @Override

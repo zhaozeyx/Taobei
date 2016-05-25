@@ -32,14 +32,16 @@
           android:src="@mipmap/icon_arrow"
           />
 
-      <de.hdodenhof.circleimageview.CircleImageView
-          android:id="@+id/user_avatar"
+      <com.facebook.drawee.view.SimpleDraweeView
+          android:id="@+id/user_avatar_display"
           android:layout_width="50dp"
           android:layout_height="50dp"
           android:layout_marginRight="4dp"
           android:layout_toLeftOf="@id/avatar_arrow"
-          app:civ_border_color="#c3c3c3"
-          app:civ_border_width="1dp"
+          app:roundAsCircle="true"
+          app:roundingBorderColor="#c3c3c3"
+          app:roundingBorderWidth="1dp"
+          tools:src="@mipmap/src_avatar_default_drawer"
           />
 
     </RelativeLayout>

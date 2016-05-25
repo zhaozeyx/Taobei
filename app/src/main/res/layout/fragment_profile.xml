@@ -43,15 +43,18 @@
             />
       </LinearLayout>
 
-      <de.hdodenhof.circleimageview.CircleImageView
+      <com.facebook.drawee.view.SimpleDraweeView
           android:id="@+id/avatar"
           android:layout_width="80dp"
           android:layout_height="80dp"
           android:layout_centerHorizontal="true"
           android:layout_marginTop="20dp"
           android:visibility="gone"
-          app:civ_border_color="@android:color/darker_gray"
-          app:civ_border_width="2dp"
+          app:placeholderImage="@mipmap/src_avatar_default_drawer"
+          app:placeholderImageScaleType="centerCrop"
+          app:roundAsCircle="true"
+          app:roundingBorderColor="@android:color/darker_gray"
+          app:roundingBorderWidth="1dp"
           />
 
       <LinearLayout

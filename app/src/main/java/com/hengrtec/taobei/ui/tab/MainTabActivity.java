@@ -14,6 +14,7 @@ package com.hengrtec.taobei.ui.tab;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
@@ -22,10 +23,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import butterknife.ButterKnife;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.manager.LoginSession;
+import com.hengrtec.taobei.manager.UserInfoChangedEvent;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.tab.BaseTabActivity;
 import com.hengrtec.taobei.ui.commonevent.UserAvatarClickedEvent;
@@ -36,14 +40,9 @@ import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
-import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.squareup.otto.Subscribe;
-
-import butterknife.ButterKnife;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * 主界面<BR>
@@ -206,8 +205,9 @@ public class MainTabActivity extends BaseTabActivity {
             .drawer_total_profit_login) + " " + mContext.getString(R.string
             .drawer_total_profit_withdraw)).build();
       }
-      ImageLoader.loadOptimizedHttpImage(mContext, info.getAvart()).placeholder(R.drawable
-          .src_avatar_default).into(mUserAvatarView);
+      //ImageLoader.loadOptimizedHttpImage(mContext, info.getAvart()).placeholder(R.mipmap
+      //    .src_avatar_default_drawer).into(mUserAvatarView);
+      mUserAvatarView.setImageURI(Uri.parse(info.getAvart()));
     }
 
     @Override
@@ -236,6 +236,7 @@ public class MainTabActivity extends BaseTabActivity {
       }
       mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
+
     private void showShare() {
       ShareSDK.initSDK(MainTabActivity.this);
       OnekeyShare oks = new OnekeyShare();
@@ -264,9 +265,20 @@ public class MainTabActivity extends BaseTabActivity {
 // 启动分享GUI
       oks.show(MainTabActivity.this);
     }
+
     private void showSignInDialog() {
       new SignInDialogFragment().show(getSupportFragmentManager(), "");
     }
   }
 
+  @Subscribe
+  public void onUserInfoChanged(UserInfoChangedEvent event) {
+    mDrawerController.bindData();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    getComponent().loginSession().onDestroy();
+  }
 }

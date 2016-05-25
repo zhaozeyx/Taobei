@@ -3,7 +3,7 @@ package com.hengrtec.taobei.utils.imageloader;
 import android.content.Context;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.integration.okhttp.OkHttpGlideModule;
+import com.bumptech.glide.integration.okhttp3.OkHttpGlideModule;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.request.target.ViewTarget;

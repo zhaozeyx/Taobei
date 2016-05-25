@@ -11,6 +11,8 @@
  */
 package com.hengrtec.taobei.ui.profile;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,9 +20,12 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.manager.UserInfoChangedEvent;
+import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.squareup.otto.Subscribe;
 import org.apmem.tools.layouts.FlowLayout;
 
 /**
@@ -30,8 +35,9 @@ import org.apmem.tools.layouts.FlowLayout;
  * @version [Taobei Client V20160411, 16/5/14]
  */
 public class ProfileDetailActivity extends BasicTitleBarActivity {
-  @Bind(R.id.user_avatar)
-  CircleImageView mUserAvatarView;
+
+  @Bind(R.id.user_avatar_display)
+  SimpleDraweeView mUserAvatarView;
   @Bind(R.id.tags_container)
   FlowLayout tagsContainer;
   @Bind(R.id.tags_arrow)
@@ -59,9 +65,19 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   @Bind(R.id.account_bind_value)
   TextView mAccountBindValueView;
 
+  private AvatarChoosePresenter mAvatarChoosePresenter;
+
+  private UserInfo mUserInfo;
+
   @Override
   protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
+    bindData();
+    mAvatarChoosePresenter = new AvatarChoosePresenter(this);
+  }
+
+  private UserInfo getUserInfo() {
+    return getComponent().loginSession().getUserInfo();
   }
 
   @Override
@@ -76,6 +92,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.avatar_setting:
+        mAvatarChoosePresenter.showChooseAvatarDialog();
         break;
       case R.id.certify_setting:
         break;
@@ -100,5 +117,40 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       case R.id.account_bind_setting:
         break;
     }
+  }
+
+  @Override
+  public boolean initializeTitleBar() {
+    setMiddleTitle(R.string.activity_profile_detail_title);
+    setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
+    return true;
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    mAvatarChoosePresenter.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Subscribe
+  public void onUserInfoChangedEvent(UserInfoChangedEvent event) {
+    bindData();
+  }
+
+  private void bindData() {
+    //ImageLoader.loadOptimizedHttpImage(this, mUserInfo.getAvart()).placeholder(R.mipmap
+    //    .src_avatar_default_drawer).into(mUserAvatarView);
+    mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mAvatarChoosePresenter.onDestroy();
   }
 }

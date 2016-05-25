@@ -15,6 +15,7 @@
   <string name="time_format_minute">%d分钟前</string>
   <string name="time_format_hour">%d小时前</string>
   <string name="time_format_just">刚刚</string>
+  <string name="session_expired">Session过期,请重新登录</string>
 
   <!-- 服务器 -->
   <string name="network_not_normal">网络不给力</string>
@@ -205,6 +206,7 @@
   <string name="activity_collection_btn_delete">删除</string>
 
   <!-- 个人详情 -->
+  <string name="activity_profile_detail_title">个人详情</string>
   <string name="activity_profile_detail_label_avatar">头像</string>
   <string name="activity_profile_detail_label_tag">标签</string>
   <string name="activity_profile_detail_label_certify">成为认证会员</string>
@@ -284,7 +286,7 @@
   <string name="activity_profit_detail_graph_title_red_bag">收益数据表</string>
   <string name="activity_profit_detail_graph_title_bbj">收益数据表</string>
   <string name="share">分享</string>
-<!--我的账户-->
+  <!--我的账户-->
   <string name="myaccount">我的账户</string>
   <string name="my_account_wallet">钱包</string>
   <string name="my_account_withdraw">提现</string>

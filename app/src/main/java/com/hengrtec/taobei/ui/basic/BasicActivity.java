@@ -1,6 +1,7 @@
 package com.hengrtec.taobei.ui.basic;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -10,6 +11,7 @@ import com.hengrtec.taobei.injection.ActivityComponent;
 import com.hengrtec.taobei.injection.ActivityModule;
 import com.hengrtec.taobei.injection.DaggerActivityComponent;
 import com.hengrtec.taobei.net.RpcCallManager;
+import com.hengrtec.taobei.ui.boot.BootActivity;
 import com.hengrtec.taobei.ui.login.event.LoginEvent;
 import com.hengrtec.taobei.ui.login.event.LogoutEvent;
 import com.squareup.otto.Subscribe;
@@ -160,6 +162,12 @@ public class BasicActivity extends BaseFragmentActivity implements RpcCallManage
 
   }
 
+  private void performLogout() {
+    if (!mIsPaused) {
+      startActivity(new Intent(this, BootActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+  }
+
   private class SessionEventsHandler {
     @Subscribe
     public void dispatchLogin(LoginEvent event) {
@@ -168,6 +176,7 @@ public class BasicActivity extends BaseFragmentActivity implements RpcCallManage
 
     @Subscribe
     public void dispatchLogout(LogoutEvent event) {
+      performLogout();
       onLogout();
     }
   }

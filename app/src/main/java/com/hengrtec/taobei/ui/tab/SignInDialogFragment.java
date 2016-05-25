@@ -155,7 +155,7 @@ public class SignInDialogFragment extends BasicDialogFragment {
       protected void onSuccess(SignInModel signInModel) {
         mSignInModel = signInModel;
         updateUI(signInModel);
-        getComponent().loginSession().update();
+        getComponent().loginSession().loadUserInfo();
       }
 
       @Override
@@ -186,6 +186,7 @@ public class SignInDialogFragment extends BasicDialogFragment {
       SignInDialogItemView view = mSignInViews.get(i);
       int type = Integer.parseInt(bean.getBenefitType());
       int day = i + 1;
+      // 如果返回的签到天数 显示已签到
       if (day < checkInCount) {
         view.bindData(day, SignInDialogItemView.STATE_CHECKED, getIcon(type), getTextId
             (type));

@@ -49,7 +49,7 @@ public class RetrofitFactory {
 
   public static AppService createAppService() {
     Retrofit retrofit = new Retrofit.Builder().baseUrl(NetConstant.BASE_URL)
-        .client(createClient()).addConverterFactory(GsonConverterFactory.create()).
+        .client(createNormalClient()).addConverterFactory(GsonConverterFactory.create()).
             addCallAdapterFactory(RxJavaCallAdapterFactory.create()).
             build();
     return retrofit.create(AppService.class);
@@ -108,6 +108,21 @@ public class RetrofitFactory {
             return chain.proceed(request);
           }
         })
+        .addInterceptor(interceptor).build();
+    return client;
+  }
+
+  private static OkHttpClient createNormalClient() {
+    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor
+        .Logger() {
+
+      @Override
+      public void log(String message) {
+        Logger.i(TAG, message);
+      }
+    });
+    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+    OkHttpClient client = new okhttp3.OkHttpClient.Builder()
         .addInterceptor(interceptor).build();
     return client;
   }

@@ -11,6 +11,7 @@
  */
 package com.hengrtec.taobei.net.rpc.model;
 
+import com.hengrtec.taobei.net.rpc.service.NetConstant;
 import com.hengrtec.taobei.net.rpc.service.constant.UserConstant;
 
 /**
@@ -89,7 +90,7 @@ public class UserInfo {
   private int virtualMoney;
 
   public String getAvart() {
-    return avart;
+    return NetConstant.BASE_URL_LOCATION + avart;
   }
 
   public void setAvart(String avart) {

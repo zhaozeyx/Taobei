@@ -18,6 +18,7 @@ import com.hengrtec.taobei.net.rpc.model.MyBenefitModel;
 import com.hengrtec.taobei.net.rpc.model.ProfitRecordModel;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.model.SignInModel;
+import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.net.rpc.service.params.CommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.DeleteCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.FriendsCircleParams;
@@ -68,4 +69,6 @@ public interface UserService {
   Observable<Response<ResponseModel<GrabMyMessageModel>>> grabMyMessage(@Body GrabMyMessageParams
                                                                             params);
 
+  @POST("updateUserBasicInfo.do")
+  Observable<Response<ResponseModel<UserInfo>>> updateUser(@Body UserInfo info);
 }

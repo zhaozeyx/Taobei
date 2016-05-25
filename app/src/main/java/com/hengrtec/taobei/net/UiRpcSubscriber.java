@@ -2,6 +2,7 @@ package com.hengrtec.taobei.net;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
@@ -16,12 +17,15 @@ import rx.Subscriber;
 public abstract class UiRpcSubscriber<T> extends Subscriber<Response<ResponseModel<T>>> {
   private static final String TAG = "SERVER_ERROR";
   HttpErrorUiNotifier httpErrorUiNotifier;
+  SessionNotifier sessionNotifier;
   private Context mContext;
 
   public UiRpcSubscriber(Context context) {
     mContext = context;
     httpErrorUiNotifier =
         ((CustomApp) context.getApplicationContext()).getGlobalComponent().httpErrorUiNotifier();
+    sessionNotifier = ((CustomApp) context.getApplicationContext()).getGlobalComponent()
+        .sessionNotifier();
   }
 
   @Override
@@ -41,6 +45,11 @@ public abstract class UiRpcSubscriber<T> extends Subscriber<Response<ResponseMod
   public final void onNext(Response<ResponseModel<T>> responseModelResponse) {
     if (null == responseModelResponse || null == responseModelResponse.body()) {
       onHttpError(new RpcHttpError(NetConstant.HttpCodeConstant.UNKNOWN_ERROR, ""));
+      return;
+    }
+
+    if (responseModelResponse.body().getResult() == 100) {
+      onSessionExpired();
       return;
     }
 
@@ -65,7 +74,12 @@ public abstract class UiRpcSubscriber<T> extends Subscriber<Response<ResponseMod
   }
 
   public void onApiError(RpcApiError apiError) {
+    Toast.makeText(mContext, apiError.getMessage(), Toast.LENGTH_SHORT).show();
+  }
 
+  private void onSessionExpired() {
+    sessionNotifier.notifySessionExpired();
+    onCompleted();
   }
 
   public void onHttpError(RpcHttpError httpError) {
