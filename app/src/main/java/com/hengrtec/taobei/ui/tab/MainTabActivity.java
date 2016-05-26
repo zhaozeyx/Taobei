@@ -40,6 +40,7 @@ import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
+import com.hengrtec.taobei.ui.register.ProfileInitializeActivity;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.squareup.otto.Subscribe;
@@ -217,6 +218,8 @@ public class MainTabActivity extends BaseTabActivity {
           showSignInDialog();
           break;
         case R.id.btn_task:
+          // TODO 测试代码
+          startActivity(new Intent(MainTabActivity.this, ProfileInitializeActivity.class));
           break;
         case R.id.btn_share:
           showShare();

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/margin_primary"
+      android:text="@string/fragment_professional_choose_title"
+      style="@style/Widget.App.TextView.Large.Primary"
+      />
+
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="100dp"
+      android:src="@mipmap/icon_professional_choose"
+      />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      android:layout_alignParentBottom="true"
+      android:background="@android:color/white"
+      android:paddingBottom="@dimen/margin_primary"
+      android:paddingTop="@dimen/margin_primary"
+      >
+    <TextView
+        android:id="@+id/btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:text="@string/btn_confirm"
+        style="@style/Widget.App.TextView.Medium.RedDark"
+        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_confirm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        >
+      <com.aigestudio.wheelpicker.view.WheelStraightPicker
+          android:id="@+id/main_category_picker"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          />
+      <com.aigestudio.wheelpicker.view.WheelStraightPicker
+          android:id="@+id/detail_category_picker"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="30dp"
+          android:layout_toRightOf="@id/main_category_picker"
+          />
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

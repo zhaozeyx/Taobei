@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_primary"
+    >
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/fragment_gender_choose_title"
+      style="@style/Widget.App.TextView.Large.Primary"
+      />
+
+  <RadioGroup
+      android:id="@+id/gender_choose_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      >
+
+    <RadioButton
+        android:id="@+id/btn_female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawablePadding="@dimen/margin_medium"
+        android:drawableTop="@drawable/icon_gender_female"
+        android:gravity="center"
+        android:text="@string/gender_female"
+        style="@style/Widget.App.TextView.Small.Secondary"
+        />
+
+    <RadioButton
+        android:id="@+id/btn_male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:button="@null"
+        android:drawablePadding="@dimen/margin_medium"
+        android:drawableTop="@drawable/icon_gender_male"
+        android:gravity="center"
+        android:text="@string/gender_male"
+        style="@style/Widget.App.TextView.Small.Secondary"
+        />
+
+  </RadioGroup>
+
+  <TextView
+      android:id="@+id/btn_next"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="40dp"
+      android:background="@drawable/bg_btn_yellow_round_corner"
+      android:gravity="center"
+      android:paddingBottom="5dp"
+      android:paddingLeft="@dimen/margin_large"
+      android:paddingRight="@dimen/margin_large"
+      android:paddingTop="5dp"
+      android:text="@string/activity_profile_initialize_btn_next"
+      style="@style/Widget.App.TextView.Medium.Primary"
+      />
+
+</LinearLayout>

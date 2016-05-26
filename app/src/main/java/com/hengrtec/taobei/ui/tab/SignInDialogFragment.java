@@ -37,6 +37,7 @@ import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import java.util.List;
 import javax.inject.Inject;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * 签到对话框<BR>
@@ -83,6 +84,8 @@ public class SignInDialogFragment extends BasicDialogFragment {
   private String mTodayAwardType;
   private SignInModel mSignInModel;
 
+  private CompositeSubscription mSubscriptions = new CompositeSubscription();
+
   @Bind({R.id.first_day, R.id.second_day, R.id.third_day, R.id.forth_day, R.id.fifth_day, R.id
       .sixth_day, R.id.seventh_day})
   List<SignInDialogItemView> mSignInViews;
@@ -121,6 +124,7 @@ public class SignInDialogFragment extends BasicDialogFragment {
   public void onDestroyView() {
     super.onDestroyView();
     ButterKnife.unbind(this);
+    mSubscriptions.unsubscribe();
   }
 
   @OnClick({R.id.first_day, R.id.second_day, R.id.third_day, R.id.forth_day, R.id.fifth_day, R.id
@@ -155,7 +159,7 @@ public class SignInDialogFragment extends BasicDialogFragment {
       protected void onSuccess(SignInModel signInModel) {
         mSignInModel = signInModel;
         updateUI(signInModel);
-        getComponent().loginSession().loadUserInfo();
+        mSubscriptions.add(getComponent().loginSession().loadUserInfo());
       }
 
       @Override

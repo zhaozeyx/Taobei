@@ -80,10 +80,10 @@ public class LoginSession {
     onLoginStatusChanged();
   }
 
-  public void loadUserInfo() {
+  public Subscription loadUserInfo() {
     Subscription getUserInfoSubscription = mAuthService.getUserInfo(new GetUserInfoParams
         (mUserInfo.getUserId
-        ())).subscribeOn(Schedulers.newThread())
+            ())).subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread()).subscribe(new UiRpcSubscriber<UserInfo>
             (mContext) {
           @Override
@@ -99,12 +99,13 @@ public class LoginSession {
           }
         });
     mSubscriptions.add(getUserInfoSubscription);
+    return getUserInfoSubscription;
   }
 
-  private void updateUserInfo() {
+  private Subscription updateUserInfo() {
     Subscription updateUserInfoSubscription = mUserService.updateUser(mUserInfo).subscribeOn
         (Schedulers
-        .newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new UiRpcSubscriber<UserInfo>(mContext) {
+            .newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new UiRpcSubscriber<UserInfo>(mContext) {
 
       @Override
       protected void onSuccess(UserInfo userInfo) {
@@ -120,6 +121,7 @@ public class LoginSession {
 
     });
     mSubscriptions.add(updateUserInfoSubscription);
+    return updateUserInfoSubscription;
   }
 
   private void saveUserInfo(UserInfo userInfo) {
@@ -153,8 +155,8 @@ public class LoginSession {
 
   public class UserInfoChangeBuilder {
 
-    public void update() {
-      updateUserInfo();
+    public Subscription update() {
+      return updateUserInfo();
     }
 
     public UserInfoChangeBuilder setAvart(String avart) {

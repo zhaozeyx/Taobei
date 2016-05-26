@@ -32,9 +32,9 @@ import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.net.rpc.service.AuthService;
 import com.hengrtec.taobei.net.rpc.service.params.RegisterParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.register.ProfileInitializeActivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
-import com.hengrtec.taobei.ui.tab.MainTabActivity;
 import javax.inject.Inject;
 
 /**
@@ -124,10 +124,9 @@ public class PasswordSetActivity extends BasicTitleBarActivity {
             mVerifyCode)), new UiRpcSubscriber<UserInfo>(this) {
       @Override
       protected void onSuccess(UserInfo userInfo) {
-        // TODO 获取用户信息
         // 通知所有登录相关界面
         getComponent().loginSession().login(userInfo);
-        startActivity(new Intent(PasswordSetActivity.this, MainTabActivity.class));
+        startActivity(new Intent(PasswordSetActivity.this, ProfileInitializeActivity.class));
         finish();
       }
 
