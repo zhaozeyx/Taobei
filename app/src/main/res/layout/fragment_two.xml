@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="9"
+      android:orientation="vertical"
+      >
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/grid_10"
+        android:background="@mipmap/circle"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+      <TextView
+          android:id="@+id/tv_out_time"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+
+          android:gravity="center"
+
+          android:paddingTop="@dimen/grid_3"
+          android:text="@string/action_settings"
+          />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+
+          android:paddingTop="@dimen/grid_3"
+          android:text="@string/my_account_my_balance"
+          android:textColor="@color/font_color_red_dark"
+          />
+      <TextView
+          android:id="@+id/tv_money"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+
+          android:paddingTop="@dimen/grid_3"
+          android:text="@string/action_settings"
+          android:textColor="@color/font_color_red_dark"
+          />
+      <TextView
+
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+
+          android:paddingTop="@dimen/grid_3"
+          android:text="@string/my_account_out_mn"
+          />
+    </LinearLayout>
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingBottom="@dimen/grid_4"
+        android:paddingTop="@dimen/grid_4"
+        android:text="@string/my_account_out_question"
+        android:textColor="@color/font_color_red_dark"
+        />
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        android:text="@string/my_account_out_1"
+        />
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        android:text="@string/my_account_out_2"
+        />
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        android:text="@string/my_account_out_3"
+        />
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        android:text="@string/my_account_out_4"
+        />
+  </LinearLayout>
+  <Button
+      android:id="@+id/out_my_account"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/font_color_yellow"
+      android:text="@string/my_account_out"
+      android:textSize="@dimen/grid_4"
+      />
+
+</LinearLayout>

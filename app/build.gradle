@@ -2,138 +2,139 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
 buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-        classpath 'io.realm:realm-gradle-plugin:0.91.0'
-    }
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.1.0'
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    classpath 'io.realm:realm-gradle-plugin:0.91.0'
+  }
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+  compileSdkVersion 23
+  buildToolsVersion "23.0.2"
 
-    defaultConfig {
-        applicationId "com.hengrtec.taobei"
-        minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-        resValue "string", "tray__authority", "com.hengrtec.taobei"
+  defaultConfig {
+    applicationId "com.hengrtec.taobei"
+    minSdkVersion 16
+    targetSdkVersion 23
+    versionCode 1
+    versionName "1.0"
+    resValue "string", "tray__authority", "com.hengrtec.taobei"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 }
 
 repositories {
-    mavenCentral()
-    jcenter()
-    maven { url "https://jitpack.io" }
+  mavenCentral()
+  jcenter()
+  maven { url "https://jitpack.io" }
 }
 
 apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'io.reactivex:rxjava:1.0.15'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.1.0'
-    compile 'com.squareup:otto:1.3.6'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'com.google.dagger:dagger:2.0.1'
-    apt 'com.google.dagger:dagger-compiler:2.0.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.jakewharton.timber:timber:4.1.2'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    compile 'me.relex:circleindicator:1.1.9@aar'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.malinskiy:superrecyclerview:1.1.3'
-    compile 'com.github.chenupt.android:springindicator:1.0.2@aar'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.daimajia.easing:library:1.0.1@aar'
-    compile 'com.daimajia.androidanimations:library:1.1.3@aar'
-    compile 'com.klinkerapps:link_builder:1.3.2'
-    compile 'com.github.d-max:spots-dialog:0.4@aar'
-    compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile 'com.zhy:flowlayout-lib:1.0.1'
-    compile 'org.apmem.tools:layouts:1.10@aar'
-    compile 'net.grandcentrix.tray:tray:1.0.0-rc3'
-    compile 'com.github.iwgang:countdownview:1.2'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.github.chrisbanes:PhotoView:1.2.6'
-    compile 'com.facebook.fresco:fresco:0.9.0'
-    compile 'com.avast:android-styled-dialogs:2.3.3'
-    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
-    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  compile 'io.reactivex:rxjava:1.0.15'
+  compile 'io.reactivex:rxandroid:1.0.1'
+  compile 'com.jakewharton.rxbinding:rxbinding:0.1.0'
+  compile 'com.squareup:otto:1.3.6'
+  compile 'com.jakewharton:butterknife:7.0.1'
+  compile 'com.squareup.okhttp3:okhttp:3.2.0'
+  compile 'com.github.bumptech.glide:glide:3.7.0'
+  compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+  compile 'com.google.dagger:dagger:2.0.1'
+  apt 'com.google.dagger:dagger-compiler:2.0.1'
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:appcompat-v7:23.4.0'
+  provided 'org.glassfish:javax.annotation:10.0-b28'
+  compile 'com.squareup.retrofit2:retrofit:2.0.2'
+  compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+  compile 'com.jakewharton.timber:timber:4.1.2'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+  compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.1'
+  compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+  compile 'me.relex:circleindicator:1.1.9@aar'
+  compile 'com.android.support:cardview-v7:23.4.0'
+  compile 'com.malinskiy:superrecyclerview:1.1.3'
+  compile 'com.github.chenupt.android:springindicator:1.0.2@aar'
+  compile 'com.nineoldandroids:library:2.4.0'
+  compile 'com.daimajia.easing:library:1.0.1@aar'
+  compile 'com.daimajia.androidanimations:library:1.1.3@aar'
+  compile 'com.klinkerapps:link_builder:1.3.2'
+  compile 'com.github.d-max:spots-dialog:0.4@aar'
+  compile 'de.hdodenhof:circleimageview:2.0.0'
+  compile 'com.zhy:flowlayout-lib:1.0.1'
+  compile 'org.apmem.tools:layouts:1.10@aar'
+  compile 'net.grandcentrix.tray:tray:1.0.0-rc3'
+  compile 'com.github.iwgang:countdownview:1.2'
+  compile 'com.google.code.gson:gson:2.6.2'
+  compile 'com.github.chrisbanes:PhotoView:1.2.6'
+  compile 'com.facebook.fresco:fresco:0.9.0'
+  compile 'com.avast:android-styled-dialogs:2.3.3'
+  compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+  compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+  compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+  compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.1@aar') {
+    transitive = true
+    compile files('src/libs/MobCommons-2016.0426.1819.jar')
+    compile files('src/libs/MobTools-2016.0426.1819.jar')
+    compile files('src/libs/ShareSDK-Alipay-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Core-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Douban-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Dropbox-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Email-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Evernote-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Facebook-2.7.2.jar')
+    compile files('src/libs/ShareSDK-FacebookMessenger-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Flickr-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Foursquare-2.7.2.jar')
+    compile files('src/libs/ShareSDK-GooglePlus-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Instagram-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Instapaper-2.7.2.jar')
+    compile files('src/libs/ShareSDK-KaiXin-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Kakao-Core-2.7.2.jar')
+    compile files('src/libs/ShareSDK-KakaoStory-2.7.2.jar')
+    compile files('src/libs/ShareSDK-KakaoTalk-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Line-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Linkedin-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Mingdao-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Pinterest-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Pocket-2.7.2.jar')
+    compile files('src/libs/ShareSDK-QQ-2.7.2.jar')
+    compile files('src/libs/ShareSDK-QZone-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Renren-2.7.2.jar')
+    compile files('src/libs/ShareSDK-ShortMessage-2.7.2.jar')
+    compile files('src/libs/ShareSDK-SinaWeibo-2.7.2.jar')
+    compile files('src/libs/ShareSDK-TencentWeibo-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Tumblr-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Twitter-2.7.2.jar')
+    compile files('src/libs/ShareSDK-VKontakte-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Wechat-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Wechat-Core-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Wechat-Favorite-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Wechat-Moments-2.7.2.jar')
+    compile files('src/libs/ShareSDK-WhatsApp-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Yixin-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Yixin-Core-2.7.2.jar')
+    compile files('src/libs/ShareSDK-Yixin-Moments-2.7.2.jar')
+    compile files('src/libs/ShareSDK-YouDao-2.7.2.jar')
     compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.1@aar') {
-        transitive = true
-        compile files('src/libs/MobCommons-2016.0426.1819.jar')
-        compile files('src/libs/MobTools-2016.0426.1819.jar')
-        compile files('src/libs/ShareSDK-Alipay-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Core-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Douban-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Dropbox-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Email-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Evernote-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Facebook-2.7.2.jar')
-        compile files('src/libs/ShareSDK-FacebookMessenger-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Flickr-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Foursquare-2.7.2.jar')
-        compile files('src/libs/ShareSDK-GooglePlus-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Instagram-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Instapaper-2.7.2.jar')
-        compile files('src/libs/ShareSDK-KaiXin-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Kakao-Core-2.7.2.jar')
-        compile files('src/libs/ShareSDK-KakaoStory-2.7.2.jar')
-        compile files('src/libs/ShareSDK-KakaoTalk-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Line-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Linkedin-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Mingdao-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Pinterest-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Pocket-2.7.2.jar')
-        compile files('src/libs/ShareSDK-QQ-2.7.2.jar')
-        compile files('src/libs/ShareSDK-QZone-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Renren-2.7.2.jar')
-        compile files('src/libs/ShareSDK-ShortMessage-2.7.2.jar')
-        compile files('src/libs/ShareSDK-SinaWeibo-2.7.2.jar')
-        compile files('src/libs/ShareSDK-TencentWeibo-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Tumblr-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Twitter-2.7.2.jar')
-        compile files('src/libs/ShareSDK-VKontakte-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Wechat-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Wechat-Core-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Wechat-Favorite-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Wechat-Moments-2.7.2.jar')
-        compile files('src/libs/ShareSDK-WhatsApp-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Yixin-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Yixin-Core-2.7.2.jar')
-        compile files('src/libs/ShareSDK-Yixin-Moments-2.7.2.jar')
-        compile files('src/libs/ShareSDK-YouDao-2.7.2.jar')
-        compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.1@aar') {
-            transitive = true
-        }
-        compile 'com.google.zxing:core:3.2.1'
-        compile 'com.android.support:design:23.3.0'
+      transitive = true
     }
-    compile 'com.android.support:design:23.4.0'
-    compile "cn.aigestudio.wheelpicker:WheelPicker:1.0.3"
+    compile 'com.google.zxing:core:3.2.1'
+//    compile 'com.android.support:design:23.3.0'
+  }
+      compile 'com.android.support:design:23.4.0'
+  compile "cn.aigestudio.wheelpicker:WheelPicker:1.0.3"
+  compile 'com.github.WuXuBaiYang:JRecyclerViewLibrary:v1.2'
 }

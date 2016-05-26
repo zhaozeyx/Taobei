@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="15dp"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/grid_4"
+            android:text="@string/my_account_host_card"
+            android:textSize="@dimen/grid_4"
+            />
+        <LinearLayout
+            android:id="@+id/zhongguo"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/zhongguoyinhang"
+              />
+
+          <TextView
+              android:id="@+id/zhongguo1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+
+              android:text="@string/my_account_BOC"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/nongye"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/zhongguonongye"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/nongye1"
+              android:text="@string/my_account_ABC"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/jianshe"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/jianshe"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/jianshe1"
+              android:text="@string/my_account_CCB"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/gongshang"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/gongshang"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/gongshang1"
+              android:text="@string/my_account_ICBC"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/youzheng"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/youzheng"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/youzheng1"
+              android:text="@string/my_account_PSBC"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/zhaoshang"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/zhaoshang"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/zhaoshang1"
+              android:text="@string/my_account_CMB"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/zhongxinshiye"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/zhongxinshiye"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/zhongxinshiye1"
+              android:text="@string/my_account_ChinaCITICBank"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/huaxia"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/huaxia"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/huaxia1"
+              android:text="@string/my_account_HXB"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/jiaotong"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/jiaotong"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/jiaotong1"
+              android:text="@string/my_account_BCM"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+        <LinearLayout
+            android:id="@+id/minsheng"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="@dimen/grid_8"
+              android:src="@mipmap/minsheng"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:id="@+id/minsheng1"
+              android:text="@string/my_account_CMBC"
+              android:textColor="@color/font_color_light_gray"
+              android:textSize="@dimen/font_size_large"
+              />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="#DEE2E3"
+            />
+
+
+      </LinearLayout>
+
+    </LinearLayout>
+  </ScrollView>
+</LinearLayout>

@@ -11,6 +11,7 @@
  */
 package com.hengrtec.taobei.net.rpc.service;
 
+import com.hengrtec.taobei.net.rpc.model.CardQueryModel;
 import com.hengrtec.taobei.net.rpc.model.CommentModel;
 import com.hengrtec.taobei.net.rpc.model.FriendsCircleModel;
 import com.hengrtec.taobei.net.rpc.model.GrabMyMessageModel;
@@ -23,6 +24,10 @@ import com.hengrtec.taobei.net.rpc.service.params.CommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.DeleteCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.FriendsCircleParams;
 import com.hengrtec.taobei.net.rpc.service.params.GrabMyMessageParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetAddCardParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetCardQueryParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetOutCardParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetRemoveCardParams;
 import com.hengrtec.taobei.net.rpc.service.params.MyBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.ProfitRecordsParams;
 import com.hengrtec.taobei.net.rpc.service.params.SignInParams;
@@ -64,7 +69,19 @@ public interface UserService {
 
   @POST("delcomment.do")
   Observable<Response<ResponseModel<String>>> deleteComment(@Body DeleteCommentParams params);
+  @POST("listwalletaccount.do")
+  Observable<Response<ResponseModel<CardQueryModel>>> getAdvCardQueryList(
+      @Body GetCardQueryParams params);
 
+  @POST("addwalletaccount.do")
+  Observable<Response<ResponseModel<CardQueryModel>>> getAdvAddCardList(
+      @Body GetAddCardParams params);
+  @POST("removewalletaccount.do")
+  Observable<Response<ResponseModel<CardQueryModel>>> getAdvRemoveCardList(
+      @Body GetRemoveCardParams params);
+  @POST("withdrawcash.do")
+  Observable<Response<ResponseModel<CardQueryModel>>> getAdvOutCardList(
+      @Body GetOutCardParams params);
   @POST("grabmymessage.do")
   Observable<Response<ResponseModel<GrabMyMessageModel>>> grabMyMessage(@Body GrabMyMessageParams
                                                                             params);

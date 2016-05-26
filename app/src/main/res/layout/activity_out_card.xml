@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/grid_8"
+    >
+
+  <LinearLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:text="@string/my_account_money"
+        android:textColor="@color/font_color_primary"
+        android:textSize="@dimen/font_size_large"
+        />
+
+    <EditText
+        android:id="@+id/et_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="@dimen/grid_20"
+        android:background="@drawable/shape"
+        android:hint="@string/my_account_edit_money"
+        android:textColor="@color/font_color_light_gray"
+        android:textSize="@dimen/font_size_large"
+        />
+  </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dip"
+      android:background="#DEE2E3"
+      />
+  <LinearLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:text="@string/my_account_name"
+        android:textColor="@color/font_color_primary"
+        android:textSize="@dimen/font_size_large"
+        />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="@dimen/grid_20"
+        android:background="@drawable/shape"
+        android:hint="@string/my_account_edit_name"
+        android:textColor="@color/font_color_light_gray"
+        android:textSize="@dimen/font_size_large"
+        />
+  </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dip"
+      android:background="#DEE2E3"
+      />
+  <LinearLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:text="@string/my_account_num"
+        android:textColor="@color/font_color_primary"
+        android:textSize="@dimen/font_size_large"
+        />
+
+    <TextView
+        android:id="@+id/cardnum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:layout_marginRight="@dimen/grid_20"
+        android:background="@drawable/shape"
+        android:hint="@string/my_account_card"
+        android:textColor="@color/font_color_light_gray"
+        android:textSize="@dimen/font_size_large"
+        />
+  </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dip"
+      android:background="#DEE2E3"
+      />
+  <LinearLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:text="@string/my_account_bank"
+        android:textColor="@color/font_color_primary"
+        android:textSize="@dimen/font_size_large"
+        />
+
+    <TextView
+        android:id="@+id/choose_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/grid_7"
+        android:layout_marginRight="@dimen/grid_2"
+        android:drawablePadding="@dimen/grid_2"
+        android:drawableRight="@mipmap/icon_arrow"
+        android:hint="@string/my_account_choose_bank"
+        android:textColor="@color/font_color_light_gray"
+        android:textSize="@dimen/font_size_large"
+        />
+  </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dip"
+      android:background="#DEE2E3"
+      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="35dp"
+      android:background="@color/font_color_space"
+      android:orientation="vertical"
+      />
+  <TextView
+      android:id="@+id/add"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/shape_gray"
+      android:gravity="center"
+      android:text="@string/my_account_out"
+      />
+</LinearLayout>

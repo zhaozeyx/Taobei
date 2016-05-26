@@ -296,10 +296,45 @@
   <string name="activity_profit_detail_graph_title_red_bag">收益数据表</string>
   <string name="activity_profit_detail_graph_title_bbj">收益数据表</string>
   <string name="share">分享</string>
-  <!--我的账户-->
+<!--我的账户-->
   <string name="myaccount">我的账户</string>
   <string name="my_account_wallet">钱包</string>
   <string name="my_account_withdraw">提现</string>
+  <string name="my_account_balance">余额</string>
+  <string name="my_account_add">⊕ 添加银行账号</string>
+  <string name="my_account_empty">您还没有提现账号，快快加入提现吧</string>
+  <string name="my_account_name">姓名</string>
+  <string name="my_account_edit_name">请输入姓名</string>
+  <string name="my_account_card">请输入卡号</string>
+  <string name="my_account_num">账号</string>
+  <string name="my_account_bank">银行</string>
+  <string name="my_account_choose_bank">请选择银行</string>
+  <string name="my_account_add_card">添加银行卡</string>
+  <string name="my_account_choose_bank_card">选择银行卡</string>
+  <string name="my_account_host_card">热门银行</string>
+  <string name="my_account_CCB">建设银行</string>
+  <string name="my_account_ABC">中国农业银行</string>
+  <string name="my_account_ICBC">中国工商银行</string>
+  <string name="my_account_BOC">中国银行</string>
+  <string name="my_account_CMBC">中国民生银行</string>
+  <string name="my_account_CMB">招商银行</string>
+  <string name="my_account_ChinaCITICBank">中信银行</string>
+  <string name="my_account_BCM">交通银行</string>
+  <string name="my_account_HXB">华夏银行</string>
+  <string name="my_account_PSBC">中国邮政储蓄银行</string>
+  <string name="my_account_out_money">提现</string>
+  <string name="my_account_my_balance">-我的余额-</string>
+  <string name="my_account_out_mn">可提现收益</string>
+  <string name="my_account_out_question">常见问题</string>
+  <string name="my_account_out_1">现只支持提现到银行卡，首次提现不限金额；</string>
+  <string name="my_account_out_2">其后每次提现为50元整。</string>
+  <string name="my_account_out_3">提现采用手工转账，提现申请后三个工作日内到账，</string>
+  <string name="my_account_out_4">到账时间由银行的处理时间决定</string>
+  <string name="my_account_out">申请提现</string>
+  <string name="my_account_out_addcard">添加新银行卡</string>
+  <string name="my_account_choose_out_card">请选择你的提现银行卡</string>
+  <string name="my_account_money">金额</string>
+  <string name="my_account_edit_money">请输入金额</string>
   <!-- 排行榜 -->
   <string name="activity_charts_title">排行榜</string>
 

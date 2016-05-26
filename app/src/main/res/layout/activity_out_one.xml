@@ -17,20 +17,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
-        android:text="@string/my_account_balance"
+        android:text="@string/my_account_choose_out_card"
 
         />
-    <TextView
-        android:id="@+id/txt_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-
-        />
   </RelativeLayout>
   <View
       android:layout_width="match_parent"
@@ -78,13 +68,6 @@
         android:text="@string/my_account_empty"
         />
   </LinearLayout>
-  <Button
-      android:id="@+id/add_my_account"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@color/font_color_yellow"
-      android:text="@string/my_account_add"
-      android:textSize="@dimen/grid_4"
-      />
+
 
 </LinearLayout>

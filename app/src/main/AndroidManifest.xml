@@ -178,6 +178,18 @@
         android:name=".ui.profile.AboutActivity"
         android:screenOrientation="portrait"/>
     <activity
+        android:name=".ui.profile.fragments.bean.ChooseCardActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.fragments.bean.AddMyAccountavtivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.fragments.bean.OutMyAccountavtivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.fragments.bean.ChooseMyAccountavtivity"
+        android:screenOrientation="portrait"/>
+    <activity
         android:name=".ui.profile.CommentListActivity"
         android:screenOrientation="portrait"/>
     <activity

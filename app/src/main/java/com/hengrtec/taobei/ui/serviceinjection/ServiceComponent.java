@@ -38,6 +38,10 @@ import com.hengrtec.taobei.ui.profile.MessageListActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profile.ProfitRecordsActivity;
+import com.hengrtec.taobei.ui.profile.fragments.OneFragment;
+import com.hengrtec.taobei.ui.profile.fragments.TwoFragment;
+import com.hengrtec.taobei.ui.profile.fragments.bean.ChooseMyAccountavtivity;
+import com.hengrtec.taobei.ui.profile.fragments.bean.OutMyAccountavtivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
 import com.hengrtec.taobei.ui.tab.SignInDialogFragment;
 import dagger.Component;
@@ -101,6 +105,10 @@ public interface ServiceComponent {
   void inject(ChartsActivity activity);
 
   void inject(CommentListActivity activity);
+  void inject(OneFragment fragment);
+  void inject(TwoFragment fragment);
+  void inject(ChooseMyAccountavtivity activity);
+  void inject(OutMyAccountavtivity activity);
 
   void inject(BaseMessageListFragment fragment);
 

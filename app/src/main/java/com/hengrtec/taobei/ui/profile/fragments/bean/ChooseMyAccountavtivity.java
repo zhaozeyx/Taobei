@@ -1,21 +1,15 @@
-package com.hengrtec.taobei.ui.profile.fragments;
+package com.hengrtec.taobei.ui.profile.fragments.bean;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalModule;
@@ -25,10 +19,8 @@ import com.hengrtec.taobei.net.rpc.model.CardQueryModel;
 import com.hengrtec.taobei.net.rpc.service.UserService;
 import com.hengrtec.taobei.net.rpc.service.params.GetAddCardParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCardQueryParams;
-import com.hengrtec.taobei.net.rpc.service.params.GetRemoveCardParams;
-import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
+import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.profile.fragments.adapter.UserAdapter;
-import com.hengrtec.taobei.ui.profile.fragments.bean.AddMyAccountavtivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.jtech.listener.OnItemClickListener;
@@ -42,16 +34,19 @@ import com.jtech.view.RecyclerHolder;
 import com.jtech.view.RefreshLayout;
 import javax.inject.Inject;
 
-public class OneFragment extends BasicTitleBarFragment
-    implements OnLoadListener, RefreshLayout.OnRefreshListener, OnItemClickListener,
-    OnItemLongClickListener, OnItemTouchToMove, OnItemViewMoveListener, OnItemViewSwipeListener {
+/**
+ * Created by jiao on 2016/5/23.
+ */
+public class ChooseMyAccountavtivity extends BasicTitleBarActivity  implements OnLoadListener, RefreshLayout.OnRefreshListener,
+    OnItemClickListener, OnItemLongClickListener, OnItemTouchToMove, OnItemViewMoveListener,
+    OnItemViewSwipeListener {
   @Inject UserService mAdvService;
   public static final String TYPE = "type";
   @Bind(R.id.empty_mycount) LinearLayout emptyMycount;
-  @Bind(R.id.add_my_account) Button addMyAccount;
+
   private UserAdapter userAdapter;
   @Bind(R.id.txt) TextView txt;
-  @Bind(R.id.txt_content) TextView txtContent;
+
   @Bind(R.id.jrecyclerview) JRecyclerView jrecyclerview;
   @Bind(R.id.refreshlayout) RefreshLayout refreshlayout;
 
@@ -63,33 +58,51 @@ public class OneFragment extends BasicTitleBarFragment
   private String bank = null;
   private String bankcode = null;
 
-  public OneFragment() {
-    // Required empty public constructor
-  }
 
-  @Override protected void onCreateViewCompleted(View view) {
-    ButterKnife.bind(this, view);
-    inject();
-    initVIew();
-    initData();
+  @Override
+  public boolean initializeTitleBar() {
+    setMiddleTitle(R.string.my_account_out_money);
+    setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
+    setRightTextButtonVisible(true);
+    setRightTextButtonTextColor(R.color.font_color_white);
+    setRightTextButton(R.string.my_account_out_addcard, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(ChooseMyAccountavtivity.this, AddMyAccountavtivity.class);
+        //发送意图标示为REQUSET=1
+        startActivityForResult(intent, REQUSET);
+      }
+    });
+    return true;
   }
-
   private void inject() {
     DaggerServiceComponent.builder()
-        .globalModule(new GlobalModule((CustomApp) getActivity().getApplication()))
+        .globalModule(new GlobalModule((CustomApp) getApplication()))
         .serviceModule(new ServiceModule())
         .build()
         .inject(this);
   }
 
+  @Override protected void afterCreate(Bundle savedInstance) {
+    ButterKnife.bind(this);
+    inject();
+    initVIew();
+    initData();
+  }
+
   @Override public int getLayoutId() {
-    return R.layout.fragment_one;
+    return R.layout.activity_out_one;
   }
 
   private void initData() {
     manageRpcCall(mAdvService.getAdvCardQueryList(
         new GetCardQueryParams(String.valueOf(getComponent().loginSession().getUserId()))),
-        new UiRpcSubscriber<CardQueryModel>(getActivity()) {
+        new UiRpcSubscriber<CardQueryModel>(this) {
           @Override protected void onSuccess(CardQueryModel cardQueryModels) {
             if (null != cardQueryModels) {
               refreshlayout.setVisibility(View.VISIBLE);
@@ -98,8 +111,6 @@ public class OneFragment extends BasicTitleBarFragment
               //userAdapter.setpage(true);
               //设置数据
               userAdapter.setDatas(cardQueryModels.getAccounts());
-
-              txtContent.setText(String.valueOf(cardQueryModels.getMoney()) + "元");
             } else {
               refreshlayout.setVisibility(View.GONE);
               emptyMycount.setVisibility(View.VISIBLE);
@@ -121,10 +132,11 @@ public class OneFragment extends BasicTitleBarFragment
     //设置可以上下拖动换位
     //jrecyclerview.setMoveUpDown(true, (OnItemViewMoveListener) getActivity());
     //设置layoutmanager(也可以换成其余两种)
-    jrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+    jrecyclerview.setLayoutManager(new LinearLayoutManager(this));
     //实例化适配器
-    userAdapter = new UserAdapter(getActivity());
+    userAdapter = new UserAdapter(this);
     //设置适配器.
+
 
     jrecyclerview.setAdapter(userAdapter);
     //设置监听
@@ -137,26 +149,27 @@ public class OneFragment extends BasicTitleBarFragment
     refreshlayout.startRefreshing();
   }
 
-  public static OneFragment newInstance(String text) {
-    OneFragment fragment = new OneFragment();
-    Bundle bundle = new Bundle();
-    bundle.putString(TYPE, text);
-    fragment.setArguments(bundle);
-    return fragment;
-  }
 
-  @Override public void onDestroyView() {
-    super.onDestroyView();
-    ButterKnife.unbind(this);
-  }
+
 
   @Override public void onItemClick(RecyclerHolder holder, View view, int position) {
-    Toast.makeText(getActivity(), "item " + position + " 点击", Toast.LENGTH_SHORT).show();
+
+    Intent intent = new Intent(ChooseMyAccountavtivity.this, OutMyAccountavtivity.class);
+    Bundle bundle = new Bundle();
+    bundle.putString("name",   userAdapter.getItem(position).getAccountUserName());
+    bundle.putString("cardnum",   userAdapter.getItem(position).getAccountName());
+    bundle.putString("bank",   userAdapter.getItem(position).getBankName());
+    bundle.putString("bankcode",   userAdapter.getItem(position).getBankNameCode());
+    intent.putExtras(bundle);
+    //setResult(RESULT_OK, intent);
+    startActivity(intent);
+    Toast.makeText(this, "item " + position + " 点击", Toast.LENGTH_SHORT).show();
+    finish();
   }
 
   @Override public boolean onItemLongClick(RecyclerHolder holder, View view, int position) {
     //长点击跟长按拖动换位有冲突，正常情况下不要同时使用
-    Toast.makeText(getActivity(), "item " + position + " 长点击", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "item " + position + " 长点击", Toast.LENGTH_SHORT).show();
     return true;
   }
 
@@ -184,101 +197,21 @@ public class OneFragment extends BasicTitleBarFragment
     userAdapter.moveData(viewHolder.getAdapterPosition(), target.getAdapterPosition());
     return true;
   }
-  protected void dialog() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setMessage("确认退出吗？");
 
-    builder.setTitle("提示");
-
-    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        dialog.dismiss();
-
-        getActivity().finish();
-      }
-    });
-
-    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        dialog.dismiss();
-      }
-    });
-
-    builder.create().show();
-  }
   /**
    * 滑动删除
    */
-  @Override public void onItemViewSwipe(final RecyclerView.ViewHolder viewHolder,  int direction) {
-    //jrecyclerview.setSwipeStart(true,this);
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setMessage("确定要删除提现账号吗？");
+  @Override public void onItemViewSwipe(RecyclerView.ViewHolder viewHolder, int direction) {
 
-    builder.setTitle("提示");
-
-    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        dialog.dismiss();
-        manageRpcCall(mAdvService.getAdvRemoveCardList(
-
-            new GetRemoveCardParams(userAdapter.getItem(viewHolder.getAdapterPosition()).getAccountId())),
-            new UiRpcSubscriber<CardQueryModel>(getActivity()) {
-              @Override protected void onSuccess(CardQueryModel cardQueryModel) {
-                showShortToast("删除成功");
-                userAdapter.removeData(viewHolder.getAdapterPosition());
-
-              }
-
-              @Override protected void onEnd() {
-
-              }
-
-              @Override public void onApiError(RpcApiError apiError) {
-                super.onApiError(apiError);
-                showShortToast("添加失败");
-              }
-            });
-
-      }
-    });
-
-    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        dialog.dismiss();
-        userAdapter.notifyDataSetChanged();
-        //initData();
-      }
-    });
-
-    builder.create().show();
-
+    userAdapter.removeData(viewHolder.getAdapterPosition());
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    // TODO: inflate a fragment view
-    View rootView = super.onCreateView(inflater, container, savedInstanceState);
-    ButterKnife.bind(this, rootView);
-    return rootView;
-  }
 
-  @OnClick(R.id.add_my_account) public void onClick() {
-    Intent intent = new Intent(getActivity(), AddMyAccountavtivity.class);
-    //发送意图标示为REQUSET=1
-    startActivityForResult(intent, REQUSET);
-  }
+
 
   @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == REQUSET && resultCode == getActivity().RESULT_OK) {
+    if (requestCode == REQUSET && resultCode == this.RESULT_OK) {
       name = data.getStringExtra(AddMyAccountavtivity.KEY_USER_ID);
       cardnum = data.getStringExtra(AddMyAccountavtivity.KEY_USER);
       bank = data.getStringExtra(AddMyAccountavtivity.KEY);
@@ -308,7 +241,7 @@ public class OneFragment extends BasicTitleBarFragment
 
       manageRpcCall(mAdvService.getAdvAddCardList(
           new GetAddCardParams(String.valueOf(getComponent().loginSession().getUserId()), nick,
-              bankcode, name, cardnum, bank)), new UiRpcSubscriber<CardQueryModel>(getActivity()) {
+              bankcode, name, cardnum, bank)), new UiRpcSubscriber<CardQueryModel>(this) {
         @Override protected void onSuccess(CardQueryModel cardQueryModel) {
           showShortToast("添加成功");
           initData();
@@ -326,4 +259,3 @@ public class OneFragment extends BasicTitleBarFragment
     }
   }
 }
-
