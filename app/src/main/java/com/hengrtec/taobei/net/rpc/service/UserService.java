@@ -88,4 +88,7 @@ public interface UserService {
 
   @POST("updateUserBasicInfo.do")
   Observable<Response<ResponseModel<UserInfo>>> updateUser(@Body UserInfo info);
+  @POST("logout.do")
+  Observable<Response<ResponseModel<CardQueryModel>>> getAdvExitList(
+      @Body GetCardQueryParams params);
 }

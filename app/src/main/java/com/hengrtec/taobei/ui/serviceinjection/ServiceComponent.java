@@ -38,6 +38,7 @@ import com.hengrtec.taobei.ui.profile.MessageListActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profile.ProfitRecordsActivity;
+import com.hengrtec.taobei.ui.profile.SettingsActivity;
 import com.hengrtec.taobei.ui.profile.fragments.OneFragment;
 import com.hengrtec.taobei.ui.profile.fragments.TwoFragment;
 import com.hengrtec.taobei.ui.profile.fragments.bean.ChooseMyAccountavtivity;
@@ -113,7 +114,7 @@ public interface ServiceComponent {
   void inject(BaseMessageListFragment fragment);
 
   void inject(MessageListActivity activity);
-
+  void inject(SettingsActivity activity);
   void inject(AvatarChoosePresenter presenter);
 
 }

@@ -9,8 +9,18 @@ import android.widget.ToggleButton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.injection.GlobalModule;
+import com.hengrtec.taobei.net.RpcApiError;
+import com.hengrtec.taobei.net.UiRpcSubscriber;
+import com.hengrtec.taobei.net.rpc.model.CardQueryModel;
+import com.hengrtec.taobei.net.rpc.service.UserService;
+import com.hengrtec.taobei.net.rpc.service.params.GetCardQueryParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
+import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
+import javax.inject.Inject;
 
 /**
  * Created by jiao on 2016/5/16.
@@ -26,10 +36,11 @@ public class SettingsActivity extends BasicTitleBarActivity {
   @Bind(R.id.mTogBtn5) ToggleButton mTogBtn5;
   @Bind(R.id.mTogBtn6) ToggleButton mTogBtn6;
   @Bind(R.id.exit) Button exit;
+  @Inject UserService mAdvService;
 
   @Override protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
-    //        inject();
+    inject();
     initListView();
     //        loadData(true);
   }
@@ -45,6 +56,14 @@ public class SettingsActivity extends BasicTitleBarActivity {
         startActivity(new Intent(SettingsActivity.this, PrimaryActivity.class));
       }
     });
+  }
+
+  private void inject() {
+    DaggerServiceComponent.builder()
+        .globalModule(new GlobalModule((CustomApp) getApplication()))
+        .serviceModule(new ServiceModule())
+        .build()
+        .inject(this);
   }
 
   @Override public boolean initializeTitleBar() {
@@ -68,6 +87,23 @@ public class SettingsActivity extends BasicTitleBarActivity {
   }
 
   @OnClick(R.id.exit) public void onClick() {
+    manageRpcCall(mAdvService.getAdvExitList(
+        new GetCardQueryParams(String.valueOf(getComponent().loginSession().getUserId()))),
+        new UiRpcSubscriber<CardQueryModel>(this) {
+          @Override protected void onSuccess(CardQueryModel cardQueryModel) {
 
+            showShortToast("退出成功");
+            getComponent().loginSession().logout();
+          }
+
+          @Override protected void onEnd() {
+            finish();
+          }
+
+          @Override public void onApiError(RpcApiError apiError) {
+            super.onApiError(apiError);
+            showShortToast("退出失败");
+          }
+        });
   }
 }

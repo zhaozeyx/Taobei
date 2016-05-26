@@ -169,6 +169,12 @@ public class MainTabActivity extends BaseTabActivity {
       if (TextUtils.isEmpty(info.getType())) {
         mUserNamView.setText(R.string.drawer_name_un_login);
         mSignInView.setEnabled(false);
+        mUserNamView.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            mContext.startActivity(new Intent(mContext, LoginWayActivity.class));
+          }
+        });
       } else {
         switch (info.getType()) {
           case UserInfo.USER_TYPE_PHONE:

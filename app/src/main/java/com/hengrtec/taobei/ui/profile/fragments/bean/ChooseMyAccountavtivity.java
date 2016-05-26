@@ -186,7 +186,7 @@ public class ChooseMyAccountavtivity extends BasicTitleBarActivity  implements O
    */
   @Override public void itemTouchToMove(RecyclerHolder holder) {
     //触摸的时候拖动
-    jrecyclerview.startDrag(holder);
+    //jrecyclerview.startDrag(holder);
   }
 
   /**
@@ -203,7 +203,7 @@ public class ChooseMyAccountavtivity extends BasicTitleBarActivity  implements O
    */
   @Override public void onItemViewSwipe(RecyclerView.ViewHolder viewHolder, int direction) {
 
-    userAdapter.removeData(viewHolder.getAdapterPosition());
+    //userAdapter.removeData(viewHolder.getAdapterPosition());
   }
 
 
