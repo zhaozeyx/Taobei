@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.net.rpc.service;
 
 import com.hengrtec.taobei.net.rpc.model.CardQueryModel;
+import com.hengrtec.taobei.net.rpc.model.Advertisement;
 import com.hengrtec.taobei.net.rpc.model.CommentModel;
 import com.hengrtec.taobei.net.rpc.model.FriendsCircleModel;
 import com.hengrtec.taobei.net.rpc.model.GrabMyMessageModel;
@@ -20,6 +21,7 @@ import com.hengrtec.taobei.net.rpc.model.ProfitRecordModel;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.model.SignInModel;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
+import com.hengrtec.taobei.net.rpc.model.WatchedModel;
 import com.hengrtec.taobei.net.rpc.service.params.CommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.DeleteCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.FriendsCircleParams;
@@ -31,6 +33,7 @@ import com.hengrtec.taobei.net.rpc.service.params.GetRemoveCardParams;
 import com.hengrtec.taobei.net.rpc.service.params.MyBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.ProfitRecordsParams;
 import com.hengrtec.taobei.net.rpc.service.params.SignInParams;
+import com.hengrtec.taobei.net.rpc.service.params.WatchedListParams;
 import java.util.List;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -88,7 +91,11 @@ public interface UserService {
 
   @POST("updateUserBasicInfo.do")
   Observable<Response<ResponseModel<UserInfo>>> updateUser(@Body UserInfo info);
+
   @POST("logout.do")
   Observable<Response<ResponseModel<CardQueryModel>>> getAdvExitList(
       @Body GetCardQueryParams params);
+
+  @POST("watchedadvlist.do")
+  Observable<Response<ResponseModel<List<WatchedModel>>>> watchedList(@Body WatchedListParams params);
 }

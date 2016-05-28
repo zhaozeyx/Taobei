@@ -176,6 +176,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
       case R.id.member_achievement:
         break;
       case R.id.watched:
+        startActivity(new Intent(getActivity(), WatchedActivity.class));
         break;
       case R.id.comments:
         startActivity(new Intent(getActivity(), CommentListActivity.class));

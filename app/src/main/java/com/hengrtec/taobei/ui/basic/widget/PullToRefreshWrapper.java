@@ -91,6 +91,7 @@ public class PullToRefreshWrapper<T extends ListView> extends FrameLayout {
     mFooterRootView = footerView.findViewById(R.id.root_layout);
     mListView.addFooterView(footerView);
     mRefreshLayout = (SwipeRefreshLayout) contentView.findViewById(R.id.swipe_container);
+    mRefreshLayout.addView(mListView);
     addView(contentView, new LayoutParams(
         LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     setListParam();

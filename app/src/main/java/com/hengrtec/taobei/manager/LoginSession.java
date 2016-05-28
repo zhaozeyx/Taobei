@@ -135,8 +135,9 @@ public class LoginSession {
   }
 
   public void logout() {
-    mContext.getGlobalComponent().appPreferences().put(CustomAppPreferences.KEY_USER_INFO,
-        "");
+    mContext.getGlobalComponent().appPreferences().remove(CustomAppPreferences.KEY_USER_INFO);
+    mContext.getGlobalComponent().appPreferences().remove(CustomAppPreferences.KEY_USER_ID);
+    mContext.getGlobalComponent().appPreferences().remove(CustomAppPreferences.KEY_USER_TYPE);
     mContext.getGlobalComponent().getGlobalBus().post(new LogoutEvent());
     onLoginStatusChanged();
   }

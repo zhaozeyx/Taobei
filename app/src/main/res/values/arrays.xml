@@ -57,4 +57,9 @@
     <item>从手机相册选择</item>
   </array>
 
+  <array name="watched_titles">
+    <item>全部广告</item>
+    <item>未领取红包</item>
+  </array>
+
 </resources>

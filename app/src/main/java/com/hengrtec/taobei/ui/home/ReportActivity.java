@@ -101,8 +101,7 @@ public class ReportActivity extends BasicTitleBarActivity {
   }
 
   private void initLevelRes() {
-    if (TextUtils.equals(getComponent().loginSession().getUserInfo().getGender(), UserConstant
-        .GENDER_MALE)) {
+    if (TextUtils.equals(getComponent().loginSession().getUserInfo().getGender(), getString(R.string.gender_male))) {
       mLevelLabels = getResources().getStringArray(R.array.label_report_level_male);
       mLevelIcon = ICON_LEVEL_MALE;
     } else {

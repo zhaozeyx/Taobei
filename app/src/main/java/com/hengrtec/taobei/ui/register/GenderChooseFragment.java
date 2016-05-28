@@ -23,12 +23,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hengrtec.taobei.R;
-import com.hengrtec.taobei.net.rpc.service.constant.UserConstant;
 import com.hengrtec.taobei.ui.basic.BasicFragment;
 
 /**
- * [一句话功能简述]<BR>
- * [功能详细描述]
+ * 性别选择<BR>
  *
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/5/25]
@@ -66,10 +64,10 @@ public class GenderChooseFragment extends BasicFragment {
       public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
           case R.id.btn_male:
-            mChooseGender = UserConstant.GENDER_MALE;
+            mChooseGender = getString(R.string.gender_male);
             break;
           case R.id.btn_female:
-            mChooseGender = UserConstant.GENDER_FEMALE;
+            mChooseGender = getString(R.string.gender_female);
             break;
         }
       }

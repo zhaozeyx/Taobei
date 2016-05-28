@@ -94,6 +94,7 @@ public class MainTabActivity extends BaseTabActivity {
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     mDrawerContainer = (RelativeLayout) findViewById(R.id.drawer_container);
     mDrawerController = new DrawerLayoutController(this, mDrawerContainer);
+    mDrawerController.bindData();
   }
 
   @Override
@@ -106,6 +107,7 @@ public class MainTabActivity extends BaseTabActivity {
   protected void onLogout() {
     super.onLogout();
     mDrawerController.bindData();
+    finish();
   }
 
   class DrawerLayoutController implements View.OnClickListener {
@@ -217,6 +219,7 @@ public class MainTabActivity extends BaseTabActivity {
       mUserAvatarView.setImageURI(Uri.parse(info.getAvart()));
     }
 
+
     @Override
     public void onClick(View view) {
       switch (view.getId()) {
@@ -290,4 +293,5 @@ public class MainTabActivity extends BaseTabActivity {
     super.onDestroy();
     getComponent().loginSession().onDestroy();
   }
+
 }

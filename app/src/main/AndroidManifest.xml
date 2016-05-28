@@ -201,6 +201,9 @@
     <activity
         android:name=".ui.register.ProfileInitializeActivity"
         android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.WatchedActivity"
+        android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

@@ -296,7 +296,7 @@
   <string name="activity_profit_detail_graph_title_red_bag">收益数据表</string>
   <string name="activity_profit_detail_graph_title_bbj">收益数据表</string>
   <string name="share">分享</string>
-<!--我的账户-->
+  <!--我的账户-->
   <string name="myaccount">我的账户</string>
   <string name="my_account_wallet">钱包</string>
   <string name="my_account_withdraw">提现</string>
@@ -348,6 +348,15 @@
   <string name="activity_comment_title">我评论的</string>
   <string name="activity_comment_label">我评价了广告</string>
   <string name="activity_comment_be_praised">获得了%d个赞</string>
+
+  <!--我看过的-->
+  <string name="activity_watched_title">我看过的</string>
+  <string name="activity_watched_btn_accept">领取红包</string>
+  <string name="activity_watched_btn_over">投放结束</string>
+  <string name="activity_watched_btn_answer">答题</string>
+  <string name="activity_watched_btn_view_again">再看一次</string>
+  <string name="activity_watched_info_accept">请在15分钟内答题并领取红包</string>
+  <string name="activity_watched_info">现金红包%1$d元,贝贝金%2$d枚</string>
 
   <!-- 消息中心列表 -->
   <string name="activity_message_list_title">消息</string>

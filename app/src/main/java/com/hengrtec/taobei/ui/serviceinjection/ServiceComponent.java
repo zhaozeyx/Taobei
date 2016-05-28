@@ -31,6 +31,7 @@ import com.hengrtec.taobei.ui.login.PasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
 import com.hengrtec.taobei.ui.profile.AvatarChoosePresenter;
 import com.hengrtec.taobei.ui.profile.BaseMessageListFragment;
+import com.hengrtec.taobei.ui.profile.BaseWatchedListFragment;
 import com.hengrtec.taobei.ui.profile.ChartsActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.CommentListActivity;
@@ -116,5 +117,7 @@ public interface ServiceComponent {
   void inject(MessageListActivity activity);
   void inject(SettingsActivity activity);
   void inject(AvatarChoosePresenter presenter);
+
+  void inject(BaseWatchedListFragment fragment);
 
 }
