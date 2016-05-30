@@ -32,6 +32,7 @@ import com.hengrtec.taobei.net.rpc.service.params.GetOutCardParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetRemoveCardParams;
 import com.hengrtec.taobei.net.rpc.service.params.MyBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.ProfitRecordsParams;
+import com.hengrtec.taobei.net.rpc.service.params.RetPswParams;
 import com.hengrtec.taobei.net.rpc.service.params.SignInParams;
 import com.hengrtec.taobei.net.rpc.service.params.WatchedListParams;
 import java.util.List;
@@ -95,6 +96,9 @@ public interface UserService {
   @POST("logout.do")
   Observable<Response<ResponseModel<CardQueryModel>>> getAdvExitList(
       @Body GetCardQueryParams params);
+  @POST("updatePwd.do")
+  Observable<Response<ResponseModel<UserInfo>>> getAdvResePswList(
+      @Body RetPswParams params);
 
   @POST("watchedadvlist.do")
   Observable<Response<ResponseModel<List<WatchedModel>>>> watchedList(@Body WatchedListParams params);

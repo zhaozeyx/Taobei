@@ -28,7 +28,10 @@ import com.hengrtec.taobei.ui.home.ReportSysQuestionActivity;
 import com.hengrtec.taobei.ui.login.LoginWithPasswordFragment;
 import com.hengrtec.taobei.ui.login.LoginWithVerifyCodeFragment;
 import com.hengrtec.taobei.ui.login.PasswordSetActivity;
+import com.hengrtec.taobei.ui.login.PayPasswordActivity;
+import com.hengrtec.taobei.ui.login.PayPasswordSetActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
+import com.hengrtec.taobei.ui.login.ResetPasswordActivity;
 import com.hengrtec.taobei.ui.profile.AddTagsActivity;
 import com.hengrtec.taobei.ui.profile.AvatarChoosePresenter;
 import com.hengrtec.taobei.ui.profile.BaseMessageListFragment;
@@ -43,6 +46,7 @@ import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profile.ProfitRecordsActivity;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
 import com.hengrtec.taobei.ui.profile.fragments.OneFragment;
+import com.hengrtec.taobei.ui.profile.fragments.ResetPhoneActivity;
 import com.hengrtec.taobei.ui.profile.fragments.TwoFragment;
 import com.hengrtec.taobei.ui.profile.fragments.bean.ChooseMyAccountavtivity;
 import com.hengrtec.taobei.ui.profile.fragments.bean.OutMyAccountavtivity;
@@ -125,6 +129,10 @@ public interface ServiceComponent {
   void inject(SettingsActivity activity);
 
   void inject(AvatarChoosePresenter presenter);
+  void inject(ResetPhoneActivity activity);
+  void inject(ResetPasswordActivity activity);
+  void inject(PayPasswordActivity activity);
+  void inject(PayPasswordSetActivity activity);
 
   void inject(IdCardChoosePresenter presenter);
 

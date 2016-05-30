@@ -202,6 +202,21 @@
         android:name=".ui.register.ProfileInitializeActivity"
         android:screenOrientation="portrait"/>
     <activity
+        android:name=".ui.profile.fragments.MyAccountSafeActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.fragments.ResetPhoneActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.login.ResetPasswordActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.login.PayPasswordSetActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.login.PayPasswordActivity"
+        android:screenOrientation="portrait"/>
+    <activity
         android:name=".ui.profile.WatchedActivity"
         android:screenOrientation="portrait"/>
     <activity

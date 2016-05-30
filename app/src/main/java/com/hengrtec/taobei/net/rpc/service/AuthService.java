@@ -18,6 +18,8 @@ import com.hengrtec.taobei.net.rpc.service.params.GetUserInfoParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetVerifyCodeParams;
 import com.hengrtec.taobei.net.rpc.service.params.LoginParams;
 import com.hengrtec.taobei.net.rpc.service.params.LoginWithVerifyCodeParams;
+import com.hengrtec.taobei.net.rpc.service.params.PayPswParams;
+import com.hengrtec.taobei.net.rpc.service.params.PayRetPswParams;
 import com.hengrtec.taobei.net.rpc.service.params.RegisterParams;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -40,7 +42,10 @@ public interface AuthService {
 
   @POST("reg.do")
   Observable<Response<ResponseModel<UserInfo>>> register(@Body RegisterParams params);
-
+  @POST("updatepaypwd.do")
+  Observable<Response<ResponseModel<UserInfo>>> payResetPsw(@Body PayRetPswParams params);
+  @POST("setnewpaypwd.do")
+  Observable<Response<ResponseModel<UserInfo>>> payPsw(@Body PayPswParams params);
   @POST("applogin.do")
   Observable<Response<ResponseModel<UserInfo>>> loginWithPassword(@Body LoginParams params);
 

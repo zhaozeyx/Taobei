@@ -18,6 +18,7 @@ import com.hengrtec.taobei.net.rpc.model.CardQueryModel;
 import com.hengrtec.taobei.net.rpc.service.UserService;
 import com.hengrtec.taobei.net.rpc.service.params.GetCardQueryParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.profile.fragments.MyAccountSafeActivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import javax.inject.Inject;
@@ -41,21 +42,6 @@ public class SettingsActivity extends BasicTitleBarActivity {
   @Override protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
     inject();
-    initListView();
-    //        loadData(true);
-  }
-
-  private void initListView() {
-    mAbout.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
-      }
-    });
-    mPrimary.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        startActivity(new Intent(SettingsActivity.this, PrimaryActivity.class));
-      }
-    });
   }
 
   private void inject() {
@@ -86,24 +72,56 @@ public class SettingsActivity extends BasicTitleBarActivity {
     ButterKnife.bind(this);
   }
 
-  @OnClick(R.id.exit) public void onClick() {
-    manageRpcCall(mAdvService.getAdvExitList(
-        new GetCardQueryParams(String.valueOf(getComponent().loginSession().getUserId()))),
-        new UiRpcSubscriber<CardQueryModel>(this) {
-          @Override protected void onSuccess(CardQueryModel cardQueryModel) {
+  @OnClick({
+      R.id.setting_qingchuhuancun, R.id.mTogBtn, R.id.mTogBtn2, R.id.mTogBtn3, R.id.mTogBtn4,
+      R.id.mTogBtn5, R.id.mTogBtn6, R.id.rl_primary, R.id.rl_about, R.id.exit
+  }) public void onClick(View view) {
+    switch (view.getId()) {
+      case R.id.setting_qingchuhuancun:
+        if (getComponent().isLogin()) {
+          startActivity(new Intent(SettingsActivity.this, MyAccountSafeActivity.class));
+        }else {
+          showShortToast("请登录");
+        }
+        break;
+      case R.id.mTogBtn:
+        break;
+      case R.id.mTogBtn2:
+        break;
+      case R.id.mTogBtn3:
+        break;
+      case R.id.mTogBtn4:
+        break;
+      case R.id.mTogBtn5:
+        break;
+      case R.id.mTogBtn6:
+        break;
+      case R.id.rl_primary:
+        startActivity(new Intent(SettingsActivity.this, PrimaryActivity.class));
+        break;
+      case R.id.rl_about:
+        startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
+        break;
+      case R.id.exit:
+        manageRpcCall(mAdvService.getAdvExitList(
+            new GetCardQueryParams(String.valueOf(getComponent().loginSession().getUserId()))),
+            new UiRpcSubscriber<CardQueryModel>(this) {
+              @Override protected void onSuccess(CardQueryModel cardQueryModel) {
 
-            showShortToast("退出成功");
-            getComponent().loginSession().logout();
-          }
+                showShortToast("退出成功");
+                getComponent().loginSession().logout();
+              }
 
-          @Override protected void onEnd() {
-            finish();
-          }
+              @Override protected void onEnd() {
+                finish();
+              }
 
-          @Override public void onApiError(RpcApiError apiError) {
-            super.onApiError(apiError);
-            showShortToast("退出失败");
-          }
-        });
+              @Override public void onApiError(RpcApiError apiError) {
+                super.onApiError(apiError);
+                showShortToast("退出失败");
+              }
+            });
+        break;
+    }
   }
 }

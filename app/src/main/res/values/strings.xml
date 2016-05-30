@@ -137,7 +137,10 @@
   <string name="password_input_hint">输入由6~12位数字、字母或组合的密码</string>
   <string name="password_confirm_input_hint">确认密码须与原密码保持一致</string>
   <string name="btn_password_confirm">确定</string>
-
+  <string name="btn_password_old">旧密码</string>
+  <string name="btn_password_old_hint">输入当前登录密码</string>
+  <string name="btn_password_new">新密码</string>
+  <string name="btn_password_new_confirm">确认新密码</string>
   <!-- 初始资料 -->
   <string name="activity_profile_initialize_btn_over_look">跳过</string>
   <string name="activity_profile_initialize_btn_next">下一步</string>
@@ -264,7 +267,24 @@
   <string name="activity_settings_primary_success">反馈成功</string>
   <string name="activity_settings_send_primary">发送</string>
 
-
+  <string name="activity_settings_account_safe">账号安全等级</string>
+  <string name="activity_settings_account_settings">去设置</string>
+  <string name="activity_settings_account_set">请设置以下项目保护账号</string>
+  <string name="activity_settings_account_phone">手机号码激活</string>
+  <string name="activity_settings_account_psw">手机号登录密码</string>
+  <string name="activity_settings_account_pay_psw">提现密码</string>
+  <string name="activity_settings_account_set_psw">修改手机号登录密码</string>
+  <string name="activity_settings_account_set_pay_psw">忘记密码了？找回</string>
+  <string name="activity_settings_account_phone_set">+86</string>
+  <string name="activity_settings_account_phone_hint">你的常用手机号码</string>
+  <string name="activity_settings_account_edit">验证码</string>
+  <string name="activity_settings_account_edit_hint">请填写手机收到的验证码</string>
+  <string name="activity_settings_account_no_activation">您还没有激活手机号码，请激活</string>
+  <string name="activity_settings_account_activation">激活</string>
+  <string name="activity_settings_account_revise">修改成功</string>
+  <string name="activity_settings_account_set_password">修改密码</string>
+  <string name="activity_settings_account_pay">设置提现密码</string>
+  <string name="activity_settings_account_pay_new">修改提现密码</string>
   <!-- 签到奖励对话框 -->
   <string name="dialog_sign_in_title">每天登陆奖励</string>
   <string name="dialog_welcome_title">欢迎你</string>

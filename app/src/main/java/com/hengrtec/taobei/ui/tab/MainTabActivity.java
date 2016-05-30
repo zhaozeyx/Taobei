@@ -37,6 +37,7 @@ import com.hengrtec.taobei.ui.home.HomeFragment;
 import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.nearby.NearbyFragment;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
+import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
@@ -244,6 +245,7 @@ public class MainTabActivity extends BaseTabActivity {
           mContext.startActivity(new Intent(mContext, SettingsActivity.class));
           break;
         case R.id.btn_feed_back:
+          mContext.startActivity(new Intent(mContext, PrimaryActivity.class));
           break;
       }
       mDrawerLayout.closeDrawer(Gravity.LEFT);
