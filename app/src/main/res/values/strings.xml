@@ -403,4 +403,8 @@
   <string name="activity_certify_status_certifying">认证中...</string>
   <string name="activity_certify_submit_success">提交认证成功</string>
   <string name="activity_certify_submit_failed">提交认证失败</string>
+
+  <!-- 昵称设置 -->
+  <string name="activity_nick_name_title">昵称</string>
+  <string name="activity_nick_name_title_bar_confirm">确认</string>
 </resources>

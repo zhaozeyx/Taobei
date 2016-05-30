@@ -28,6 +28,7 @@ import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.squareup.otto.Subscribe;
 import org.apmem.tools.layouts.FlowLayout;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * 个人详情页面<BR>
@@ -36,6 +37,8 @@ import org.apmem.tools.layouts.FlowLayout;
  * @version [Taobei Client V20160411, 16/5/14]
  */
 public class ProfileDetailActivity extends BasicTitleBarActivity {
+
+  private static final int REQUEST_CODE_NICK_NAME = 3;
 
   @Bind(R.id.user_avatar_display)
   SimpleDraweeView mUserAvatarView;
@@ -68,6 +71,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private UserInfo mUserInfo;
 
+  private CompositeSubscription mSubscription = new CompositeSubscription();
+
   @Override
   protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
@@ -99,6 +104,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       case R.id.phone_setting:
         break;
       case R.id.nick_name_setting:
+        startActivityForResult(new Intent(this, NickNameActivity.class), REQUEST_CODE_NICK_NAME);
         break;
       case R.id.introduction_setting:
         break;
@@ -134,6 +140,12 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
+    switch (requestCode) {
+      case REQUEST_CODE_NICK_NAME:
+        mSubscription.add(getComponent().loginSession().userInfoChangeBuilder()
+            .setUserName(data.getStringExtra(NickNameActivity.RESULT_KEY_NICK_NAME)).update());
+        return;
+    }
     mAvatarChoosePresenter.onActivityResult(requestCode, resultCode, data);
   }
 
@@ -146,6 +158,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     //ImageLoader.loadOptimizedHttpImage(this, mUserInfo.getAvart()).placeholder(R.mipmap
     //    .src_avatar_default_drawer).into(mUserAvatarView);
     mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
+    mNickNameValueView.setText(getUserInfo().getUserName());
     showUserLabel();
     setCertifyStatus();
   }
@@ -200,5 +213,6 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   protected void onDestroy() {
     super.onDestroy();
     mAvatarChoosePresenter.onDestroy();
+    mSubscription.unsubscribe();
   }
 }
