@@ -49,17 +49,16 @@
     <LinearLayout
         android:id="@+id/tags_setting"
         android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         style="@style/ProfileMenuContainer.Detail"
         >
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
           android:text="@string/activity_profile_detail_label_tag"
           style="@style/Widget.App.TextView.Medium.Primary"
           />
-
 
       <org.apmem.tools.layouts.FlowLayout
           android:id="@+id/tags_container"

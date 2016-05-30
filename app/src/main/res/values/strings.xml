@@ -366,4 +366,9 @@
 
   <!--消息详情-->
   <string name="activity_message_detail">消息</string>
+
+  <!-- 贴标签 -->
+  <string name="activity_add_tags_title">贴标签</string>
+  <string name="activity_add_tags_btn_add">添加</string>
+  <string name="activity_add_tags_input_hint">请填写标签</string>
 </resources>

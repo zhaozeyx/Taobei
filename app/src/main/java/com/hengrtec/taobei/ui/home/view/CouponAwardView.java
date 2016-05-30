@@ -109,6 +109,11 @@ public class CouponAwardView extends FrameLayout implements IAwardDisplay {
     }
   }
 
+  @Override
+  public void displayNotGot(AdvertisementDetail detail, int awardNumber) {
+
+  }
+
   @OnClick({R.id.award_not_get, R.id.btn_left, R.id.btn_right})
   public void onClick(View view) {
     switch (view.getId()) {

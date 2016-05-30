@@ -14,8 +14,9 @@ package com.hengrtec.taobei.ui.profile;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,8 +41,6 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   SimpleDraweeView mUserAvatarView;
   @Bind(R.id.tags_container)
   FlowLayout tagsContainer;
-  @Bind(R.id.tags_arrow)
-  ImageView tagsArrow;
   @Bind(R.id.certify_value)
   TextView mCertifyValueView;
   @Bind(R.id.phone_value)
@@ -146,6 +145,34 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     //ImageLoader.loadOptimizedHttpImage(this, mUserInfo.getAvart()).placeholder(R.mipmap
     //    .src_avatar_default_drawer).into(mUserAvatarView);
     mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
+    showUserLabel();
+  }
+
+  private void showUserLabel() {
+    tagsContainer.removeAllViews();
+    addTag(getString(R.string.activity_profile_detail_add_tag), R.drawable.bg_btn_gray_round_corner);
+    tagsContainer.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(ProfileDetailActivity.this, AddTagsActivity.class));
+      }
+    });
+    String userLabel = getComponent().loginSession().getUserInfo().getUserLabel();
+    if (TextUtils.isEmpty(userLabel)) {
+      return;
+    }
+    String[] labels = userLabel.split(",");
+    for (String label : labels) {
+      addTag(label, R.drawable.bg_btn_yellow_round_corner);
+    }
+  }
+
+  private void addTag(String label, int backGroundResource) {
+    TextView labelView = (TextView) LayoutInflater.from(this).inflate(R.layout.tag_item_big, tagsContainer, false);
+    labelView.setBackgroundResource(backGroundResource);
+    labelView.setText(label);
+    labelView.setTextColor(getResources().getColor(R.color.font_color_primary));
+    tagsContainer.addView(labelView);
   }
 
   @Override
