@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -38,14 +39,12 @@ import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.UiRpcSubscriber1;
 import com.hengrtec.taobei.net.rpc.model.AdvPlayInfo;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
-import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.AdvOperationParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
 import com.hengrtec.taobei.net.rpc.service.params.DoMyCommentParams;
-import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
@@ -53,9 +52,10 @@ import com.hengrtec.taobei.net.rpc.service.params.LikeCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.RecordUserPlayDurationParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.basic.scrollview.InterceptScrollView;
+import com.hengrtec.taobei.ui.home.event.AwardReceiveClickedEvent;
 import com.hengrtec.taobei.ui.home.event.PlayNotCompletedEvent;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
-import com.hengrtec.taobei.ui.home.view.DetailProfitInfoView;
+import com.hengrtec.taobei.ui.home.view.AwardViewController;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.AdvertisementValueBindUtils;
@@ -81,8 +81,8 @@ import rx.functions.Func1;
  * @version [Taobei Client V20160411, 16/4/21]
  */
 public class AdvertisementDetailActivity extends BasicTitleBarActivity {
-  private static final int MAX_COUNT = 20;
   private static final String TAG = "AdvertisementDetailActivity";
+  private static final int MAX_COUNT = 20;
   private static final int ORDER_TIME = 0;
   private static final int ORDER_HOT = 1;
   private static final int REQUEST_CODE_PLAY = 0;
@@ -145,8 +145,8 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   InterceptScrollView mScrollView;
   @Inject
   AdvertisementService mAdvertisementService;
-  @Bind(R.id.detail_profit_info)
-  DetailProfitInfoView mDetailProfitInfoView;
+  @Bind(R.id.award_info_container)
+  FrameLayout mAwardInfoContainer;
   @Bind(R.id.view_more)
   TextView mLoadMoreView;
 
@@ -164,6 +164,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   private boolean mHasMore = false;
 
   private List<AdvertisementDetail.Comment> mMyCommentsCache = new ArrayList<>();
+  private AwardViewController mAwardViewController;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -183,7 +184,6 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     });
     inject();
     initRecyclerView();
-    initProfitInfoViewListener();
     initSegmentControl();
     initData();
   }
@@ -206,13 +206,6 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         }
       }
     });
-    //mCommentListView.setupMoreListener(new OnMoreListener() {
-    //  @Override
-    //  public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int
-    //      maxLastVisiblePosition) {
-    //
-    //  }
-    //}, 4);
   }
 
   private void loadMore() {
@@ -245,21 +238,17 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     });
   }
 
-  private void initProfitInfoViewListener() {
-    mDetailProfitInfoView.setOnReceiveBtnClickListener(new DetailProfitInfoView
-        .OnReceiveBtnClickListener() {
-      @Override
-      public void onBtnClicked() {
-        if (TextUtils.equals(AdvertisementConstant.ADV_BENEFIT_TYPE_REALITY_CURRENCY, mDetail
-            .getBenefitType())) {
-          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
-              .dialog_red_bag_get, null);
-          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
-              (childView).create();
-          bindDataProfitDialog(childView);
-        }
-      }
-    });
+  @Subscribe
+  public void onAwardReceiveBtnClickedEvent(AwardReceiveClickedEvent event) {
+    switch (event.benefitType) {
+      case AdvertisementConstant.ADV_BENEFIT_TYPE_REALITY_CURRENCY:
+        View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+            .dialog_red_bag_get, null);
+        mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+            (childView).create();
+        bindDataProfitDialog(childView);
+        break;
+    }
   }
 
   private void initSegmentControl() {
@@ -309,25 +298,15 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       }
     });
 
-    manageRpcCall(mAdvertisementService.getAdvQuestionList(new GetAdvQuestionListParams(
-        String.valueOf(getComponent().loginSession().getUserId()), String.valueOf(mAdvId)
-    )), new UiRpcSubscriber<List<Question>>(this) {
-      @Override
-      protected void onSuccess(List<Question> questions) {
-
-      }
-
-      @Override
-      protected void onEnd() {
-
-      }
-    });
   }
 
   private void refreshUI(AdvertisementDetail detail) {
     if (null == detail) {
       return;
     }
+    mAwardViewController = new AwardViewController(mAwardInfoContainer);
+    mAwardViewController.loadUi(detail, false, 0, false);
+
     ImageLoader.loadOptimizedHttpImage(AdvertisementDetailActivity.this, detail.getThumbnail())
         .into(mAdvSnapshot);
     mAdvTitle.setText(detail.getName());
@@ -363,8 +342,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
 
   private void refreshDetailInfoView(AdvertisementDetail detail, int profitCount, boolean
       viewCompleted, boolean hasGotten) {
-    mDetailProfitInfoView.update(detail, profitCount, viewCompleted, hasGotten, TextUtils.equals
-        (AdvertisementConstant.ADV_NEED_SYS_QUESTION, mDetail.getNeedSysQuestion()));
+    mAwardViewController.loadUi(detail, viewCompleted, profitCount, hasGotten);
   }
 
   private void setProfitInfoByStatus() {
@@ -448,7 +426,6 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     manageRpcCall(mAdvertisementService.doMycomments(new DoMyCommentParams(mAdvId, getComponent()
         .loginSession().getUserId(), mEditText.getText().toString())), new
         UiRpcSubscriber<List<AdvertisementDetail.Comment>>(this) {
-
 
           @Override
           protected void onSuccess(List<AdvertisementDetail.Comment> comments) {

@@ -51,6 +51,18 @@ public class WatchedActivity extends BasicTitleBarActivity {
   }
 
   @Override
+  public boolean initializeTitleBar() {
+    setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
+    setMiddleTitle(R.string.activity_watched_title);
+    return true;
+  }
+
+  @Override
   public int getLayoutId() {
     return R.layout.activity_watched;
   }

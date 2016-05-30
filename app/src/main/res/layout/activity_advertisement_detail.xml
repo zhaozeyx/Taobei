@@ -128,10 +128,10 @@
           </LinearLayout>
         </FrameLayout>
 
-        <com.hengrtec.taobei.ui.home.view.DetailProfitInfoView
-            android:id="@+id/detail_profit_info"
+        <FrameLayout
+            android:id="@+id/award_info_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             />
 
         <TextView

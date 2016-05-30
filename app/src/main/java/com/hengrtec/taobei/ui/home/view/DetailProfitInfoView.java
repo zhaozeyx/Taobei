@@ -194,4 +194,5 @@ public class DetailProfitInfoView extends FrameLayout {
   public interface OnReceiveBtnClickListener {
     void onBtnClicked();
   }
+
 }

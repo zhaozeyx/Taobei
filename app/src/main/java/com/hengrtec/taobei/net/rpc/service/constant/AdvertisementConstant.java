@@ -69,6 +69,11 @@ public class AdvertisementConstant {
   public static final String ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY = "0";
 
   /**
+   * 收益类型: 优惠券
+   */
+  public static final String ADV_BENEFIT_TYPE_COUPON = "2";
+
+  /**
    * 用户观看广告状态: 未观看
    */
   public static final String ADV_USER_ADV_STATE_UN_VIEW = "0";
