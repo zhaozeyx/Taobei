@@ -14,6 +14,7 @@ package com.hengrtec.taobei.manager;
 import android.text.TextUtils;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.injection.GlobalModule;
+import com.hengrtec.taobei.net.RpcApiError;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.net.rpc.service.AuthService;
@@ -112,6 +113,12 @@ public class LoginSession {
         saveUserInfo(userInfo);
         switchUserInfo();
         mContext.getGlobalComponent().getGlobalBus().post(new UserInfoChangedEvent());
+      }
+
+      @Override
+      public void onApiError(RpcApiError apiError) {
+        super.onApiError(apiError);
+        mContext.getGlobalComponent().getGlobalBus().post(new UserInfoChangedEvent(false));
       }
 
       @Override
@@ -310,5 +317,4 @@ public class LoginSession {
       return this;
     }
   }
-
 }

@@ -371,4 +371,16 @@
   <string name="activity_add_tags_title">贴标签</string>
   <string name="activity_add_tags_btn_add">添加</string>
   <string name="activity_add_tags_input_hint">请填写标签</string>
+
+  <!-- 会员认证 -->
+  <string name="activity_certify_title">会员认证</string>
+  <string name="activity_certify_label">上传身身份照照片证明身份</string>
+  <string name="activity_certify_description">身份认证能将提现金额限制降低到20元,并获得一个工作日的提现处理速度。</string>
+  <string name="activity_certify_add_id_card">上传身份证证明照片</string>
+  <string name="activity_certify_btn_submit">提交认证</string>
+  <string name="activity_certify_status_pass">认证通过</string>
+  <string name="activity_certify_status_failed">认证失败</string>
+  <string name="activity_certify_status_certifying">认证中...</string>
+  <string name="activity_certify_submit_success">提交认证成功</string>
+  <string name="activity_certify_submit_failed">提交认证失败</string>
 </resources>

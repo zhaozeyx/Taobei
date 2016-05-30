@@ -19,4 +19,12 @@ package com.hengrtec.taobei.manager;
  * @version [Taobei Client V20160411, 16/5/16]
  */
 public class UserInfoChangedEvent {
+  public boolean changeSuccess = true;
+
+  public UserInfoChangedEvent(boolean changeSuccess) {
+    this.changeSuccess = changeSuccess;
+  }
+
+  public UserInfoChangedEvent() {
+  }
 }

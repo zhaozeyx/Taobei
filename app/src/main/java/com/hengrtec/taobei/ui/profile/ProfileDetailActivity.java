@@ -94,6 +94,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         mAvatarChoosePresenter.showChooseAvatarDialog();
         break;
       case R.id.certify_setting:
+        startActivity(new Intent(this, CertifyActivity.class));
         break;
       case R.id.phone_setting:
         break;
@@ -146,6 +147,26 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     //    .src_avatar_default_drawer).into(mUserAvatarView);
     mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
     showUserLabel();
+    setCertifyStatus();
+  }
+
+  private void setCertifyStatus() {
+    String certified = getComponent().loginSession().getUserInfo().getCertified();
+    mCertifyValueView.setVisibility(View.VISIBLE);
+    switch (certified) {
+      case UserInfo.CERTIFY_STATUS_CERTIFY_FAILED:
+        mCertifyValueView.setText(R.string.activity_certify_status_failed);
+        break;
+      case UserInfo.CERTIFY_STATUS_CERTIFY_PASS:
+        mCertifyValueView.setText(R.string.activity_certify_status_pass);
+        break;
+      case UserInfo.CERTIFY_STATUS_CERTIFYING:
+        mCertifyValueView.setText(R.string.activity_certify_status_certifying);
+        break;
+      default:
+        mCertifyValueView.setVisibility(View.GONE);
+        break;
+    }
   }
 
   private void showUserLabel() {

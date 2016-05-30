@@ -25,6 +25,10 @@ public class UserInfo {
   public static final String USER_TYPE_THIRD = "1";
   public static final String USER_TYPE_PHONE = "0";
 
+  public static final String CERTIFY_STATUS_CERTIFY_FAILED = "0";
+  public static final String CERTIFY_STATUS_CERTIFY_PASS = "1";
+  public static final String CERTIFY_STATUS_CERTIFYING = "2";
+
   /**
    * avart :
    * birthPlace :

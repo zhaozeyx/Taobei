@@ -20,7 +20,7 @@ import com.hengrtec.taobei.net.rpc.service.params.WatchedListParams;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/5/26]
  */
-public class AllFragement extends BaseWatchedListFragment {
+public class AllFragment extends BaseWatchedListFragment {
   @Override
   protected int getListType() {
     return WatchedListParams.FLAG_ALL;

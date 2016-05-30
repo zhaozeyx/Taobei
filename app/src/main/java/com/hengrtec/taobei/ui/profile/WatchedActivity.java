@@ -116,13 +116,13 @@ public class WatchedActivity extends BasicTitleBarActivity {
       BaseWatchedListFragment fragment;
       switch (position) {
         case 0:
-          fragment = new AllFragement();
+          fragment = new AllFragment();
           break;
         case 1:
           fragment = new UnAcceptedFragment();
           break;
         default:
-          fragment = new AllFragement();
+          fragment = new AllFragment();
           break;
       }
       return fragment;
