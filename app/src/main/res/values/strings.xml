@@ -165,6 +165,8 @@
   <string name="fragment_profile_menu_watched">我看过的</string>
   <string name="fragment_profile_menu_comments">我的评论</string>
   <string name="fragment_profile_menu_friend_invite">邀请朋友</string>
+  <string name="fragment_profile_btn_coupon">我的卡券</string>
+  <string name="fragment_profile_btn_dream">心愿单</string>
 
   <!-- Profit -->
   <string name="fragment_profit_title">哔哔</string>
@@ -411,4 +413,16 @@
   <!-- 个人简介 -->
   <string name="activity_introduction_title">个人简介</string>
   <string name="activity_introduction_hint">这个人很懒,什么也没有留下</string>
+
+  <!-- 卡券 -->
+  <string name="activity_coupon_list_title">我的卡券</string>
+  <string name="activity_coupon_list_item_label_coupon">优惠券</string>
+  <string name="activity_coupon_list_item_label_discount">折扣券</string>
+  <string name="activity_coupon_list_item_vouchers">%d元</string>
+  <string name="activity_coupon_list_item_shop_name">“%s\u0020提供”</string>
+  <string name="activity_coupon_list_item_left_time">剩余1天</string>
+  <string name="activity_coupon_list_item_share_friend">共享给朋友</string>
+  <string name="activity_coupon_list_item_validity">有效期至: %s</string>
+  <string name="activity_coupon_list_item_shared_by">“%s”\u0020 共享</string>
+  <string name="activity_coupon_list_item_overdue">已过期</string>
 </resources>

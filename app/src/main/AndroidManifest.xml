@@ -234,6 +234,9 @@
         android:name=".ui.profile.IntroductionActivity"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="adjustPan|stateVisible"/>
+    <activity
+        android:name=".ui.profile.CouponListActivity"
+        android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

@@ -20,7 +20,7 @@ public class DateUtils {
    */
   @SuppressLint("SimpleDateFormat")
   public static final SimpleDateFormat TIME_FORMAT_BASE =
-      new SimpleDateFormat("yyyy.MM.dd HH:mm");
+      new SimpleDateFormat("yyyy.MM.dd");
 
   public static final String FORMAT_YEAR_MONTH = "yy-MM";
   public static final String FORMAT_YEAR_MONTH_DAY = "yyyy-MM-dd";
@@ -54,6 +54,10 @@ public class DateUtils {
   public static String getFormatDateTime(Date date, String format) {
     SimpleDateFormat sdf = new SimpleDateFormat(format);
     return sdf.format(date);
+  }
+
+  public static String getSimpleDateTime(long time) {
+    return TIME_FORMAT_BASE.format(new Date(time));
   }
 
   /**

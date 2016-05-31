@@ -13,7 +13,10 @@ package com.hengrtec.taobei.ui.profile;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -191,6 +194,25 @@ public class ProfileFragment extends BasicTitleBarFragment {
         break;
       case R.id.btn_bbj:
         startActivity(ProfitActivity.makeBBJIntent(getActivity()));
+        break;
+    }
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    // TODO: inflate a fragment view
+    View rootView = super.onCreateView(inflater, container, savedInstanceState);
+    ButterKnife.bind(this, rootView);
+    return rootView;
+  }
+
+  @OnClick({R.id.btn_coupon, R.id.btn_dream})
+  public void onBtnClick(View view) {
+    switch (view.getId()) {
+      case R.id.btn_coupon:
+        startActivity(new Intent(getActivity(), CouponListActivity.class));
+        break;
+      case R.id.btn_dream:
         break;
     }
   }

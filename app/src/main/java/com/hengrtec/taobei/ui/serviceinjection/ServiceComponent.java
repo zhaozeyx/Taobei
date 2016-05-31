@@ -39,6 +39,7 @@ import com.hengrtec.taobei.ui.profile.BaseWatchedListFragment;
 import com.hengrtec.taobei.ui.profile.ChartsActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.CommentListActivity;
+import com.hengrtec.taobei.ui.profile.CouponListActivity;
 import com.hengrtec.taobei.ui.profile.IdCardChoosePresenter;
 import com.hengrtec.taobei.ui.profile.MessageListActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
@@ -139,4 +140,6 @@ public interface ServiceComponent {
   void inject(BaseWatchedListFragment fragment);
 
   void inject(AddTagsActivity activity);
+
+  void inject(CouponListActivity couponListActivity);
 }
