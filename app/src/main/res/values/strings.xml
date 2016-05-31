@@ -407,4 +407,8 @@
   <!-- 昵称设置 -->
   <string name="activity_nick_name_title">昵称</string>
   <string name="activity_nick_name_title_bar_confirm">确认</string>
+
+  <!-- 个人简介 -->
+  <string name="activity_introduction_title">个人简介</string>
+  <string name="activity_introduction_hint">这个人很懒,什么也没有留下</string>
 </resources>

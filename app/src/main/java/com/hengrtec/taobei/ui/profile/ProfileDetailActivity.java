@@ -39,6 +39,7 @@ import rx.subscriptions.CompositeSubscription;
 public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private static final int REQUEST_CODE_NICK_NAME = 3;
+  private static final int REQUEST_CODE_NICK_INTRODUCTION = 4;
 
   @Bind(R.id.user_avatar_display)
   SimpleDraweeView mUserAvatarView;
@@ -107,6 +108,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         startActivityForResult(new Intent(this, NickNameActivity.class), REQUEST_CODE_NICK_NAME);
         break;
       case R.id.introduction_setting:
+        startActivityForResult(new Intent(this, IntroductionActivity.class), REQUEST_CODE_NICK_INTRODUCTION);
         break;
       case R.id.gender_setting:
         break;
@@ -145,6 +147,10 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         mSubscription.add(getComponent().loginSession().userInfoChangeBuilder()
             .setUserName(data.getStringExtra(NickNameActivity.RESULT_KEY_NICK_NAME)).update());
         return;
+      case REQUEST_CODE_NICK_INTRODUCTION:
+        mSubscription.add(getComponent().loginSession().userInfoChangeBuilder()
+            .setIntroduce(data.getStringExtra(IntroductionActivity.RESULT_KEY_INTRODUCTION)).update());
+        return;
     }
     mAvatarChoosePresenter.onActivityResult(requestCode, resultCode, data);
   }
@@ -159,6 +165,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     //    .src_avatar_default_drawer).into(mUserAvatarView);
     mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
     mNickNameValueView.setText(getUserInfo().getUserName());
+    mIntroductionValueView.setText(TextUtils.isEmpty(getUserInfo().getIntroduce()) ? getString(R.string.activity_introduction_hint) : getUserInfo().getIntroduce());
     showUserLabel();
     setCertifyStatus();
   }

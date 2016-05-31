@@ -44,9 +44,6 @@ public class NickNameActivity extends BasicTitleBarActivity {
     setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent();
-        intent.putExtra(RESULT_KEY_NICK_NAME, mNickNameInputView.getText().toString());
-        setResult(RESULT_OK, intent);
         onBackPressed();
       }
     });
@@ -60,6 +57,11 @@ public class NickNameActivity extends BasicTitleBarActivity {
     ButterKnife.bind(this);
   }
 
-  private void initView() {
+  @Override
+  public void onBackPressed() {
+    Intent intent = new Intent();
+    intent.putExtra(RESULT_KEY_NICK_NAME, mNickNameInputView.getText().toString());
+    setResult(RESULT_OK, intent);
+    super.onBackPressed();
   }
 }
