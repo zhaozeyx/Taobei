@@ -62,4 +62,9 @@
     <item>未领取红包</item>
   </array>
 
+  <array name="gender_items">
+    <item>男</item>
+    <item>女</item>
+  </array>
+
 </resources>

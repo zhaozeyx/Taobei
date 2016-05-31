@@ -11,9 +11,11 @@
  */
 package com.hengrtec.taobei.ui.profile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +74,9 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private UserInfo mUserInfo;
 
-  private CompositeSubscription mSubscription = new CompositeSubscription();
+  private CompositeSubscription mSubscriptions = new CompositeSubscription();
+
+  private AlertDialog mGenderChooseDialog;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -111,6 +115,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         startActivityForResult(new Intent(this, IntroductionActivity.class), REQUEST_CODE_NICK_INTRODUCTION);
         break;
       case R.id.gender_setting:
+        showGenderChooseDialog();
         break;
       case R.id.age_setting:
         break;
@@ -125,6 +130,22 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       case R.id.account_bind_setting:
         break;
     }
+  }
+
+  private void showGenderChooseDialog() {
+    if (null == mGenderChooseDialog) {
+      final String[] genderItems = getResources().getStringArray(R.array.gender_items);
+      mGenderChooseDialog = new AlertDialog.Builder(this).setItems(genderItems, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setGender(genderItems[which]).update());
+        }
+      }).create();
+    }
+    if (mGenderChooseDialog.isShowing()) {
+      return;
+    }
+    mGenderChooseDialog.show();
   }
 
   @Override
@@ -144,11 +165,11 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
       case REQUEST_CODE_NICK_NAME:
-        mSubscription.add(getComponent().loginSession().userInfoChangeBuilder()
+        mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder()
             .setUserName(data.getStringExtra(NickNameActivity.RESULT_KEY_NICK_NAME)).update());
         return;
       case REQUEST_CODE_NICK_INTRODUCTION:
-        mSubscription.add(getComponent().loginSession().userInfoChangeBuilder()
+        mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder()
             .setIntroduce(data.getStringExtra(IntroductionActivity.RESULT_KEY_INTRODUCTION)).update());
         return;
     }
@@ -166,6 +187,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
     mNickNameValueView.setText(getUserInfo().getUserName());
     mIntroductionValueView.setText(TextUtils.isEmpty(getUserInfo().getIntroduce()) ? getString(R.string.activity_introduction_hint) : getUserInfo().getIntroduce());
+    mGenderValueView.setText(getUserInfo().getGender());
     showUserLabel();
     setCertifyStatus();
   }
@@ -220,6 +242,6 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   protected void onDestroy() {
     super.onDestroy();
     mAvatarChoosePresenter.onDestroy();
-    mSubscription.unsubscribe();
+    mSubscriptions.unsubscribe();
   }
 }
