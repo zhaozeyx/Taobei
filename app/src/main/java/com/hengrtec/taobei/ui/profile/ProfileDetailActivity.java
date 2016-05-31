@@ -11,6 +11,7 @@
  */
 package com.hengrtec.taobei.ui.profile;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +31,7 @@ import com.hengrtec.taobei.manager.UserInfoChangedEvent;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.squareup.otto.Subscribe;
+import java.util.Calendar;
 import org.apmem.tools.layouts.FlowLayout;
 import rx.subscriptions.CompositeSubscription;
 
@@ -77,6 +80,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private CompositeSubscription mSubscriptions = new CompositeSubscription();
 
   private AlertDialog mGenderChooseDialog;
+  private DatePickerDialog mBirthdayChooseDialog;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -118,6 +122,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         showGenderChooseDialog();
         break;
       case R.id.age_setting:
+        showBirthChooseDialog();
         break;
       case R.id.city_setting:
         break;
@@ -188,8 +193,67 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     mNickNameValueView.setText(getUserInfo().getUserName());
     mIntroductionValueView.setText(TextUtils.isEmpty(getUserInfo().getIntroduce()) ? getString(R.string.activity_introduction_hint) : getUserInfo().getIntroduce());
     mGenderValueView.setText(getUserInfo().getGender());
+    mAgeValueView.setText(computeAge(getUserInfo().getBirthday()));
     showUserLabel();
     setCertifyStatus();
+  }
+
+  private String computeAge(String birthday) {
+    if (TextUtils.isEmpty(birthday)) {
+      return "";
+    }
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(System.currentTimeMillis());
+
+    Calendar calendar1 = Calendar.getInstance();
+    String[] date = birthday.split("-");
+    calendar1.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+
+    return String.valueOf(calendar.get(Calendar.YEAR) - calendar1.get(Calendar.YEAR));
+  }
+
+  private void showBirthChooseDialog() {
+    if (null == mBirthdayChooseDialog) {
+      String birthday = getUserInfo().getBirthday();
+      String[] birthDate = !TextUtils.isEmpty(birthday) ? birthday.split("-") : null;
+      Calendar today = Calendar.getInstance();
+      int year = today.get(Calendar.YEAR);
+      int month = today.get(Calendar.MONTH);
+      int day = today.get(Calendar.DAY_OF_MONTH);
+      if (null != birthDate) {
+        year = birthDate.length > 0 && !TextUtils.isEmpty(birthDate[0]) ? Integer.parseInt(birthDate[0]) : year;
+        month = birthDate.length > 1 && !TextUtils.isEmpty(birthDate[1]) ? Integer.parseInt(birthDate[1]) : month;
+        day = birthDate.length > 2 && !TextUtils.isEmpty(birthDate[2]) ? Integer.parseInt(birthDate[2]) : day;
+      }
+
+      mBirthdayChooseDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthday(year + "-" + monthOfYear + "-" + dayOfMonth).update());
+          mBirthdayChooseDialog = null;
+        }
+      }, year, month, day);
+      mBirthdayChooseDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialog) {
+          mBirthdayChooseDialog = null;
+        }
+      });
+      mBirthdayChooseDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+          mBirthdayChooseDialog = null;
+        }
+      });
+      mBirthdayChooseDialog.getDatePicker().setMaxDate(today.getTimeInMillis());
+      Calendar maxDay = Calendar.getInstance();
+      maxDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 100);
+      mBirthdayChooseDialog.getDatePicker().setMinDate(maxDay.getTimeInMillis());
+    }
+    if (mBirthdayChooseDialog.isShowing()) {
+      return;
+    }
+    mBirthdayChooseDialog.show();
   }
 
   private void setCertifyStatus() {
