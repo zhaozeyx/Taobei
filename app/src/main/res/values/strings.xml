@@ -425,4 +425,10 @@
   <string name="activity_coupon_list_item_validity">有效期至: %s</string>
   <string name="activity_coupon_list_item_shared_by">“%s”\u0020 共享</string>
   <string name="activity_coupon_list_item_overdue">已过期</string>
+
+  <!-- 所在城市 -->
+  <string name="activity_residence_choose_title">所在城市</string>
+
+  <!-- 出生地 -->
+  <string name="activity_birthplace_choose_title">出生地</string>
 </resources>

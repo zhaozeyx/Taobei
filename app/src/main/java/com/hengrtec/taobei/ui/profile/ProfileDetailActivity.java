@@ -81,6 +81,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private AlertDialog mGenderChooseDialog;
   private DatePickerDialog mBirthdayChooseDialog;
+  private AlertDialog mBirthplaceChooseDialog;
+  private AlertDialog mResidenceChooseDialog;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -125,8 +127,10 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         showBirthChooseDialog();
         break;
       case R.id.city_setting:
+        showResidenceChooseDialog();
         break;
       case R.id.birthplace_setting:
+        showBirthplaceChooseDialog();
         break;
       case R.id.profession_setting:
         break;
@@ -194,6 +198,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     mIntroductionValueView.setText(TextUtils.isEmpty(getUserInfo().getIntroduce()) ? getString(R.string.activity_introduction_hint) : getUserInfo().getIntroduce());
     mGenderValueView.setText(getUserInfo().getGender());
     mAgeValueView.setText(computeAge(getUserInfo().getBirthday()));
+    mBirthplaceValueView.setText(getUserInfo().getBirthPlace());
+    mCityValueView.setText(getUserInfo().getMyCity());
     showUserLabel();
     setCertifyStatus();
   }
@@ -254,6 +260,50 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       return;
     }
     mBirthdayChooseDialog.show();
+  }
+
+  private void showBirthplaceChooseDialog() {
+    if (null == mBirthplaceChooseDialog) {
+      final AddressChooseDialog view = new AddressChooseDialog(this);
+      mBirthplaceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthPlace(view.getSelectAddress()).update());
+          mBirthdayChooseDialog.cancel();
+        }
+      }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mBirthplaceChooseDialog.cancel();
+        }
+      }).setView(view).create();
+    }
+    if (mBirthplaceChooseDialog.isShowing()) {
+      return;
+    }
+    mBirthplaceChooseDialog.show();
+  }
+
+  private void showResidenceChooseDialog() {
+    if (null == mResidenceChooseDialog) {
+      final AddressChooseDialog view = new AddressChooseDialog(this);
+      mResidenceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setMyCity(view.getSelectAddress()).update());
+          mResidenceChooseDialog.cancel();
+        }
+      }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mResidenceChooseDialog.cancel();
+        }
+      }).setView(view).create();
+    }
+    if (mResidenceChooseDialog.isShowing()) {
+      return;
+    }
+    mResidenceChooseDialog.show();
   }
 
   private void setCertifyStatus() {
