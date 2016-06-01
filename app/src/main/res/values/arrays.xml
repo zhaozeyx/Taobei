@@ -67,4 +67,14 @@
     <item>女</item>
   </array>
 
+  <array name="education_items">
+    <item>托儿所</item>
+    <item>幼儿园</item>
+    <item>小学</item>
+    <item>初中</item>
+    <item>高中</item>
+    <item>大专</item>
+    <item>大学</item>
+    <item>研究生</item>
+  </array>
 </resources>

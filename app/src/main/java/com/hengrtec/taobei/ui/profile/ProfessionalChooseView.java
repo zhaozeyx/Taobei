@@ -22,9 +22,12 @@ import butterknife.ButterKnife;
 import com.aigestudio.wheelpicker.core.AbstractWheelPicker;
 import com.aigestudio.wheelpicker.view.WheelStraightPicker;
 import com.hengrtec.taobei.R;
-import com.hengrtec.taobei.utils.AddressUtils;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * [一句话功能简述]<BR>
@@ -33,32 +36,40 @@ import java.util.List;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/6/1]
  */
-public class AddressChooseDialog extends FrameLayout {
+public class ProfessionalChooseView extends FrameLayout {
 
-  @Bind(R.id.province_picker)
-  WheelStraightPicker mProvincePicker;
-  @Bind(R.id.city_picker)
-  WheelStraightPicker mCityPicker;
+  @Bind(R.id.main_picker)
+  WheelStraightPicker mMainPicker;
+  @Bind(R.id.sub_picker)
+  WheelStraightPicker mSubPicker;
 
-  private String mSelectedProvince;
-  private String mSelectedCity;
-  private List<AddressUtils.AddressModel> mAddressModelList;
+  private String mSelectedMain;
+  private String mSelectedSub;
 
-  protected AddressChooseDialog(Context context) {
+  protected ProfessionalChooseView(Context context) {
     super(context);
     initView();
   }
 
   private void initView() {
-    View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_address_choose, null);
+    View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_professional_choose, null);
     ButterKnife.bind(this, view);
-    mAddressModelList = AddressUtils.getAddress(getContext());
-    List<String> provinceList = new ArrayList<>();
-    for (AddressUtils.AddressModel model : mAddressModelList) {
-      provinceList.add(model.getName());
+    final HashMap<String, List<String>> professionData = new HashMap<>();
+    for (int i = 0; i < 30; i++) {
+      List<String> subList = new ArrayList<>();
+      for (int j = 0; j < new Random().nextInt(20); j++) {
+        subList.add("sub" + j);
+      }
+      professionData.put("professional" + i, subList);
     }
-    mProvincePicker.setData(provinceList);
-    mProvincePicker.setOnWheelChangeListener(new AbstractWheelPicker.OnWheelChangeListener() {
+    List<String> list = new ArrayList<>();
+    Iterator<Map.Entry<String, List<String>>> iterator = professionData.entrySet().iterator();
+    while (iterator.hasNext()) {
+      Map.Entry<String, List<String>> entry = iterator.next();
+      list.add(entry.getKey());
+    }
+    mMainPicker.setData(list);
+    mMainPicker.setOnWheelChangeListener(new AbstractWheelPicker.OnWheelChangeListener() {
       @Override
       public void onWheelScrolling(float deltaX, float deltaY) {
 
@@ -66,8 +77,8 @@ public class AddressChooseDialog extends FrameLayout {
 
       @Override
       public void onWheelSelected(int index, String data) {
-        mSelectedProvince = data;
-        swapCityList(index);
+        mSelectedMain = data;
+        mSubPicker.setData(professionData.get(data));
       }
 
       @Override
@@ -75,7 +86,7 @@ public class AddressChooseDialog extends FrameLayout {
 
       }
     });
-    mCityPicker.setOnWheelChangeListener(new AbstractWheelPicker.OnWheelChangeListener() {
+    mSubPicker.setOnWheelChangeListener(new AbstractWheelPicker.OnWheelChangeListener() {
       @Override
       public void onWheelScrolling(float deltaX, float deltaY) {
 
@@ -83,7 +94,7 @@ public class AddressChooseDialog extends FrameLayout {
 
       @Override
       public void onWheelSelected(int index, String data) {
-        mSelectedCity = data;
+        mSelectedSub = data;
       }
 
       @Override
@@ -94,17 +105,8 @@ public class AddressChooseDialog extends FrameLayout {
     addView(view, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
   }
 
-  private void swapCityList(int provinceIndex) {
-    List<String> cityList = new ArrayList<>();
-    List<AddressUtils.AddressModel.CityBean> cityBeanList = mAddressModelList.get(provinceIndex).getCity();
-    for (AddressUtils.AddressModel.CityBean bean : cityBeanList) {
-      cityList.add(bean.getName());
-    }
-    mCityPicker.setData(cityList);
-  }
-
-  public String getSelectAddress() {
-    return mSelectedProvince + mSelectedCity;
+  public String getSelectData() {
+    return mSelectedMain + mSelectedSub;
   }
 
 }

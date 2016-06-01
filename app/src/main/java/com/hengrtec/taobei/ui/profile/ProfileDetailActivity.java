@@ -83,6 +83,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private DatePickerDialog mBirthdayChooseDialog;
   private AlertDialog mBirthplaceChooseDialog;
   private AlertDialog mResidenceChooseDialog;
+  private AlertDialog mProfessionalChooseDialog;
+  private AlertDialog mEducationChooseDialog;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -133,8 +135,10 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         showBirthplaceChooseDialog();
         break;
       case R.id.profession_setting:
+        showProfessionalChooseDialog();
         break;
       case R.id.education_setting:
+        showEducationChooseDialog();
         break;
       case R.id.account_bind_setting:
         break;
@@ -155,6 +159,22 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       return;
     }
     mGenderChooseDialog.show();
+  }
+
+  private void showEducationChooseDialog() {
+    if (null == mEducationChooseDialog) {
+      final String[] educationItems = getResources().getStringArray(R.array.education_items);
+      mEducationChooseDialog = new AlertDialog.Builder(this).setItems(educationItems, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setEducation(educationItems[which]).update());
+        }
+      }).create();
+    }
+    if (mEducationChooseDialog.isShowing()) {
+      return;
+    }
+    mEducationChooseDialog.show();
   }
 
   @Override
@@ -200,6 +220,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     mAgeValueView.setText(computeAge(getUserInfo().getBirthday()));
     mBirthplaceValueView.setText(getUserInfo().getBirthPlace());
     mCityValueView.setText(getUserInfo().getMyCity());
+    mProfessionValueView.setText(getUserInfo().getOccupation());
+    mEducationValueView.setText(getUserInfo().getEducation());
     showUserLabel();
     setCertifyStatus();
   }
@@ -264,7 +286,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private void showBirthplaceChooseDialog() {
     if (null == mBirthplaceChooseDialog) {
-      final AddressChooseDialog view = new AddressChooseDialog(this);
+      final AddressChooseView view = new AddressChooseView(this);
       mBirthplaceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -286,7 +308,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private void showResidenceChooseDialog() {
     if (null == mResidenceChooseDialog) {
-      final AddressChooseDialog view = new AddressChooseDialog(this);
+      final AddressChooseView view = new AddressChooseView(this);
       mResidenceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -304,6 +326,28 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       return;
     }
     mResidenceChooseDialog.show();
+  }
+
+  private void showProfessionalChooseDialog() {
+    if (null == mProfessionalChooseDialog) {
+      final ProfessionalChooseView view = new ProfessionalChooseView(this);
+      mProfessionalChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setOccupation(view.getSelectData()).update());
+          mProfessionalChooseDialog.cancel();
+        }
+      }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          mProfessionalChooseDialog.cancel();
+        }
+      }).setView(view).create();
+    }
+    if (mProfessionalChooseDialog.isShowing()) {
+      return;
+    }
+    mProfessionalChooseDialog.show();
   }
 
   private void setCertifyStatus() {
