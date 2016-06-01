@@ -216,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableLeft="@mipmap/icon_profile_coupon"
+            android:drawableLeft="@mipmap/icon_profile_dream"
             android:drawablePadding="@dimen/margin_small"
             android:gravity="center"
             android:text="@string/fragment_profile_btn_dream"

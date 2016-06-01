@@ -237,6 +237,9 @@
     <activity
         android:name=".ui.profile.CouponListActivity"
         android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.CouponDetailActivity"
+        android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

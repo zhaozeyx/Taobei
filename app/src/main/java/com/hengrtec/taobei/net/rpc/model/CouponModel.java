@@ -11,6 +11,9 @@
  */
 package com.hengrtec.taobei.net.rpc.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * [一句话功能简述]<BR>
  * [功能详细描述]
@@ -18,7 +21,7 @@ package com.hengrtec.taobei.net.rpc.model;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/5/31]
  */
-public class CouponModel {
+public class CouponModel implements Parcelable{
   public static final String EXPIRED_NORMAL = "0";
   public static final String EXPIRED_OVERDUE = "1";
   public static final String TYPE_COUPON = "0";
@@ -49,7 +52,7 @@ public class CouponModel {
   private String sellerAddress;
   private String sellerContact;
   private String sellerName;
-  private String startTime;
+  private long startTime;
   private String type;
   private String usageDesc;
   private String used;
@@ -127,11 +130,11 @@ public class CouponModel {
     this.sellerName = sellerName;
   }
 
-  public String getStartTime() {
+  public long getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(String startTime) {
+  public void setStartTime(long startTime) {
     this.startTime = startTime;
   }
 
@@ -166,4 +169,59 @@ public class CouponModel {
   public void setExpired(String expired) {
     this.expired = expired;
   }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.couponCode);
+    dest.writeString(this.couponDesc);
+    dest.writeInt(this.couponId);
+    dest.writeString(this.couponName);
+    dest.writeLong(this.endTime);
+    dest.writeString(this.img);
+    dest.writeString(this.sellerAddress);
+    dest.writeString(this.sellerContact);
+    dest.writeString(this.sellerName);
+    dest.writeLong(this.startTime);
+    dest.writeString(this.type);
+    dest.writeString(this.usageDesc);
+    dest.writeString(this.used);
+    dest.writeString(this.expired);
+  }
+
+  public CouponModel() {
+  }
+
+  protected CouponModel(Parcel in) {
+    this.couponCode = in.readString();
+    this.couponDesc = in.readString();
+    this.couponId = in.readInt();
+    this.couponName = in.readString();
+    this.endTime = in.readLong();
+    this.img = in.readString();
+    this.sellerAddress = in.readString();
+    this.sellerContact = in.readString();
+    this.sellerName = in.readString();
+    this.startTime = in.readLong();
+    this.type = in.readString();
+    this.usageDesc = in.readString();
+    this.used = in.readString();
+    this.expired = in.readString();
+  }
+
+  public static final Creator<CouponModel> CREATOR = new Creator<CouponModel>() {
+    @Override
+    public CouponModel createFromParcel(Parcel source) {
+      return new CouponModel(source);
+    }
+
+    @Override
+    public CouponModel[] newArray(int size) {
+      return new CouponModel[size];
+    }
+  };
 }

@@ -94,7 +94,8 @@ public class CouponListActivity extends BasicTitleBarActivity {
   }
 
   private void loadData() {
-    manageRpcCall(mUserService.couponList(new CouponListParams(getComponent().loginSession().getUserId(), Integer.MAX_VALUE)),
+    manageRpcCall(mUserService.couponList(new CouponListParams(getComponent().loginSession()
+            .getUserId(), Integer.MAX_VALUE)),
         new UiRpcSubscriber<List<CouponModel>>(this) {
           @Override
           protected void onSuccess(List<CouponModel> couponModels) {
@@ -128,27 +129,34 @@ public class CouponListActivity extends BasicTitleBarActivity {
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
       View view;
       if (viewType == ItemType.NORMAL.ordinal()) {
-        view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_coupon_list_normal, parent, false);
+        view = LayoutInflater.from(getApplicationContext()).inflate(R.layout
+            .activity_coupon_list_normal, parent, false);
       } else {
-        view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_coupon_list_overdue, parent, false);
+        view = LayoutInflater.from(getApplicationContext()).inflate(R.layout
+            .activity_coupon_list_overdue, parent, false);
       }
       return new ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-      CouponModel model = mData.get(position);
+      final CouponModel model = mData.get(position);
       if (getItemViewType(position) == ItemType.OVERDUE.ordinal()) {
-        ImageLoader.loadOptimizedHttpImage(getApplicationContext(), NetConstant.BASE_URL_LOCATION + model.getImg()).placeholder(R.mipmap.icon_shop_logo_default)
-            .bitmapTransform(new GrayscaleTransformation(getApplicationContext())).into(holder.mLogoView);
+        ImageLoader.loadOptimizedHttpImage(getApplicationContext(), NetConstant.BASE_URL_LOCATION
+            + model.getImg()).placeholder(R.mipmap.icon_shop_logo_default)
+            .bitmapTransform(new GrayscaleTransformation(getApplicationContext())).into(holder
+            .mLogoView);
       } else {
-        ImageLoader.loadOptimizedHttpImage(getApplicationContext(), NetConstant.BASE_URL_LOCATION + model.getImg()).placeholder(R.mipmap.icon_shop_logo_default)
+        ImageLoader.loadOptimizedHttpImage(getApplicationContext(), NetConstant.BASE_URL_LOCATION
+            + model.getImg()).placeholder(R.mipmap.icon_shop_logo_default)
             .into(holder.mLogoView);
       }
-      holder.mShopNameView.setText(getResources().getString(R.string.activity_coupon_list_item_shop_name, model.getSellerName()));
+      holder.mShopNameView.setText(getResources().getString(R.string
+          .activity_coupon_list_item_shop_name, model.getSellerName()));
       setStatus(holder.mStatusView, model);
       holder.mShareInfoView.setVisibility(View.GONE);
-      holder.mValidityView.setText(getString(R.string.activity_coupon_list_item_validity, DateUtils.getSimpleDateTime(model.getEndTime())));
+      holder.mValidityView.setText(getString(R.string.activity_coupon_list_item_validity,
+          DateUtils.getSimpleDateTime(model.getEndTime())));
       switch (model.getType()) {
         case CouponModel.TYPE_COUPON:
           holder.type.setText(model.getCouponName());
@@ -159,6 +167,13 @@ public class CouponListActivity extends BasicTitleBarActivity {
           holder.mCouponValueView.setText(model.getCouponDesc());
           break;
       }
+
+      holder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          startActivity(CouponDetailActivity.makeIntent(CouponListActivity.this, model));
+        }
+      });
     }
 
     private void setStatus(TextView view, CouponModel model) {

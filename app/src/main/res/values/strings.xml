@@ -419,7 +419,7 @@
   <string name="activity_coupon_list_item_label_coupon">优惠券</string>
   <string name="activity_coupon_list_item_label_discount">折扣券</string>
   <string name="activity_coupon_list_item_vouchers">%d元</string>
-  <string name="activity_coupon_list_item_shop_name">“%s\u0020提供”</string>
+  <string name="activity_coupon_list_item_shop_name">“%s“\u0020提供</string>
   <string name="activity_coupon_list_item_left_time">剩余1天</string>
   <string name="activity_coupon_list_item_share_friend">共享给朋友</string>
   <string name="activity_coupon_list_item_validity">有效期至: %s</string>
@@ -431,4 +431,16 @@
 
   <!-- 出生地 -->
   <string name="activity_birthplace_choose_title">出生地</string>
+
+  <!-- 优惠券详情 -->
+  <string name="activity_coupon_detail_title">详情</string>
+  <string name="activity_coupon_label_congratulations">恭喜你!%s</string>
+  <string name="activity_coupon_info_coupon">获得优惠券\n每张价值%s</string>
+  <string name="activity_coupon_info_discount">获得优惠券\n每张%s</string>
+  <string name="activity_coupon_info_shop">有效期:\u0020 %1$s--%2$s\n此优惠券由商家“%3$s”\u0020提供</string>
+  <string name="activity_coupon_desc">·将优惠券共享给好友,当好友拿着共享优惠券去消费时,你将获得现金红包奖励。\n
+  ·使用时请向商家出示下方二维码或优惠代码。</string>
+  <string name="activity_coupon_qr_code">二维码</string>
+  <string name="activity_coupon_code">优惠代码</string>
+  <string name="activity_coupon_share_desc">有福同享才算朋友。\n共享优惠券,和朋友们一起来享受优惠。</string>
 </resources>
