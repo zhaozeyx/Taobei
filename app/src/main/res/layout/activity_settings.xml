@@ -24,7 +24,7 @@
           >
 
         <RelativeLayout
-            android:id="@+id/setting_qingchuhuancun"
+            android:id="@+id/account_safe"
             android:layout_width="match_parent"
             android:layout_height="55dp"
 
@@ -242,9 +242,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
 
           <TextView
@@ -281,13 +281,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:background="#DEE2E3"
+            android:visibility="gone"
             />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
 
           <TextView
@@ -324,9 +325,10 @@
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:background="#DEE2E3"
+            android:visibility="gone"
             />
         <RelativeLayout
-
+            android:id="@+id/clear_cache"
             android:layout_width="match_parent"
             android:layout_height="55dp"
 
@@ -345,6 +347,7 @@
               />
 
           <TextView
+              android:id="@+id/cache"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"

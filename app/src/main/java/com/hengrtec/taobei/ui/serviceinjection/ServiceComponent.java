@@ -25,6 +25,7 @@ import com.hengrtec.taobei.ui.home.BaseSysQuestionActivity;
 import com.hengrtec.taobei.ui.home.DetailSysQuestionActivity;
 import com.hengrtec.taobei.ui.home.ReportActivity;
 import com.hengrtec.taobei.ui.home.ReportSysQuestionActivity;
+import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.login.LoginWithPasswordFragment;
 import com.hengrtec.taobei.ui.login.LoginWithVerifyCodeFragment;
 import com.hengrtec.taobei.ui.login.PasswordSetActivity;
@@ -142,4 +143,5 @@ public interface ServiceComponent {
   void inject(AddTagsActivity activity);
 
   void inject(CouponListActivity couponListActivity);
+  void inject(LoginWayActivity activity);
 }

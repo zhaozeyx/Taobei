@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,7 +22,7 @@ public class MyAccountSafeActivity extends BasicTitleBarActivity {
   @Bind(R.id.textView) TextView textView;
   @Bind(R.id.iv_level) ImageView ivLevel;
   @Bind(R.id.textView2) TextView textView2;
-  @Bind(R.id.setting_qingchuhuancun) RelativeLayout settingQingchuhuancun;
+
   @Bind(R.id.tv_phone) TextView tvPhone;
   @Bind(R.id.tv_login_psd) TextView tvLoginPsd;
   @Bind(R.id.tv_pay_psw) TextView tvPayPsw;
@@ -43,13 +42,12 @@ public class MyAccountSafeActivity extends BasicTitleBarActivity {
   }
 
   @OnClick({
-      R.id.iv_level, R.id.setting_qingchuhuancun, R.id.tv_phone, R.id.tv_login_psd, R.id.tv_pay_psw
+      R.id.iv_level, R.id.tv_phone, R.id.tv_login_psd, R.id.tv_pay_psw
   }) public void onClick(View view) {
     switch (view.getId()) {
       case R.id.iv_level:
         break;
-      case R.id.setting_qingchuhuancun:
-        break;
+
       case R.id.tv_phone:
         startActivity(new Intent(MyAccountSafeActivity.this, ResetPhoneActivity.class));
         break;

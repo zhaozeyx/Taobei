@@ -21,6 +21,7 @@ import com.hengrtec.taobei.net.rpc.service.params.LoginWithVerifyCodeParams;
 import com.hengrtec.taobei.net.rpc.service.params.PayPswParams;
 import com.hengrtec.taobei.net.rpc.service.params.PayRetPswParams;
 import com.hengrtec.taobei.net.rpc.service.params.RegisterParams;
+import com.hengrtec.taobei.net.rpc.service.params.ThirdLoginParams;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -57,4 +58,6 @@ public interface AuthService {
   @POST("getUserInfoById.do")
   Observable<Response<ResponseModel<UserInfo>>> getUserInfo(@Body GetUserInfoParams params);
 
+  @POST("thirdlogin.do") Observable<Response<ResponseModel<UserInfo>>> thirdLogin(@Body
+  ThirdLoginParams params);
 }

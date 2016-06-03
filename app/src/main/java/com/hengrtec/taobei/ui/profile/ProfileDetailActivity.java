@@ -291,7 +291,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
           mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthPlace(view.getSelectAddress()).update());
-          mBirthdayChooseDialog.cancel();
+          mBirthplaceChooseDialog.cancel();
         }
       }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
         @Override

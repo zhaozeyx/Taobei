@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.wechat.moments.WechatMoments;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -40,18 +47,12 @@ import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
 import com.hengrtec.taobei.ui.basic.widget.BarChartView;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
-
+import com.hengrtec.taobei.utils.ShareUtils;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.Hashtable;
-
 import javax.inject.Inject;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * 收益界面<BR>
@@ -217,29 +218,61 @@ public class ProfitFragment extends BasicTitleBarFragment {
             } catch (Exception e) {
             }
         }
-        showShare();
+        ShareUtils.showShareWechatMoments(getActivity(),Environment.getExternalStorageDirectory().getPath()+File.separator+"bb.png",null);
     }
 
     private void showShare() {
         ShareSDK.initSDK(getActivity());
-        OnekeyShare oks = new OnekeyShare();
-        //关闭sso授权
-        oks.disableSSOWhenAuthorize();
+        WechatMoments.ShareParams sp = new WechatMoments.ShareParams();
+        sp.setTitle("测试的标题");
+        sp.setTitleUrl("http://sharesdk.cn"); // 标题的超链接
+        sp.setText("测试的文本");
+        //                Log.e("==", ""+childfile.getPath());
+        //                        sp.setImagePath(childfile.getPath());
+        //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        //                        sp.setImageData(bm);
+        //sp.setImageUrl("http://www.baidu.com/img/bdlogo.gif");
+        sp.setImagePath(Environment.getExternalStorageDirectory().getPath()+File.separator+"bb.png");
+        sp.setSite("呵呵");
+        sp.setSiteUrl("http://www.baidu.com");
+        Platform qzone = ShareSDK.getPlatform (getActivity(), WechatMoments.NAME);
 
-// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
-        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
-        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-        oks.setTitle(getString(R.string.share));
-        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-//        oks.setTitleUrl("http://sharesdk.cn");
-        // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImagePath(Environment.getExternalStorageDirectory().getPath()+File.separator+"bb.png");//确保SDcard下面存在此张图片
+        qzone. setPlatformActionListener (new  PlatformActionListener() {
 
+            @Override
+            public void onError(Platform arg0, int arg1, Throwable arg2) {
+                Log.e("share", "onError");
+            }
+            @Override
+            public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+                Log.e("share", "onComplete");
+            }
+            @Override
+            public void onCancel(Platform arg0, int arg1) {
+                Log.e("share", "onCancel");
+            }
+        }); // 设置分享事件回调
+        // 执行图文分享
+        qzone.share(sp);
 
-// 启动分享GUI
-        oks.show(getActivity());
+//        OnekeyShare oks = new OnekeyShare();
+//        //关闭sso授权
+//        oks.disableSSOWhenAuthorize();
+//
+//// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+//        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+//        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+//        oks.setTitle(getString(R.string.share));
+//        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+////        oks.setTitleUrl("http://sharesdk.cn");
+//        // text是分享文本，所有平台都需要这个字段
+//        oks.setText("我是分享文本");
+//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//        oks.setImagePath(Environment.getExternalStorageDirectory().getPath()+File.separator+"bb.png");//确保SDcard下面存在此张图片
+//
+//
+//// 启动分享GUI
+//        oks.show(getActivity());
     }
 
     public Bitmap createViewBitmap(View v) {

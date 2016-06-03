@@ -57,37 +57,33 @@ public class MainTabActivity extends BaseTabActivity {
   private RelativeLayout mDrawerContainer;
   private DrawerLayoutController mDrawerController;
 
-  @Override
-  protected void onCreate(Bundle savedInstance) {
+  @Override protected void onCreate(Bundle savedInstance) {
     super.onCreate(savedInstance);
     initDrawerContainer();
   }
 
-  @Override
-  public int getLayoutId() {
+  @Override public int getLayoutId() {
     return R.layout.main_tab;
   }
 
-  @Override
-  protected Class[] getContentClazzes() {
-    return new Class[]{HomeFragment.class, ProfitFragment.class, NearbyFragment.class,
-        ProfileFragment.class};
+  @Override protected Class[] getContentClazzes() {
+    return new Class[] {
+        HomeFragment.class, ProfitFragment.class, NearbyFragment.class, ProfileFragment.class
+    };
   }
 
-  @Override
-  protected String[] getTabTitles() {
+  @Override protected String[] getTabTitles() {
     return getResources().getStringArray(R.array.main_tab_titles);
   }
 
-  @Override
-  protected int[] getTabIcons() {
-    return new int[]{R.drawable.icon_tab_home, R.drawable.icon_tab_profit, R.drawable
-        .icon_tab_nearby,
-        R.drawable.icon_tab_profile};
+  @Override protected int[] getTabIcons() {
+    return new int[] {
+        R.drawable.icon_tab_home, R.drawable.icon_tab_profit, R.drawable.icon_tab_nearby,
+        R.drawable.icon_tab_profile
+    };
   }
 
-  @Subscribe
-  public void onTitleBarAvatarClicked(UserAvatarClickedEvent event) {
+  @Subscribe public void onTitleBarAvatarClicked(UserAvatarClickedEvent event) {
     mDrawerLayout.openDrawer(Gravity.LEFT);
   }
 
@@ -98,14 +94,12 @@ public class MainTabActivity extends BaseTabActivity {
     mDrawerController.bindData();
   }
 
-  @Override
-  protected void onLogin() {
+  @Override protected void onLogin() {
     super.onLogin();
     mDrawerController.bindData();
   }
 
-  @Override
-  protected void onLogout() {
+  @Override protected void onLogout() {
     super.onLogout();
     mDrawerController.bindData();
     finish();
@@ -166,15 +160,14 @@ public class MainTabActivity extends BaseTabActivity {
     }
 
     private void bindData() {
-      LoginSession session = ((CustomApp) mContext.getApplicationContext()).getGlobalComponent()
-          .loginSession();
+      LoginSession session =
+          ((CustomApp) mContext.getApplicationContext()).getGlobalComponent().loginSession();
       UserInfo info = session.getUserInfo();
       if (TextUtils.isEmpty(info.getType())) {
         mUserNamView.setText(R.string.drawer_name_un_login);
         mSignInView.setEnabled(false);
         mUserNamView.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
+          @Override public void onClick(View view) {
             mContext.startActivity(new Intent(mContext, LoginWayActivity.class));
           }
         });
@@ -189,8 +182,7 @@ public class MainTabActivity extends BaseTabActivity {
           default:
             mUserNamView.setText(R.string.drawer_name_un_login);
             mUserNamView.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
+              @Override public void onClick(View view) {
                 mContext.startActivity(new Intent(mContext, LoginWayActivity.class));
               }
             });
@@ -201,28 +193,28 @@ public class MainTabActivity extends BaseTabActivity {
       if (info.getMoney() <= 0) {
         mTotalProfitView.setText(R.string.drawer_total_profit_un_login);
       } else {
-        Link link = new Link(mContext.getString(R.string.drawer_total_profit_withdraw))
-            .setTextColor(mContext.getResources().getColor(R.color.font_color_yellow))
-            .setOnClickListener(new Link.OnClickListener() {
+        Link link =
+            new Link(mContext.getString(R.string.drawer_total_profit_withdraw)).setTextColor(
+                mContext.getResources().getColor(R.color.font_color_yellow))
+                .setOnClickListener(new Link.OnClickListener() {
 
-
-              @Override
-              public void onClick(String clickedText) {
-                // 跳转到提现界面
-              }
-            });
-        LinkBuilder.on(mTotalProfitView).addLink(link).setText(mContext.getString(R.string
-            .drawer_total_profit_login) + " " + mContext.getString(R.string
-            .drawer_total_profit_withdraw)).build();
+                  @Override public void onClick(String clickedText) {
+                    // 跳转到提现界面
+                  }
+                });
+        LinkBuilder.on(mTotalProfitView)
+            .addLink(link)
+            .setText(
+                mContext.getString(R.string.drawer_total_profit_login) + " " + mContext.getString(
+                    R.string.drawer_total_profit_withdraw))
+            .build();
       }
       //ImageLoader.loadOptimizedHttpImage(mContext, info.getAvart()).placeholder(R.mipmap
       //    .src_avatar_default_drawer).into(mUserAvatarView);
       mUserAvatarView.setImageURI(Uri.parse(info.getAvart()));
     }
 
-
-    @Override
-    public void onClick(View view) {
+    @Override public void onClick(View view) {
       switch (view.getId()) {
         case R.id.sign_in:
           showSignInDialog();
@@ -257,7 +249,7 @@ public class MainTabActivity extends BaseTabActivity {
       //关闭sso授权
       oks.disableSSOWhenAuthorize();
 
-// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+      // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
       //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
       // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
       oks.setTitle(getString(R.string.share));
@@ -276,7 +268,7 @@ public class MainTabActivity extends BaseTabActivity {
       // siteUrl是分享此内容的网站地址，仅在QQ空间使用
       oks.setSiteUrl("http://sharesdk.cn");
 
-// 启动分享GUI
+      // 启动分享GUI
       oks.show(MainTabActivity.this);
     }
 
@@ -285,15 +277,12 @@ public class MainTabActivity extends BaseTabActivity {
     }
   }
 
-  @Subscribe
-  public void onUserInfoChanged(UserInfoChangedEvent event) {
+  @Subscribe public void onUserInfoChanged(UserInfoChangedEvent event) {
     mDrawerController.bindData();
   }
 
-  @Override
-  protected void onDestroy() {
+  @Override protected void onDestroy() {
     super.onDestroy();
     getComponent().loginSession().onDestroy();
   }
-
 }
