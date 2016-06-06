@@ -77,8 +77,8 @@ public class LoginSession {
 
   public void login(UserInfo userInfo) {
     saveUserInfo(userInfo);
-    mContext.getGlobalComponent().getGlobalBus().post(new LoginEvent());
     onLoginStatusChanged();
+    mContext.getGlobalComponent().getGlobalBus().post(new LoginEvent());
   }
 
   public Subscription loadUserInfo() {

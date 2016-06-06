@@ -35,6 +35,7 @@ import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.injection.GlobalModule;
+import com.hengrtec.taobei.net.RpcApiError;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.Question;
@@ -43,6 +44,7 @@ import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
+import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
@@ -237,34 +239,31 @@ public class AdvQuestionListActivity extends BasicTitleBarActivity {
 
   @OnClick(R.id.btn_commit)
   public void onClick() {
-    // TODO
-    getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent(mWatchId));
-    finish();
-    //showProgressDialog("", true);
-    //HashMap<String, String> qMap = new HashMap<>();
-    //for (Question question : mListAdapter.getData()) {
-    //  qMap.put(question.getQId(), question.getMyAnswer().toString());
-    //}
-    //manageRpcCall(mAdvService.subAnswer(new SubAdvQuestionAnswerParams(mWatchId, String.valueOf
-    //    (getComponent().loginSession().getUserId()), String.valueOf(mAdvId), qMap)), new
-    //    UiRpcSubscriber<String>(this) {
-    //      @Override
-    //      protected void onSuccess(String s) {
-    //        getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent());
-    //        finish();
-    //      }
-    //
-    //      @Override
-    //      protected void onEnd() {
-    //        closeProgressDialog();
-    //      }
-    //
-    //      @Override
-    //      public void onApiError(RpcApiError apiError) {
-    //        super.onApiError(apiError);
-    //        showShortToast(R.string.activity_adv_toast_submit_failure);
-    //      }
-    //    });
+    showProgressDialog("", true);
+    HashMap<String, String> qMap = new HashMap<>();
+    for (Question question : mListAdapter.getData()) {
+      qMap.put(question.getQId(), question.getMyAnswer().toString());
+    }
+    manageRpcCall(mAdvService.subAnswer(new SubAdvQuestionAnswerParams(mWatchId, String.valueOf
+        (getComponent().loginSession().getUserId()), String.valueOf(mAdvId), qMap)), new
+        UiRpcSubscriber<String>(this) {
+          @Override
+          protected void onSuccess(String s) {
+            getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent(mWatchId));
+            finish();
+          }
+
+          @Override
+          protected void onEnd() {
+            closeProgressDialog();
+          }
+
+          @Override
+          public void onApiError(RpcApiError apiError) {
+            super.onApiError(apiError);
+            showShortToast(R.string.activity_adv_toast_submit_failure);
+          }
+        });
   }
 
   private void updateCommitStatus() {

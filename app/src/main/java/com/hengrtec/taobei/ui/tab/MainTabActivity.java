@@ -217,6 +217,7 @@ public class MainTabActivity extends BaseTabActivity {
           @Override
           public void onClick(View view) {
             mContext.startActivity(new Intent(mContext, LoginWayActivity.class));
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
           }
         });
       } else {

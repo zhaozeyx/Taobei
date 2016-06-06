@@ -125,6 +125,13 @@ public class HomeFragment extends BasicTitleBarFragment implements HomeView {
   }
 
   @Override
+  protected void onLogin() {
+    super.onLogin();
+    ((SimpleDraweeView) getUserAvatarView()).setImageURI(Uri.parse(getComponent().loginSession()
+        .getUserInfo().getAvart()));
+  }
+
+  @Override
   public Context getActivityContext() {
     return getActivity();
   }

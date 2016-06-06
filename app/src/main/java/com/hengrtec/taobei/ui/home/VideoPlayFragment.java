@@ -13,6 +13,7 @@ package com.hengrtec.taobei.ui.home;
 
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
+import android.media.TimedText;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -81,6 +82,12 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer mediaPlayer) {
+        mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+          @Override
+          public void onBufferingUpdate(MediaPlayer mp, int percent) {
+            Logger.d("YZZ", "onBufferingUpdate percent %d ", percent);
+          }
+        });
         Logger.d("YZZ", "OnPreParedListener");
         closeProgressDialog();
         mDuration = mediaPlayer.getDuration();
@@ -98,14 +105,7 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
       @Override
       public boolean onError(MediaPlayer mp, int what, int extra) {
-        Logger.d("YZZ", "setOnErrorListener");
-        return false;
-      }
-    });
-    mVideoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-      @Override
-      public boolean onInfo(MediaPlayer mp, int what, int extra) {
-        Logger.d("YZZ", "onInfoListener");
+        getActivity().finish();
         return false;
       }
     });
@@ -118,8 +118,10 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
       @Override
       public void onTick(long millisUntilFinished) {
         int finishTime = (int) (millisUntilFinished / 1000L);
-        mCountDownView.setText(getString(R.string.adv_play_count_down, finishTime));
-        notifyPlaying(mDuration / 1000 - finishTime);
+        if(mVideoView.isPlaying()) {
+          mCountDownView.setText(getString(R.string.adv_play_count_down, finishTime));
+          notifyPlaying(mDuration / 1000 - finishTime);
+        }
       }
 
       @Override

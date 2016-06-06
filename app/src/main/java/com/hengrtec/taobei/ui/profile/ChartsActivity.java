@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalModule;
+import com.hengrtec.taobei.net.RpcHttpError;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.rpc.model.FriendsCircleModel;
 import com.hengrtec.taobei.net.rpc.service.UserService;
@@ -107,6 +108,12 @@ public class ChartsActivity extends BasicTitleBarActivity {
 
       @Override
       protected void onEnd() {
+        closeProgressDialog();
+      }
+
+      @Override
+      public void onHttpError(RpcHttpError httpError) {
+        super.onHttpError(httpError);
         closeProgressDialog();
       }
     });

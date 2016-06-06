@@ -634,7 +634,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
 
       @Override
       protected void onEnd() {
-
+        closeProgressDialog();
       }
     });
 
