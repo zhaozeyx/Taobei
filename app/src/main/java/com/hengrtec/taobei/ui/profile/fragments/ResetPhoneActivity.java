@@ -108,6 +108,7 @@ public class ResetPhoneActivity extends BasicTitleBarActivity {
                 etNumInput.getText().toString())), new UiRpcSubscriber<Void>(this) {
           @Override protected void onSuccess(Void s) {
             mSubscription = getComponent().loginSession().userInfoChangeBuilder().setMobileNo(phoneInput.getText().toString()).update();
+            finish();
           }
 
           @Override protected void onEnd() {

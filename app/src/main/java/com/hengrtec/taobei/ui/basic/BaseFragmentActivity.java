@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
+import com.bugtags.library.Bugtags;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,7 +85,22 @@ public class BaseFragmentActivity extends AppCompatActivity {
     while (!mDoAfterStateRestored.isEmpty()) {
       mDoAfterStateRestored.poll().run();
     }
+    Bugtags.onResume(this);
   }
+  @Override
+  protected void onPause() {
+    super.onPause();
+    //注：回调 2
+    Bugtags.onPause(this);
+  }
+
+  @Override
+  public boolean dispatchTouchEvent(MotionEvent event) {
+    //注：回调 3
+    Bugtags.onDispatchTouchEvent(this, event);
+    return super.dispatchTouchEvent(event);
+  }
+
 
   @Override
   protected void onSaveInstanceState(Bundle outState) {
