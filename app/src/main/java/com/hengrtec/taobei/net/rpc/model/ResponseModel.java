@@ -25,8 +25,8 @@ public class ResponseModel<T> extends BaseModel {
     return data;
   }
 
-  public void setData(T list) {
-    this.data = list;
+  public void setData(T data) {
+    this.data = data;
   }
 
 }

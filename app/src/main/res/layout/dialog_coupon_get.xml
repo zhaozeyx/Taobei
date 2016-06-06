@@ -42,7 +42,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:layout_marginTop="37dp"
-      android:text="@string/adv_detail_dialog_bbj_award"
+      android:text="@string/adv_detail_dialog_coupon_award"
       style="@style/Widget.App.TextView.Medium.Primary"
       />
 
@@ -51,7 +51,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="12dp"
-      android:background="@mipmap/bg_dialog_profit_red_bag"
+      android:background="@mipmap/bg_dialog_profit_coupon"
       android:gravity="center_horizontal|bottom"
       android:orientation="horizontal"
       >

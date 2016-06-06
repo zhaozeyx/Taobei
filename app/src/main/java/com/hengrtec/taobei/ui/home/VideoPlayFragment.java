@@ -81,6 +81,7 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer mediaPlayer) {
+        Logger.d("YZZ", "OnPreParedListener");
         closeProgressDialog();
         mDuration = mediaPlayer.getDuration();
         startPlay();
@@ -92,6 +93,20 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
         Logger.d(TAG, "onCompletion");
         getComponent().getGlobalBus().post(new PlayCompletedEvent(mediaPlayer.getDuration() /
             1000));
+      }
+    });
+    mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+      @Override
+      public boolean onError(MediaPlayer mp, int what, int extra) {
+        Logger.d("YZZ", "setOnErrorListener");
+        return false;
+      }
+    });
+    mVideoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+      @Override
+      public boolean onInfo(MediaPlayer mp, int what, int extra) {
+        Logger.d("YZZ", "onInfoListener");
+        return false;
       }
     });
     mVideoView.setVideoURI(Uri.parse(url));

@@ -8,7 +8,7 @@
     >
 
   <TextView
-      android:id="@+id/virtual_profit_not_get"
+      android:id="@+id/award_not_get"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="17dp"
@@ -22,7 +22,7 @@
       />
 
   <TextView
-      android:id="@+id/virtual_profit_get"
+      android:id="@+id/award_get"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="17dp"
@@ -37,7 +37,7 @@
 
 
   <FrameLayout
-      android:id="@+id/adv_detail_profit_get_info"
+      android:id="@+id/award_get_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@drawable/bg_adv_detail_profit_info"
@@ -54,24 +54,25 @@
         >
 
       <TextView
-          android:id="@+id/profit_congratulations_info"
+          android:id="@+id/congratulations_info"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="center"
           android:paddingBottom="15dp"
           android:paddingTop="15dp"
+          tools:text="@string/adv_detail_profit_info_congratulations_coupon"
           style="@style/Widget.App.TextView.Large.Primary"
           />
       <View
           android:id="@+id/divider"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_below="@id/profit_congratulations_info"
+          android:layout_below="@id/congratulations_info"
           android:background="@drawable/dotted_line_red"
           />
 
       <RelativeLayout
-          android:id="@+id/adv_detail_profit_info_label_wallet_container"
+          android:id="@+id/label_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/divider"
@@ -113,7 +114,7 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_below="@id/adv_detail_profit_info_label_wallet_container"
+          android:layout_below="@id/label_container"
           android:gravity="center"
           android:orientation="horizontal"
           android:paddingBottom="12dp"
@@ -133,6 +134,7 @@
             android:text="@string/adv_detail_profit_info_btn_wallet"
             android:textColor="@color/btn_black_white_selector"
             android:visibility="gone"
+            tools:visibility="visible"
             style="@style/Widget.App.TextView.Medium"
             />
 
@@ -152,6 +154,7 @@
             android:text="@string/adv_detail_profit_info_btn_question_virtual_money"
             android:textColor="@color/font_color_primary"
             android:visibility="gone"
+            tools:visibility="visible"
             style="@style/Widget.App.TextView.Medium"
             />
 

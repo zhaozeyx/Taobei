@@ -22,13 +22,13 @@ public class GetAdvertisementListParams {
 
   public String state;
   public String userId;
-  public int page;
-  public int count;
+  public int pageNo;
+  public int pageSize;
 
   public GetAdvertisementListParams(String state, String userId, int page, int count) {
     this.state = state;
     this.userId = userId;
-    this.page = page;
-    this.count = count;
+    this.pageNo = page;
+    this.pageSize = count;
   }
 }

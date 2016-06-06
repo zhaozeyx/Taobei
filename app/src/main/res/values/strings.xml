@@ -34,6 +34,7 @@
   <string name="adv_item_type_h5">#微场景广告</string>
   <string name="adv_item_profit_real">即赚%s元</string>
   <string name="adv_item_profit_virtual">即赚%s贝贝金</string>
+  <string name="adv_item_profit_coupon">即赚优惠券</string>
   <string name="adv_not_launch_info">剧透啦,剧透啦,剧透啦!重要的事说三遍。每天几分钟,赚钱不耽误,你可以在设置中开启或关闭广告
   预告提醒,在广告开始投放之前,我们将会提前给你推送通知。</string>
   <string name="adv_not_launch_info_setting_text">预告广告正式投放提醒设置</string>
@@ -66,15 +67,21 @@
   <string name="adv_detail_comments_load_more">查看更多评论</string>
   <string name="adv_detail_profit_info_congratulations_real">恭喜你赚得%d元现金红包</string>
   <string name="adv_detail_profit_info_congratulations_virtual">恭喜你赚得%d元贝贝金</string>
-  <string name="adv_detail_profit_info_label_wallet">已存入你的钱包</string>
+  <string name="adv_detail_profit_info_congratulations_coupon">恭喜你赚得优惠券奖励</string>
+  <string name="adv_detail_profit_info_label_wallet">已存入你的卡券</string>
   <string name="adv_detail_profit_info_btn_wallet">我的钱包</string>
+  <string name="adv_detail_profit_info_btn_coupon">我的钱优惠券</string>
   <string name="adv_detail_profit_info_btn_question_virtual_money">答题得贝贝金</string>
   <string name="adv_detail_profit_info_btn_withdraw">提现</string>
   <string name="adv_detail_profit_info_btn_my_profit">我的收益</string>
   <string name="adv_detail_dialog_congratulations">恭喜您!\u0020%s</string>
   <string name="adv_detail_dialog_cash_award">本次赚得贝贝金</string>
   <string name="adv_detail_dialog_bbj_award">本次赚得现金奖励</string>
+  <string name="adv_detail_dialog_coupon_award">本次赚得优惠券奖励</string>
   <string name="adv_detail_dialog_share_label">分享广告,让你的朋友们也赚钱</string>
+  <string name="adv_detail_dialog_info_recommend_un_login">强烈建议你在15分钟内通过微信、QQ、微博登陆后提现，也
+  可以使用手机号码注册成为会员，观看更多的广告，获得更多的现金红包奖励</string>
+  <string name="adv_Detail_dialog_info_un_login_warn">超过十五分钟注册或登录不能获得现金红包。</string>
 
   <string name="adv_detail_toast_info_state_changed">您的状态已发生改变,状态同步完成后,请再次点击</string>
 
@@ -357,6 +364,8 @@
   <string name="my_account_choose_out_card">请选择你的提现银行卡</string>
   <string name="my_account_money">金额</string>
   <string name="my_account_edit_money">请输入金额</string>
+  <string name="my_account_title_bar_btn_deal_records">交易记录</string>
+  <string name="activity_deal_records_title">交易记录</string>
   <!-- 排行榜 -->
   <string name="activity_charts_title">排行榜</string>
 

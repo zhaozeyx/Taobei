@@ -28,9 +28,13 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.injection.GlobalModule;
 import com.hengrtec.taobei.manager.LoginSession;
 import com.hengrtec.taobei.manager.UserInfoChangedEvent;
+import com.hengrtec.taobei.net.UiRpcSubscriber;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
+import com.hengrtec.taobei.net.rpc.service.AuthService;
+import com.hengrtec.taobei.net.rpc.service.params.VisitorLoginParams;
 import com.hengrtec.taobei.ui.basic.tab.BaseTabActivity;
 import com.hengrtec.taobei.ui.commonevent.UserAvatarClickedEvent;
 import com.hengrtec.taobei.ui.home.HomeFragment;
@@ -42,9 +46,13 @@ import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
 import com.hengrtec.taobei.ui.register.ProfileInitializeActivity;
+import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
+import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.squareup.otto.Subscribe;
+import javax.inject.Inject;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * 主界面<BR>
@@ -56,34 +64,71 @@ public class MainTabActivity extends BaseTabActivity {
   private DrawerLayout mDrawerLayout;
   private RelativeLayout mDrawerContainer;
   private DrawerLayoutController mDrawerController;
+  private CompositeSubscription mSubscriptions = new CompositeSubscription();
+  @Inject
+  AuthService mAuthService;
 
-  @Override protected void onCreate(Bundle savedInstance) {
+  @Override
+  protected void onCreate(Bundle savedInstance) {
     super.onCreate(savedInstance);
+    inject();
     initDrawerContainer();
+    initUserInfo();
   }
 
-  @Override public int getLayoutId() {
+  private void inject() {
+    DaggerServiceComponent.builder().serviceModule(new ServiceModule()).globalModule(new
+        GlobalModule((CustomApp) getApplication())).build().inject(this);
+  }
+
+  private void initUserInfo() {
+    if (getComponent().isLogin()) {
+      mSubscriptions.add(getComponent().loginSession().loadUserInfo());
+    } else {
+      manageRpcCall(mAuthService.visitorLogin(new VisitorLoginParams(getComponent().deviceId())),
+          new UiRpcSubscriber<UserInfo>(this) {
+
+
+            @Override
+            protected void onSuccess(UserInfo info) {
+              getComponent().loginSession().login(info);
+            }
+
+            @Override
+            protected void onEnd() {
+
+            }
+          });
+    }
+  }
+
+  @Override
+  public int getLayoutId() {
     return R.layout.main_tab;
   }
 
-  @Override protected Class[] getContentClazzes() {
-    return new Class[] {
+  @Override
+  protected Class[] getContentClazzes() {
+    return new Class[]{
         HomeFragment.class, ProfitFragment.class, NearbyFragment.class, ProfileFragment.class
     };
   }
 
-  @Override protected String[] getTabTitles() {
+  @Override
+  protected String[] getTabTitles() {
     return getResources().getStringArray(R.array.main_tab_titles);
   }
 
-  @Override protected int[] getTabIcons() {
-    return new int[] {
+  @Override
+  protected int[] getTabIcons() {
+    return new int[]{
         R.drawable.icon_tab_home, R.drawable.icon_tab_profit, R.drawable.icon_tab_nearby,
         R.drawable.icon_tab_profile
     };
   }
 
-  @Subscribe public void onTitleBarAvatarClicked(UserAvatarClickedEvent event) {
+  @Subscribe
+  public void onTitleBarAvatarClicked(UserAvatarClickedEvent event) {
     mDrawerLayout.openDrawer(Gravity.LEFT);
   }
 
@@ -94,12 +139,14 @@ public class MainTabActivity extends BaseTabActivity {
     mDrawerController.bindData();
   }
 
-  @Override protected void onLogin() {
+  @Override
+  protected void onLogin() {
     super.onLogin();
     mDrawerController.bindData();
   }
 
-  @Override protected void onLogout() {
+  @Override
+  protected void onLogout() {
     super.onLogout();
     mDrawerController.bindData();
     finish();
@@ -167,7 +214,8 @@ public class MainTabActivity extends BaseTabActivity {
         mUserNamView.setText(R.string.drawer_name_un_login);
         mSignInView.setEnabled(false);
         mUserNamView.setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View view) {
+          @Override
+          public void onClick(View view) {
             mContext.startActivity(new Intent(mContext, LoginWayActivity.class));
           }
         });
@@ -182,7 +230,8 @@ public class MainTabActivity extends BaseTabActivity {
           default:
             mUserNamView.setText(R.string.drawer_name_un_login);
             mUserNamView.setOnClickListener(new View.OnClickListener() {
-              @Override public void onClick(View view) {
+              @Override
+              public void onClick(View view) {
                 mContext.startActivity(new Intent(mContext, LoginWayActivity.class));
               }
             });
@@ -198,14 +247,16 @@ public class MainTabActivity extends BaseTabActivity {
                 mContext.getResources().getColor(R.color.font_color_yellow))
                 .setOnClickListener(new Link.OnClickListener() {
 
-                  @Override public void onClick(String clickedText) {
+                  @Override
+                  public void onClick(String clickedText) {
                     // 跳转到提现界面
                   }
                 });
         LinkBuilder.on(mTotalProfitView)
             .addLink(link)
             .setText(
-                mContext.getString(R.string.drawer_total_profit_login) + " " + mContext.getString(
+                mContext.getString(R.string.drawer_total_profit_login, getComponent()
+                    .loginSession().getUserInfo().getMoney()) + " " + mContext.getString(
                     R.string.drawer_total_profit_withdraw))
             .build();
       }
@@ -214,7 +265,8 @@ public class MainTabActivity extends BaseTabActivity {
       mUserAvatarView.setImageURI(Uri.parse(info.getAvart()));
     }
 
-    @Override public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
       switch (view.getId()) {
         case R.id.sign_in:
           showSignInDialog();
@@ -277,12 +329,15 @@ public class MainTabActivity extends BaseTabActivity {
     }
   }
 
-  @Subscribe public void onUserInfoChanged(UserInfoChangedEvent event) {
+  @Subscribe
+  public void onUserInfoChanged(UserInfoChangedEvent event) {
     mDrawerController.bindData();
   }
 
-  @Override protected void onDestroy() {
+  @Override
+  protected void onDestroy() {
     super.onDestroy();
     getComponent().loginSession().onDestroy();
+    mSubscriptions.unsubscribe();
   }
 }

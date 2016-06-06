@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.ui.home.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.ui.home.DetailSysQuestionActivity;
+import com.hengrtec.taobei.ui.home.event.AwardReceiveClickedEvent;
+import com.hengrtec.taobei.ui.profile.CouponListActivity;
 
 /**
  * 红包奖励视图<BR>
@@ -41,8 +44,6 @@ public class CouponAwardView extends FrameLayout implements IAwardDisplay {
   TextView mAwardNotGetView;
   @Bind(R.id.congratulations_info)
   TextView mCongratulationsInfoView;
-  @Bind(R.id.divider)
-  View divider;
   @Bind(R.id.adv_detail_profit_info_label_wallet)
   TextView advDetailProfitInfoLabelWallet;
   @Bind(R.id.label_container)
@@ -65,31 +66,33 @@ public class CouponAwardView extends FrameLayout implements IAwardDisplay {
   }
 
   private void initView() {
-    View view = LayoutInflater.from(getContext()).inflate(R.layout.award_red_bag_view, this, false);
+    View view = LayoutInflater.from(getContext()).inflate(R.layout.award_coupon_view, this, false);
     addView(view);
     ButterKnife.bind(this, view);
   }
 
   public void displayIfHasGotten(AdvertisementDetail detail, int awardNumber) {
+    awardGetInfo.setVisibility(View.VISIBLE);
+    mAwardNotGetView.setVisibility(View.GONE);
     mCongratulationsInfoView.setText(getResources().getString(R.string
-        .adv_detail_profit_info_congratulations_real, awardNumber));
+        .adv_detail_profit_info_congratulations_coupon));
     // 如果登录，显示我的钱包，跳转到我的钱包
     if (((CustomApp) getContext().getApplicationContext()).getGlobalComponent().isLogin()) {
       mBtnLeftView.setVisibility(View.VISIBLE);
-      mBtnLeftView.setText(R.string.adv_detail_profit_info_btn_wallet);
+      mBtnLeftView.setText(R.string.adv_detail_profit_info_btn_coupon);
       mBtnLeftView.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到我的钱包
+          getContext().startActivity(new Intent(getContext(), CouponListActivity.class));
         }
       });
     } else {
       mBtnLeftView.setVisibility(View.VISIBLE);
-      mBtnLeftView.setText(R.string.adv_detail_profit_info_btn_withdraw);
+      mBtnLeftView.setText(R.string.adv_detail_profit_info_btn_coupon);
       mBtnLeftView.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到提现界面
+          getContext().startActivity(new Intent(getContext(), CouponListActivity.class));
         }
       });
     }
@@ -99,7 +102,6 @@ public class CouponAwardView extends FrameLayout implements IAwardDisplay {
       mBtnRightView.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到我的答题领取贝贝金界面
           getContext().startActivity(DetailSysQuestionActivity.makeDetailSysQuestionIntent
               (getContext(), true));
         }
@@ -110,8 +112,17 @@ public class CouponAwardView extends FrameLayout implements IAwardDisplay {
   }
 
   @Override
-  public void displayNotGot(AdvertisementDetail detail, int awardNumber) {
-
+  public void displayNotGot(AdvertisementDetail detail, int awardNumber, final String watchId) {
+    awardGetInfo.setVisibility(View.GONE);
+    mAwardNotGetView.setVisibility(View.VISIBLE);
+    mAwardNotGetView.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        ((CustomApp) getContext().getApplicationContext()).getGlobalComponent().getGlobalBus()
+            .post(new AwardReceiveClickedEvent(AdvertisementConstant.ADV_BENEFIT_TYPE_COUPON,
+                watchId));
+      }
+    });
   }
 
   @OnClick({R.id.award_not_get, R.id.btn_left, R.id.btn_right})

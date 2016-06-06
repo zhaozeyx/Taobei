@@ -23,5 +23,5 @@ import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 public interface IAwardDisplay {
   void displayIfHasGotten(AdvertisementDetail detail, int awardNumber);
 
-  void displayNotGot(AdvertisementDetail detail, int awardNumber);
+  void displayNotGot(AdvertisementDetail detail, int awardNumber, String watchId);
 }

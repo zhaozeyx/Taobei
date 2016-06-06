@@ -107,8 +107,14 @@ public interface UserService {
       @Body RetPswParams params);
 
   @POST("watchedadvlist.do")
-  Observable<Response<ResponseModel<List<WatchedModel>>>> watchedList(@Body WatchedListParams params);
+  Observable<Response<ResponseModel<List<WatchedModel>>>> watchedList(@Body WatchedListParams
+                                                                          params);
 
   @POST("couponlist.do")
   Observable<Response<ResponseModel<List<CouponModel>>>> couponList(@Body CouponListParams params);
+
+  @POST("mybenefitlist.do")
+  Observable<Response<ResponseModel<List<ProfitRecordModel>>>> myBenefitList(@Body
+                                                                             ProfitRecordsParams
+                                                                                 params);
 }

@@ -15,6 +15,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.TextView;
+import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 
 /**
@@ -36,6 +37,8 @@ public class AdvertisementValueBindUtils {
         benefitType)) {
       view.setText(context.getResources().getString(profitVirtualTextId,
           price));
+    } else if (TextUtils.equals(AdvertisementConstant.ADV_BENEFIT_TYPE_COUPON, benefitType)) {
+      view.setText(R.string.adv_item_profit_coupon);
     }
   }
 }

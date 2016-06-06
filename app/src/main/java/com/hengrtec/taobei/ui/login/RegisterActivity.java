@@ -35,7 +35,6 @@ import com.hengrtec.taobei.net.rpc.service.params.GetVerifyCodeParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
-import com.hengrtec.taobei.utils.preferences.CustomAppPreferences;
 import javax.inject.Inject;
 
 /**
@@ -122,7 +121,6 @@ public class RegisterActivity extends BasicTitleBarActivity {
 
       @Override
       protected void onSuccess(String s) {
-        getComponent().appPreferences().put(CustomAppPreferences.KEY_COOKIE_SESSION_ID, s);
       }
 
       @Override

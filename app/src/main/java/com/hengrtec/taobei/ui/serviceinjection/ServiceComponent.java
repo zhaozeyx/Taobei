@@ -41,6 +41,7 @@ import com.hengrtec.taobei.ui.profile.ChartsActivity;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
 import com.hengrtec.taobei.ui.profile.CommentListActivity;
 import com.hengrtec.taobei.ui.profile.CouponListActivity;
+import com.hengrtec.taobei.ui.profile.DealRecordsActivity;
 import com.hengrtec.taobei.ui.profile.IdCardChoosePresenter;
 import com.hengrtec.taobei.ui.profile.MessageListActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
@@ -53,8 +54,10 @@ import com.hengrtec.taobei.ui.profile.fragments.TwoFragment;
 import com.hengrtec.taobei.ui.profile.fragments.bean.ChooseMyAccountavtivity;
 import com.hengrtec.taobei.ui.profile.fragments.bean.OutMyAccountavtivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
+import com.hengrtec.taobei.ui.tab.MainTabActivity;
 import com.hengrtec.taobei.ui.tab.SignInDialogFragment;
 import dagger.Component;
+import javax.inject.Singleton;
 
 /**
  * 服务器接口 Component<BR>
@@ -62,6 +65,7 @@ import dagger.Component;
  * @author zhaozeyang
  * @version [Taobei Client V20160411, 16/4/19]
  */
+@Singleton
 @Component(modules = ServiceModule.class)
 public interface ServiceComponent {
   RpcCallManager rpcCallManager();
@@ -131,9 +135,13 @@ public interface ServiceComponent {
   void inject(SettingsActivity activity);
 
   void inject(AvatarChoosePresenter presenter);
+
   void inject(ResetPhoneActivity activity);
+
   void inject(ResetPasswordActivity activity);
+
   void inject(PayPasswordActivity activity);
+
   void inject(PayPasswordSetActivity activity);
 
   void inject(IdCardChoosePresenter presenter);
@@ -143,5 +151,10 @@ public interface ServiceComponent {
   void inject(AddTagsActivity activity);
 
   void inject(CouponListActivity couponListActivity);
+
   void inject(LoginWayActivity activity);
+
+  void inject(DealRecordsActivity dealRecordsActivity);
+
+  void inject(MainTabActivity mainTabActivity);
 }

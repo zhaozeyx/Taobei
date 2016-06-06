@@ -24,7 +24,6 @@ import com.hengrtec.taobei.net.rpc.model.AdvQuestionState;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.AdvWatchedParams;
-import com.hengrtec.taobei.net.rpc.service.params.RecordUserPlayDurationParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
 import com.hengrtec.taobei.ui.home.event.PlayNotCompletedEvent;
@@ -40,6 +39,7 @@ import javax.inject.Inject;
  * @version [Taobei Client V20160411, 16/4/22]
  */
 public class AdvertisementPlayActivity extends BasicTitleBarActivity {
+  public static final String RESULT_KEY_WATCH_ID = "result_key_watch_id";
   private static final String FRAGMENT_TAG = "play_activity";
 
   public static final String BUNDLE_KEY_ADV_ID = "adv_id";
@@ -138,7 +138,9 @@ public class AdvertisementPlayActivity extends BasicTitleBarActivity {
               mAdvId, mWatchId));
           finish();
         } else {
-          setResult(RESULT_OK);
+          Intent intent = new Intent();
+          intent.putExtra(RESULT_KEY_WATCH_ID, mWatchId);
+          setResult(RESULT_OK, intent);
           finish();
         }
       }

@@ -24,12 +24,15 @@ public class RegisterParams {
   public String password;
   public String mobileNo;
   public String code;
+  public int userId;
 
-  public RegisterParams(String devId, String password, String mobileNo, String code) {
+  public RegisterParams(String devId, String password, String mobileNo, String code, int
+      userId) {
 
     this.devId = devId;
     this.password = MD5Encoder.encode(password);
     this.mobileNo = mobileNo;
     this.code = code;
+    this.userId = userId;
   }
 }

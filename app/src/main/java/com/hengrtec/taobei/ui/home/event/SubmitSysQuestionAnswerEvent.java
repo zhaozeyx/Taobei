@@ -1,9 +1,9 @@
 /*
- * 文件名: AwardReceiveClickedEvent
+ * 文件名: SubmitQuestionAnswerEvent
  * 版    权：  Copyright Hengrtech Tech. Co. Ltd. All Rights Reserved.
  * 描    述: [该类的简要描述]
  * 创建人: zhaozeyang
- * 创建时间:16/5/28
+ * 创建时间:16/5/9
  * 
  * 修改人：
  * 修改时间:
@@ -16,14 +16,7 @@ package com.hengrtec.taobei.ui.home.event;
  * [功能详细描述]
  *
  * @author zhaozeyang
- * @version [Taobei Client V20160411, 16/5/28]
+ * @version [Taobei Client V20160411, 16/5/9]
  */
-public class AwardReceiveClickedEvent {
-  public String benefitType;
-  public String watchId;
-
-  public AwardReceiveClickedEvent(String benefitType, String watchId) {
-    this.benefitType = benefitType;
-    this.watchId = watchId;
-  }
+public class SubmitSysQuestionAnswerEvent {
 }

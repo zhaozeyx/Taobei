@@ -19,4 +19,9 @@ package com.hengrtec.taobei.ui.home.event;
  * @version [Taobei Client V20160411, 16/5/9]
  */
 public class SubmitQuestionAnswerEvent {
+  public String watchId;
+
+  public SubmitQuestionAnswerEvent(String watchId) {
+    this.watchId = watchId;
+  }
 }

@@ -1,9 +1,9 @@
 /*
- * 文件名: ChartRecordsParams
+ * 文件名: GetBenefitParams
  * 版    权：  Copyright Hengrtech Tech. Co. Ltd. All Rights Reserved.
  * 描    述: [该类的简要描述]
  * 创建人: zhaozeyang
- * 创建时间:16/5/18
+ * 创建时间:16/6/2
  * 
  * 修改人：
  * 修改时间:
@@ -16,16 +16,18 @@ package com.hengrtec.taobei.net.rpc.service.params;
  * [功能详细描述]
  *
  * @author zhaozeyang
- * @version [Taobei Client V20160411, 16/5/18]
+ * @version [Taobei Client V20160411, 16/6/2]
  */
-public class ProfitRecordsParams {
+public class GetBenefitParams {
+  public String watchId;
   public int userId;
-  public int pageNo;
-  public int pageSize;
+  public int advId;
+  public int benefitType;
 
-  public ProfitRecordsParams(int userId, int pageNum, int pageSize) {
+  public GetBenefitParams(String watchId, int userId, int advId, int benefitType) {
+    this.watchId = watchId;
     this.userId = userId;
-    this.pageNo = pageNum;
-    this.pageSize = pageSize;
+    this.advId = advId;
+    this.benefitType = benefitType;
   }
 }

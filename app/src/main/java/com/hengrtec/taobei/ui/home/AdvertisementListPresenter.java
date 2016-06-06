@@ -67,7 +67,7 @@ public class AdvertisementListPresenter implements IPresenter {
         ().inject(this);
   }
 
-  public void getList(String state, String userId, int currentPage, final int pageCount) {
+  public void getList(String state, String userId, final int currentPage, final int pageCount) {
     rpcCallManager.manageRpcCall(mAdvertisementService.getAdvertisements(new
         GetAdvertisementListParams(state, userId, currentPage, pageCount)), new
         UiRpcSubscriber<List<Advertisement>>(mView.getActivityContext()) {

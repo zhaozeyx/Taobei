@@ -17,7 +17,6 @@ import com.hengrtec.taobei.net.rpc.model.Advertisement;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.BibiModel;
 import com.hengrtec.taobei.net.rpc.model.BibiReport;
-import com.hengrtec.taobei.net.rpc.model.CardQueryModel;
 import com.hengrtec.taobei.net.rpc.model.CollectAdvModel;
 import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
@@ -30,7 +29,7 @@ import com.hengrtec.taobei.net.rpc.service.params.DoMyCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvQuestionListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementListParams;
-import com.hengrtec.taobei.net.rpc.service.params.GetCardQueryParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCollectionsParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetSettingsParams;
@@ -58,45 +57,59 @@ import rx.Observable;
  * 修改内容：[修改内容]
  */
 public interface AdvertisementService {
-  @POST("advlist.do") Observable<Response<ResponseModel<List<Advertisement>>>> getAdvertisements(
+  @POST("advlist.do")
+  Observable<Response<ResponseModel<List<Advertisement>>>> getAdvertisements(
       @Body GetAdvertisementListParams params);
 
-  @POST("advdetail.do") Observable<Response<ResponseModel<AdvertisementDetail>>> getAdvertisement(
+  @POST("advdetail.do")
+  Observable<Response<ResponseModel<AdvertisementDetail>>> getAdvertisement(
       @Body GetAdvertisementDetailParams params);
 
-  @POST("useradvstate.do") Observable<Response<ResponseModel<String>>> getUserAdvState(
+  @POST("useradvstate.do")
+  Observable<Response<ResponseModel<String>>> getUserAdvState(
       @Body GetUserAdvStateParams params);
 
-  @POST("getqlist.do") Observable<Response<ResponseModel<List<Question>>>> getAdvQuestionList(
+  @POST("getqlist.do")
+  Observable<Response<ResponseModel<List<Question>>>> getAdvQuestionList(
       @Body GetAdvQuestionListParams params);
 
-  @POST("advplay.do") Observable<Response<ResponseModel<AdvPlayInfo>>> advPlay(
+  @POST("advplay.do")
+  Observable<Response<ResponseModel<AdvPlayInfo>>> advPlay(
       @Body AdvPlayParams params);
 
-  @POST("advwatched.do") Observable<Response<ResponseModel<AdvQuestionState>>> advWatched(
+  @POST("advwatched.do")
+  Observable<Response<ResponseModel<AdvQuestionState>>> advWatched(
       @Body AdvWatchedParams params);
 
-  @POST("subanswer.do") Observable<Response<ResponseModel<String>>> subAnswer(
+  @POST("subanswer.do")
+  Observable<Response<ResponseModel<String>>> subAnswer(
       @Body SubAdvQuestionAnswerParams params);
 
-  @POST("bibi.do") Observable<Response<ResponseModel<BibiModel>>> bibi(@Body BibiParams params);
+  @POST("bibi.do")
+  Observable<Response<ResponseModel<BibiModel>>> bibi(@Body BibiParams params);
 
-  @POST("bbreport.do") Observable<Response<ResponseModel<BibiReport>>> bibiReport(
+  @POST("bbreport.do")
+  Observable<Response<ResponseModel<BibiReport>>> bibiReport(
       @Body BibiReportParams params);
 
-  @POST("getsysquestion.do") Observable<Response<ResponseModel<List<Question>>>> getSysQuestion(
+  @POST("getsysquestion.do")
+  Observable<Response<ResponseModel<List<Question>>>> getSysQuestion(
       @Body SysQuestionParams params);
 
-  @POST("getquestion.do") Observable<Response<ResponseModel<List<Question>>>> getQuestion(
+  @POST("getquestion.do")
+  Observable<Response<ResponseModel<List<Question>>>> getQuestion(
       @Body SysQuestionByIdParams params);
 
-  @POST("likeadv.do") Observable<Response<ResponseModel<String>>> likeAdv(
+  @POST("likeadv.do")
+  Observable<Response<ResponseModel<String>>> likeAdv(
       @Body AdvOperationParams params);
 
-  @POST("collectadv.do") Observable<Response<ResponseModel<String>>> collectadv(
+  @POST("collectadv.do")
+  Observable<Response<ResponseModel<String>>> collectadv(
       @Body AdvOperationParams params);
 
-  @POST("likecomments.do") Observable<Response<ResponseModel<String>>> likeComments(
+  @POST("likecomments.do")
+  Observable<Response<ResponseModel<String>>> likeComments(
       @Body LikeCommentParams params);
 
   @POST("domycomments.do")
@@ -116,8 +129,10 @@ public interface AdvertisementService {
       @Body GetSettingsParams params);
 
   @POST("recordUserPlayDuration.do")
-  Observable<Response<ResponseModel<String>>> recorUserPlayDuration(
+  Observable<Response<ResponseModel<String>>> recordUserPlayDuration(
       @Body RecordUserPlayDurationParams params);
 
-
+  @POST("getbenefit.do")
+  Observable<Response<ResponseModel<String>>> getBenefit(
+      @Body GetBenefitParams params);
 }

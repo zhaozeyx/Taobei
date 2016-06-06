@@ -44,4 +44,7 @@ public interface GlobalComponent {
   LoginSession loginSession();
 
   boolean isLogin();
+
+  @DeviceId
+  String deviceId();
 }

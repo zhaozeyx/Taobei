@@ -61,7 +61,8 @@ public class BBJAwardView extends FrameLayout implements IAwardDisplay {
 
   @Override
   public void displayIfHasGotten(AdvertisementDetail detail, int awardNumber) {
-    // TODO 设置贝贝金收益信息
+    advDetailProfitGetInfo.setVisibility(View.VISIBLE);
+    mAwardNotGetView.setVisibility(View.GONE);
     mCongratulationsInfo.setText(getResources().getString(R.string
         .adv_detail_profit_info_congratulations_virtual, awardNumber));
     mBtnLeft.setVisibility(View.VISIBLE);
@@ -90,13 +91,11 @@ public class BBJAwardView extends FrameLayout implements IAwardDisplay {
   }
 
   @Override
-  public void displayNotGot(AdvertisementDetail detail, int awardNumber) {
+  public void displayNotGot(AdvertisementDetail detail, int awardNumber, String watchId) {
     // 如果没领取，显示领取红包按钮
     // 理论上不存在贝贝金未领取的可能，按照产品设计，播放完毕自动领取红包
     advDetailProfitGetInfo.setVisibility(View.GONE);
-    mAwardNotGetView.setVisibility(TextUtils.equals(detail.getBenefitType(),
-        AdvertisementConstant
-            .ADV_BENEFIT_TYPE_REALITY_CURRENCY) ? VISIBLE : GONE);
+    mAwardNotGetView.setVisibility(View.VISIBLE);
     mAwardNotGetView.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {

@@ -26,6 +26,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -59,6 +60,8 @@ public class ImagePlayFragment extends BaseAdvPlayFragment {
     @Override
     public void onFinish() {
       // TODO 关闭吗
+      getComponent().getGlobalBus().post(new PlayCompletedEvent(TIME_LAST /
+          1000));
       mCountDownView.setVisibility(View.GONE);
     }
   };

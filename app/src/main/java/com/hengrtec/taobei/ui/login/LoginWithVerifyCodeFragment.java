@@ -150,7 +150,6 @@ public class LoginWithVerifyCodeFragment extends BasicTitleBarFragment {
 
           @Override
           protected void onSuccess(String s) {
-            getComponent().appPreferences().put(CustomAppPreferences.KEY_COOKIE_SESSION_ID, s);
           }
 
           @Override

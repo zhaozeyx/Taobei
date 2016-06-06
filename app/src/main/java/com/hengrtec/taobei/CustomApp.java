@@ -1,6 +1,8 @@
 package com.hengrtec.taobei;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import cn.jpush.android.api.JPushInterface;
 import com.bugtags.library.Bugtags;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -18,6 +20,12 @@ public class CustomApp extends Application {
   private GlobalComponent mGlobalComponent;
 
   @Override
+  protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    MultiDex.install(this);
+  }
+
+  @Override
   public void onCreate() {
     super.onCreate();
     Logger.init();
@@ -25,7 +33,7 @@ public class CustomApp extends Application {
     RealmFactory.initRealm(this);
 
     mGlobalComponent = DaggerGlobalComponent.builder().globalModule(new GlobalModule(this)).build();
-    JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+    JPushInterface.setDebugMode(true);  // 设置开启日志,发布时请关闭日志
     JPushInterface.init(this);
     Bugtags.start("67fa6fe3a054500306262132ef4bfe55", this, Bugtags.BTGInvocationEventBubble);
   }

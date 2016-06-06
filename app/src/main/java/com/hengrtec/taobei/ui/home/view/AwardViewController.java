@@ -13,6 +13,7 @@ package com.hengrtec.taobei.ui.home.view;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 
@@ -30,7 +31,9 @@ public class AwardViewController {
     this.mAwardViewContainer = awardViewContainer;
   }
 
-  public void loadUi(AdvertisementDetail detail, boolean watchComplete, int finalProfit, boolean hasGotten) {
+  public void loadUi(AdvertisementDetail detail, boolean watchComplete, int finalProfit, boolean
+      hasGotten, String watchId) {
+    mAwardViewContainer.removeAllViews();
     if (!watchComplete) {
       mAwardViewContainer.setVisibility(View.GONE);
       return;
@@ -41,11 +44,12 @@ public class AwardViewController {
       mAwardViewContainer.setVisibility(View.GONE);
       return;
     }
-    mAwardViewContainer.addView(awardView);
+    mAwardViewContainer.addView(awardView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams
+        .MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     if (hasGotten) {
       ((IAwardDisplay) awardView).displayIfHasGotten(detail, finalProfit);
     } else {
-      ((IAwardDisplay) awardView).displayNotGot(detail, finalProfit);
+      ((IAwardDisplay) awardView).displayNotGot(detail, finalProfit, watchId);
     }
   }
 

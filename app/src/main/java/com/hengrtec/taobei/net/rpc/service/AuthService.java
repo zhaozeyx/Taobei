@@ -22,6 +22,7 @@ import com.hengrtec.taobei.net.rpc.service.params.PayPswParams;
 import com.hengrtec.taobei.net.rpc.service.params.PayRetPswParams;
 import com.hengrtec.taobei.net.rpc.service.params.RegisterParams;
 import com.hengrtec.taobei.net.rpc.service.params.ThirdLoginParams;
+import com.hengrtec.taobei.net.rpc.service.params.VisitorLoginParams;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -43,10 +44,13 @@ public interface AuthService {
 
   @POST("reg.do")
   Observable<Response<ResponseModel<UserInfo>>> register(@Body RegisterParams params);
+
   @POST("updatepaypwd.do")
   Observable<Response<ResponseModel<UserInfo>>> payResetPsw(@Body PayRetPswParams params);
+
   @POST("setnewpaypwd.do")
   Observable<Response<ResponseModel<UserInfo>>> payPsw(@Body PayPswParams params);
+
   @POST("applogin.do")
   Observable<Response<ResponseModel<UserInfo>>> loginWithPassword(@Body LoginParams params);
 
@@ -58,6 +62,10 @@ public interface AuthService {
   @POST("getUserInfoById.do")
   Observable<Response<ResponseModel<UserInfo>>> getUserInfo(@Body GetUserInfoParams params);
 
-  @POST("thirdlogin.do") Observable<Response<ResponseModel<UserInfo>>> thirdLogin(@Body
-  ThirdLoginParams params);
+  @POST("thirdlogin.do")
+  Observable<Response<ResponseModel<UserInfo>>> thirdLogin(@Body
+                                                           ThirdLoginParams params);
+
+  @POST("visitorlogin.do")
+  Observable<Response<ResponseModel<UserInfo>>> visitorLogin(@Body VisitorLoginParams params);
 }

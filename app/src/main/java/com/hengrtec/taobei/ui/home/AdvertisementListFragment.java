@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ import com.nineoldandroids.animation.Animator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.ScaleInLeftAnimator;
 
 /**
  * 广告列表界面<BR>
@@ -140,7 +143,9 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
     @Override
     public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int
         maxLastVisiblePosition) {
-      getData();
+      if (!mListView.isLoadingMore()) {
+        getData();
+      }
     }
   };
 
@@ -148,7 +153,13 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
     mListAdapter = new AdvertisementListAdapter();
     mListView.setAdapter(mListAdapter);
     mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+    mListView.getRecyclerView().setItemAnimator(new ScaleInLeftAnimator());
+    mListView.getRecyclerView().getItemAnimator().setMoveDuration(1000);
+    AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mListAdapter);
+    alphaAdapter.setFirstOnly(true);
+    alphaAdapter.setDuration(500);
+    alphaAdapter.setInterpolator(new OvershootInterpolator(.5f));
+    mListView.setAdapter(alphaAdapter);
     mListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
@@ -159,7 +170,6 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
   }
 
   private void getData() {
-    // TODO 获取真实的userId
     mListPresenter.getList(mCategory, getComponent().appPreferences().getUserId(), mCurrentPage,
         PAGE_COUNT);
   }
@@ -172,9 +182,17 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
 
   @Override
   public void onDataEmpty() {
-    mListView.getEmptyView().setVisibility(View.VISIBLE);
-    mListView.setRefreshing(false);
+    resetLoadingStatus();
+  }
+
+  private void stopLoadingMore() {
+    mListView.getMoreProgressView().setVisibility(View.GONE);
     mListView.setLoadingMore(false);
+  }
+
+  private void resetLoadingStatus() {
+    mListView.setRefreshing(false);
+    stopLoadingMore();
   }
 
   @Override
@@ -183,15 +201,16 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
       mAdvertisementList.clear();
     }
     mAdvertisementList.addAll(advertisementList);
+    mListView.getEmptyView().setVisibility(mCurrentPage == 1 && (null == mAdvertisementList ||
+        mAdvertisementList.size() == 0) ?
+        View.VISIBLE : View.GONE);
     if (moreData) {
       mCurrentPage++;
-      mListView.setLoadingMore(true);
       mListView.setupMoreListener(onMoreListener, LOAD_MORE_LAST_INDEX);
     } else {
-      mListView.setLoadingMore(false);
       mListView.removeMoreListener();
     }
-    mListView.getEmptyView().setVisibility(View.GONE);
+    resetLoadingStatus();
     mListAdapter.notifyDataSetChanged();
   }
 
@@ -202,8 +221,7 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
 
   @Override
   public void onServiceInvokeEnd() {
-    mListView.setRefreshing(false);
-    mListView.setLoadingMore(false);
+    resetLoadingStatus();
   }
 
   @OnClick(R.id.notification_info_setting)
@@ -276,6 +294,7 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
               .getAdvId()));
         }
       });
+
     }
 
     @Override

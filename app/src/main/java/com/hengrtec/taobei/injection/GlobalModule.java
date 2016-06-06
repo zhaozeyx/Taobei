@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.manager.LoginSession;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
+import com.hengrtec.taobei.utils.DeviceUuidFactory;
 import com.hengrtec.taobei.utils.preferences.CustomAppPreferences;
 import com.squareup.otto.Bus;
 import dagger.Module;
@@ -36,6 +37,7 @@ public class GlobalModule {
     return new Bus();
   }
 
+  @Singleton
   @Provides
   public CustomAppPreferences providesGlobalPreferences() {
     return new CustomAppPreferences(mApplication);
@@ -56,4 +58,9 @@ public class GlobalModule {
     return new LoginSession(mApplication);
   }
 
+  @Provides
+  @DeviceId
+  public String providesDeviceId() {
+    return DeviceUuidFactory.getInstance(mApplication).getDeviceUuidString();
+  }
 }

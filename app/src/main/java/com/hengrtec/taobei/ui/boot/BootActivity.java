@@ -34,13 +34,11 @@ public class BootActivity extends BasicActivity {
 
   private void dispatchForwardUi() {
     Intent intent;
-    // TODO 判断是否登录？？？判断是否第一次启动
     if (getComponent().appPreferences().showGuideView()) {
       intent = new Intent(this, LeadActivity.class);
     } else if (getComponent().isLogin()) {
       intent = new Intent(this, MainTabActivity.class);
     } else {
-      // TODO 跳转到登录界面
       intent = new Intent(this, LoginWayActivity.class);
     }
     startActivity(intent);

@@ -46,6 +46,7 @@ import com.hengrtec.taobei.net.rpc.service.params.AdvOperationParams;
 import com.hengrtec.taobei.net.rpc.service.params.AdvPlayParams;
 import com.hengrtec.taobei.net.rpc.service.params.DoMyCommentParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetAdvertisementDetailParams;
+import com.hengrtec.taobei.net.rpc.service.params.GetBenefitParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetCommentListParams;
 import com.hengrtec.taobei.net.rpc.service.params.GetUserAdvStateParams;
 import com.hengrtec.taobei.net.rpc.service.params.LikeCommentParams;
@@ -73,6 +74,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * 广告详情界面<BR>
@@ -165,6 +167,8 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
 
   private List<AdvertisementDetail.Comment> mMyCommentsCache = new ArrayList<>();
   private AwardViewController mAwardViewController;
+  private CompositeSubscription mSubscriptions = new CompositeSubscription();
+  private String mWatchId;
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -239,14 +243,74 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   }
 
   @Subscribe
-  public void onAwardReceiveBtnClickedEvent(AwardReceiveClickedEvent event) {
-    switch (event.benefitType) {
+  public void onAwardReceiveBtnClickedEvent(final AwardReceiveClickedEvent event) {
+    showProgressDialog("", true);
+    refreshUserInfo();
+    manageRpcCall(mAdvertisementService.getBenefit(new GetBenefitParams(event.watchId,
+        getComponent().loginSession().getUserId(), mAdvId, Integer.parseInt(mDetail
+        .getBenefitType()))), new
+        UiRpcSubscriber<String>(this) {
+
+
+          @Override
+          protected void onSuccess(String s) {
+            showBenefitDialog(mDetail.getBenefitType());
+            refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()),
+                true, true, event
+                    .watchId);
+            initData();
+          }
+
+          @Override
+          protected void onEnd() {
+            closeProgressDialog();
+          }
+        });
+  }
+
+  private void showBenefitDialog(String benefitType) {
+    switch (benefitType) {
       case AdvertisementConstant.ADV_BENEFIT_TYPE_REALITY_CURRENCY:
-        View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
-            .dialog_red_bag_get, null);
-        mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
-            (childView).create();
-        bindDataProfitDialog(childView);
+        if (getComponent().isLogin()) {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_red_bag_get, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataProfitDialog(childView);
+        } else {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_red_bag_get_unlogin, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataUnLoginProfitDialog(childView);
+        }
+        if (null != mProfitDialog) {
+          if (mProfitDialog.isShowing()) {
+            mProfitDialog.cancel();
+          }
+          mProfitDialog.show();
+        }
+        break;
+      case AdvertisementConstant.ADV_BENEFIT_TYPE_COUPON:
+        if (getComponent().isLogin()) {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_coupon_get, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataProfitDialog(childView);
+        } else {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_coupon_get_un_login, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataUnLoginProfitDialog(childView);
+        }
+        if (null != mProfitDialog) {
+          if (mProfitDialog.isShowing()) {
+            mProfitDialog.cancel();
+          }
+          mProfitDialog.show();
+        }
         break;
     }
   }
@@ -305,7 +369,6 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       return;
     }
     mAwardViewController = new AwardViewController(mAwardInfoContainer);
-    mAwardViewController.loadUi(detail, false, 0, false);
 
     ImageLoader.loadOptimizedHttpImage(AdvertisementDetailActivity.this, detail.getThumbnail())
         .into(mAdvSnapshot);
@@ -337,12 +400,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     mLoadMoreView.setVisibility(mHasMore ? View.VISIBLE : View.GONE);
     mListAdapter.notifyDataSetChanged();
 
-    refreshDetailInfoView(mDetail, 0, false, false);
+    //refreshDetailInfoView(mDetail, null == mAdvPlayInfo ? 0 : Integer.parseInt(mAdvPlayInfo
+    //    .getBenefitFinal()), true, true, null);
   }
 
   private void refreshDetailInfoView(AdvertisementDetail detail, int profitCount, boolean
-      viewCompleted, boolean hasGotten) {
-    mAwardViewController.loadUi(detail, viewCompleted, profitCount, hasGotten);
+      viewCompleted, boolean hasGotten, String watchId) {
+    mWatchId = watchId;
+    mAwardViewController.loadUi(detail, viewCompleted, profitCount, hasGotten, watchId);
   }
 
   private void setProfitInfoByStatus() {
@@ -496,6 +561,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
    */
   private void performAdvInfoClicked() {
 
+    showProgressDialog("", false);
     Observable<AdvPlayInfo> advInfoClickedObservable = mAdvertisementService.getUserAdvState(new
         GetUserAdvStateParams(String.valueOf
         (getComponent()
@@ -555,6 +621,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
             mDetail.getAdvId()
             , mDetail.getAdvType(), mDetail.getFilePath(), mDetail.getBenefitType(), info
                 .getBenefitFinal(), info.getWatchId());
+        closeProgressDialog();
         startActivityForResult(intent, REQUEST_CODE_PLAY);
       }
     });
@@ -600,35 +667,32 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
       case REQUEST_CODE_PLAY:
-        // TODO RESULT_OK == resultCode
-        if (null != data) {
-          dispatchPlayFinish();
+        if (RESULT_OK == resultCode) {
+          if (null != data) {
+            dispatchPlayFinish(data.getStringExtra(AdvertisementPlayActivity.RESULT_KEY_WATCH_ID));
+          }
         }
         break;
     }
   }
 
+
   @Subscribe
   public void performAdvQustionSubmitEvent(SubmitQuestionAnswerEvent event) {
-    // TODO 弹出对话框
-    refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true, true);
+    refreshUserInfo();
+    showBenefitDialog(mDetail.getBenefitType());
+    initData();
+    refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true, true,
+        event.watchId);
   }
 
-  private void dispatchPlayFinish() {
-    if (TextUtils.equals(AdvertisementConstant.ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY, mDetail
-        .getBenefitType())) {
-      if (null == mProfitDialog) {
-        // 显示对话框
-        View childView = LayoutInflater.from(this).inflate(R.layout.dialog_bbj_get, null);
-        mProfitDialog = new AlertDialog.Builder(this).setView(childView).create();
-        bindDataProfitDialog(childView);
-      }
-      if (!mProfitDialog.isShowing()) {
-        mProfitDialog.show();
-      }
-    }
+  private void dispatchPlayFinish(String watchId) {
     refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true,
-        false);
+        false, watchId);
+  }
+
+  private void refreshUserInfo() {
+    mSubscriptions.add(getComponent().loginSession().loadUserInfo());
   }
 
   private void bindDataProfitDialog(@NonNull View contentView) {
@@ -646,6 +710,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         // TODO 分享到微信 根据类型不同分享内容不同？
       }
     });
+    contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (null != mProfitDialog) {
+          mProfitDialog.cancel();
+        }
+      }
+    });
     if (null != mAdvPlayInfo) {
       ((TextView) contentView.findViewById(R.id.profit_number)).setText(mAdvPlayInfo
           .getBenefitFinal());
@@ -656,9 +728,50 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
         getComponent().loginSession().getUserInfo().getUserName()));
   }
 
+  private void bindDataUnLoginProfitDialog(@NonNull View contentView) {
+    ImageLoader.loadOptimizedHttpImage(this, getComponent().loginSession().getUserInfo().getAvart
+        ()).into((ImageView) contentView.findViewById(R.id.user_avatar));
+    contentView.findViewById(R.id.btn_login_qq).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO QQ登录
+      }
+    });
+    contentView.findViewById(R.id.btn_login_web_chat).setOnClickListener(new View.OnClickListener
+        () {
+      @Override
+      public void onClick(View v) {
+        // TODO 微信登录？
+      }
+    });
+    contentView.findViewById(R.id.btn_login_phone).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO 手机登录
+      }
+    });
+    if (null != mAdvPlayInfo) {
+      ((TextView) contentView.findViewById(R.id.profit_number)).setText(mAdvPlayInfo
+          .getBenefitFinal());
+    }
+    contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (null != mProfitDialog) {
+          mProfitDialog.cancel();
+        }
+      }
+    });
+    TextView congratulationsView = ((TextView) contentView.findViewById(R.id
+        .dialog_congratulations));
+    congratulationsView.setText(getString(R.string.adv_detail_dialog_congratulations,
+        getComponent().loginSession().getUserInfo().getUserName()));
+  }
+
+
   @Subscribe
   public void performPlayNotCompletedEvent(PlayNotCompletedEvent event) {
-    manageRpcCall(mAdvertisementService.recorUserPlayDuration(new RecordUserPlayDurationParams
+    manageRpcCall(mAdvertisementService.recordUserPlayDuration(new RecordUserPlayDurationParams
         (getComponent().loginSession().getUserId(), mAdvId, event.playTime)), new
         UiRpcSubscriber<String>(this) {
 

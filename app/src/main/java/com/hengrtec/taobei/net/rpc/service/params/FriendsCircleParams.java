@@ -20,12 +20,12 @@ package com.hengrtec.taobei.net.rpc.service.params;
  */
 public class FriendsCircleParams {
   public int userId;
-  public int pageNum;
+  public int pageNo;
   public int pageSize;
 
   public FriendsCircleParams(int userId, int pageNum, int pageSize) {
     this.userId = userId;
-    this.pageNum = pageNum;
+    this.pageNo = pageNum;
     this.pageSize = pageSize;
   }
 }

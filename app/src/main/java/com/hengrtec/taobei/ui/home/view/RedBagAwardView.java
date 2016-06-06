@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.ui.home.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.ui.home.DetailSysQuestionActivity;
+import com.hengrtec.taobei.ui.home.event.AwardReceiveClickedEvent;
+import com.hengrtec.taobei.ui.profile.MyAccountActivity;
 
 /**
  * 红包奖励视图<BR>
@@ -71,6 +74,8 @@ public class RedBagAwardView extends FrameLayout implements IAwardDisplay {
   }
 
   public void displayIfHasGotten(AdvertisementDetail detail, int awardNumber) {
+    awardGetInfo.setVisibility(View.VISIBLE);
+    mAwardNotGetView.setVisibility(View.GONE);
     mCongratulationsInfoView.setText(getResources().getString(R.string
         .adv_detail_profit_info_congratulations_real, awardNumber));
     // 如果登录，显示我的钱包，跳转到我的钱包
@@ -80,7 +85,7 @@ public class RedBagAwardView extends FrameLayout implements IAwardDisplay {
       mBtnLeftView.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到我的钱包
+          getContext().startActivity(new Intent(MyAccountActivity.INTENT_ACTION_WALLET));
         }
       });
     } else {
@@ -89,7 +94,7 @@ public class RedBagAwardView extends FrameLayout implements IAwardDisplay {
       mBtnLeftView.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到提现界面
+          getContext().startActivity(new Intent(MyAccountActivity.INTENT_ACTION_WITHDRAW));
         }
       });
     }
@@ -99,7 +104,6 @@ public class RedBagAwardView extends FrameLayout implements IAwardDisplay {
       mBtnRightView.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到我的答题领取贝贝金界面
           getContext().startActivity(DetailSysQuestionActivity.makeDetailSysQuestionIntent
               (getContext(), true));
         }
@@ -110,16 +114,15 @@ public class RedBagAwardView extends FrameLayout implements IAwardDisplay {
   }
 
   @Override
-  public void displayNotGot(AdvertisementDetail detail, int awardNumber) {
+  public void displayNotGot(AdvertisementDetail detail, int awardNumber, final String watchId) {
     awardGetInfo.setVisibility(View.GONE);
-    mAwardNotGetView.setVisibility(TextUtils.equals(detail.getBenefitType(),
-        AdvertisementConstant
-            .ADV_BENEFIT_TYPE_REALITY_CURRENCY) ? VISIBLE : GONE);
+    mAwardNotGetView.setVisibility(View.VISIBLE);
     mAwardNotGetView.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        // TODO 跳转到领取红包界面
-        // TODO POST EVENT ???
+        ((CustomApp) getContext().getApplicationContext()).getGlobalComponent().getGlobalBus()
+            .post(new AwardReceiveClickedEvent(AdvertisementConstant
+                .ADV_BENEFIT_TYPE_REALITY_CURRENCY, watchId));
       }
     });
   }

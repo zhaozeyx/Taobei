@@ -41,7 +41,7 @@ import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.net.rpc.service.params.SubAdvQuestionAnswerParams;
 import com.hengrtec.taobei.net.rpc.service.params.SysQuestionParams;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
-import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
+import com.hengrtec.taobei.ui.home.event.SubmitSysQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import java.util.ArrayList;
@@ -55,6 +55,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * 平台问题基类<BR>
@@ -82,6 +83,7 @@ public abstract class BaseSysQuestionActivity extends BasicTitleBarActivity {
 
   private QuestionListAdapter mListAdapter;
   private Subscription mCheckBtnStateSubscription;
+  private CompositeSubscription mSubscriptions = new CompositeSubscription();
 
   @Override
   protected void afterCreate(Bundle savedInstance) {
@@ -200,7 +202,8 @@ public abstract class BaseSysQuestionActivity extends BasicTitleBarActivity {
           protected void onSuccess(String s) {
             showShortToast(R.string.activity_sys_question_submit_success);
             nextQuestion();
-            getComponent().getGlobalBus().post(new SubmitQuestionAnswerEvent());
+            getComponent().getGlobalBus().post(new SubmitSysQuestionAnswerEvent());
+            mSubscriptions.add(getComponent().loginSession().loadUserInfo());
           }
 
           @Override
@@ -224,6 +227,7 @@ public abstract class BaseSysQuestionActivity extends BasicTitleBarActivity {
         finish();
       }
     }).subscribe();
+    mSubscriptions.add(mNextQuestionSubscription);
   }
 
   protected Intent getNextIntent(Context context) {
@@ -275,6 +279,7 @@ public abstract class BaseSysQuestionActivity extends BasicTitleBarActivity {
             updateBtnStatus(aBoolean);
           }
         }).subscribe();
+    mSubscriptions.add(mCheckBtnStateSubscription);
   }
 
   protected void updateListView(List<Question> questions) {
@@ -585,11 +590,6 @@ public abstract class BaseSysQuestionActivity extends BasicTitleBarActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    if (null != mCheckBtnStateSubscription && mCheckBtnStateSubscription.isUnsubscribed()) {
-      mCheckBtnStateSubscription.unsubscribe();
-    }
-    if (null != mNextQuestionSubscription && mNextQuestionSubscription.isUnsubscribed()) {
-      mNextQuestionSubscription.unsubscribe();
-    }
+    mSubscriptions.unsubscribe();
   }
 }

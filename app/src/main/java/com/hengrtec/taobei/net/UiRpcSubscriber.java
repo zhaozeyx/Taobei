@@ -48,7 +48,7 @@ public abstract class UiRpcSubscriber<T> extends Subscriber<Response<ResponseMod
       return;
     }
 
-    if (responseModelResponse.body().getResult() == 100) {
+    if (responseModelResponse.body().getResult() == NetConstant.HttpCodeConstant.SESSION_EXPIRED) {
       onSessionExpired();
       return;
     }
@@ -74,7 +74,9 @@ public abstract class UiRpcSubscriber<T> extends Subscriber<Response<ResponseMod
   }
 
   public void onApiError(RpcApiError apiError) {
-    Toast.makeText(mContext, apiError.getMessage(), Toast.LENGTH_SHORT).show();
+    if (!TextUtils.isEmpty(apiError.getMessage())) {
+      Toast.makeText(mContext, apiError.getMessage(), Toast.LENGTH_SHORT).show();
+    }
   }
 
   private void onSessionExpired() {

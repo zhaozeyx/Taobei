@@ -295,7 +295,14 @@
         android:screenOrientation="portrait"/>
     <activity
         android:name=".ui.profile.MyAccountActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="com.hengrtec.taobei.ui.profile.ACCOUNT_ACTIVITY_WALLET"/>
+        <action android:name="com.hengrtec.taobei.ui.profile.ACCOUNT_ACTIVITY_WITHDRAW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
     <activity
         android:name=".ui.profile.PrimaryActivity"
         android:screenOrientation="portrait"
@@ -365,6 +372,9 @@
         android:screenOrientation="portrait"/>
     <activity
         android:name=".ui.profile.CouponDetailActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.DealRecordsActivity"
         android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data

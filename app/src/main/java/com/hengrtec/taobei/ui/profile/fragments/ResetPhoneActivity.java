@@ -93,7 +93,6 @@ public class ResetPhoneActivity extends BasicTitleBarActivity {
             new UiRpcSubscriber<String>(this) {
 
               @Override protected void onSuccess(String s) {
-                getComponent().appPreferences().put(CustomAppPreferences.KEY_COOKIE_SESSION_ID, s);
               }
 
               @Override protected void onEnd() {

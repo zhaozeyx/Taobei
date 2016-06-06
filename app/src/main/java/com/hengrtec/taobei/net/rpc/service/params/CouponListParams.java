@@ -20,7 +20,7 @@ package com.hengrtec.taobei.net.rpc.service.params;
  */
 public class CouponListParams {
   public int userId;
-  public int pageNum = 1;
+  public int pageNo = 1;
   public int pageSize;
 
   public CouponListParams(int userId, int pageSize) {
