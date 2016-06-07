@@ -188,6 +188,7 @@ public class ProfileFragment extends BasicTitleBarFragment {
         startActivity(new Intent(getActivity(), MyAccountActivity.class));
         break;
       case R.id.invite_friends:
+        startActivity(new Intent(getActivity(), InviteFriendsActivity.class));
         break;
       case R.id.btn_red_bag:
         startActivity(ProfitActivity.makeRedBagIntent(getActivity()));
@@ -199,8 +200,8 @@ public class ProfileFragment extends BasicTitleBarFragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    // TODO: inflate a fragment view
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+      savedInstanceState) {
     View rootView = super.onCreateView(inflater, container, savedInstanceState);
     ButterKnife.bind(this, rootView);
     return rootView;

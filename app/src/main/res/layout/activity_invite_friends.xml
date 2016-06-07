@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_invite_friends"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:id="@+id/btn_share_moments"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="65dp"
+      android:background="@drawable/bg_btn_gray_round_corner"
+      android:gravity="center"
+      android:paddingBottom="@dimen/margin_small"
+      android:paddingLeft="@dimen/margin_large"
+      android:paddingRight="@dimen/margin_large"
+      android:paddingTop="@dimen/margin_small"
+      android:text="@string/activity_invite_friends_btn_share_moments"
+      style="@style/Widget.App.TextView.Medium.Primary"
+      />
+
+  <TextView
+      android:id="@+id/btn_invite_friends"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/btn_share_moments"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="@dimen/margin_medium"
+      android:background="@drawable/bg_btn_yellow_gray_round_corner"
+      android:gravity="center"
+      android:paddingBottom="@dimen/margin_small"
+      android:paddingLeft="@dimen/margin_large"
+      android:paddingRight="@dimen/margin_large"
+      android:paddingTop="@dimen/margin_small"
+      android:text="@string/activity_invite_friends_btn_invite_contacts"
+      style="@style/Widget.App.TextView.Medium.Primary"
+      />
+
+  <ImageView
+      android:id="@+id/code_bar"
+      android:layout_width="133dp"
+      android:layout_height="133dp"
+      android:layout_above="@id/btn_invite_friends"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="@dimen/margin_large"
+      tools:background="@android:color/holo_blue_bright"
+      />
+</RelativeLayout>

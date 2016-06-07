@@ -309,8 +309,6 @@ public class ProfitFragment extends BasicTitleBarFragment {
   }
 
 
-  //Edited by mythou
-//http://www.cnblogs.com/mythou/
   private int QR_WIDTH = 200, QR_HEIGHT = 200;
   Bitmap bitmap_zx;
 

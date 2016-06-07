@@ -11,13 +11,14 @@
  */
 package com.hengrtec.taobei.ui.home;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
-import android.media.TimedText;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import butterknife.ButterKnife;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.ui.home.event.PlayCompletedEvent;
+import com.hengrtec.taobei.utils.NetworkType;
+import com.hengrtec.taobei.utils.NetworkUtil;
 
 /**
  * 视频播放界面<BR>
@@ -47,6 +50,8 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
 
   private int mDuration;
   private CountDownTimer mCountDownTimer;
+
+  private AlertDialog mWifiDialog;
 
   @Nullable
   @Override
@@ -68,7 +73,28 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    initView(getArguments().getString(BUNDLE_ARG_URL));
+    if (NetworkUtil.getMobileNetworkType(getActivity()) != NetworkType.WIFI) {
+      mWifiDialog = new AlertDialog.Builder(getActivity()).setMessage(R.string
+          .adv_play_warn_not_wifi)
+          .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
+
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              mWifiDialog.cancel();
+              initView(getArguments().getString(BUNDLE_ARG_URL));
+            }
+          }).setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              mWifiDialog.cancel();
+              getActivity().finish();
+            }
+          }).create();
+      mWifiDialog.show();
+    } else {
+      initView(getArguments().getString(BUNDLE_ARG_URL));
+    }
   }
 
   @Override
@@ -118,7 +144,7 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
       @Override
       public void onTick(long millisUntilFinished) {
         int finishTime = (int) (millisUntilFinished / 1000L);
-        if(mVideoView.isPlaying()) {
+        if (mVideoView.isPlaying()) {
           mCountDownView.setText(getString(R.string.adv_play_count_down, finishTime));
           notifyPlaying(mDuration / 1000 - finishTime);
         }

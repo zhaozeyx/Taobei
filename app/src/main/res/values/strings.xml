@@ -89,6 +89,7 @@
 
   <!-- 广告播放浏览界面 -->
   <string name="adv_play_count_down">还剩下 %d 秒</string>
+  <string name="adv_play_warn_not_wifi">您当前正在使用移动网络,继续播放将消耗流量</string>
 
   <!--侧滑栏-->
   <string name="drawer_name_un_login">登录</string>
@@ -455,4 +456,9 @@
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
+
+  <!-- 邀请朋友 -->
+  <string name="activity_invite_friends_title">邀请朋友</string>
+  <string name="activity_invite_friends_btn_share_moments">分享到微信朋友圈</string>
+  <string name="activity_invite_friends_btn_invite_contacts">邀请手机联系人</string>
 </resources>

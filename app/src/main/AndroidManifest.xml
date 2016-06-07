@@ -17,6 +17,7 @@
   <!-- 蓝牙分享所需的权限 -->
   <uses-permission android:name="android.permission.BLUETOOTH"/>
   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+  <uses-permission android:name="android.permission.SEND_SMS"/>
 
 
   <!-- Required 自定义用来收发消息的相关权限 -->
@@ -166,28 +167,28 @@
         android:theme="@android:style/Theme.Translucent.NoTitleBar"
         android:windowSoftInputMode="stateHidden|adjustResize">
       <meta-data
-      android:name="AuthorizeAdapter"
-      android:value="cn.sharesdk.demo.MyAdapter"/>
+          android:name="AuthorizeAdapter"
+          android:value="cn.sharesdk.demo.MyAdapter"/>
       <meta-data
-      android:name="QZoneWebShareAdapter"
-      android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter"/>
+          android:name="QZoneWebShareAdapter"
+          android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter"/>
       <meta-data
-      android:name="QQWebShareAdapter"
-      android:value="cn.sharesdk.demo.MyQQWebShareAdapter"/>
+          android:name="QQWebShareAdapter"
+          android:value="cn.sharesdk.demo.MyQQWebShareAdapter"/>
 
       <intent-filter>
-      <data android:scheme="db-7janx53ilz11gbs"/>
-      <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="db-7janx53ilz11gbs"/>
+        <action android:name="android.intent.action.VIEW"/>
 
-      <category android:name="android.intent.category.BROWSABLE"/>
-      <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
       <!--<intent-filter>-->
-        <!--<data android:scheme="tencent100371282"/>-->
-        <!--<action android:name="android.intent.action.VIEW"/>-->
+      <!--<data android:scheme="tencent100371282"/>-->
+      <!--<action android:name="android.intent.action.VIEW"/>-->
 
-        <!--<category android:name="android.intent.category.BROWSABLE"/>-->
-        <!--<category android:name="android.intent.category.DEFAULT"/>-->
+      <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+      <!--<category android:name="android.intent.category.DEFAULT"/>-->
       <!--</intent-filter>-->
 
       <!-- 调用新浪原生SDK，需要注册的回调activity -->
@@ -375,6 +376,10 @@
         android:screenOrientation="portrait"/>
     <activity
         android:name=".ui.profile.DealRecordsActivity"
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name=".ui.profile.InviteFriendsActivity"
         android:screenOrientation="portrait"/>
     <!-- Glide Module  -->
     <meta-data
