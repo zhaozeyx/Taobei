@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -93,6 +94,9 @@ public class MyAccountActivity extends BasicTitleBarActivity {
   }
 
   private void handleIntent(Intent intent) {
+    if (null != intent || TextUtils.isEmpty(intent.getAction())) {
+      return;
+    }
     String action = intent.getAction();
     switch (action) {
       case INTENT_ACTION_WALLET:

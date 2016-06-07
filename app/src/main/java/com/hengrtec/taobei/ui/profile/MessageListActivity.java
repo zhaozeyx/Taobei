@@ -227,7 +227,6 @@ public class MessageListActivity extends BasicTitleBarActivity {
   }
 
   private class MessagePagerAdapter extends FragmentPagerAdapter {
-
     public MessagePagerAdapter(FragmentManager fm) {
       super(fm);
     }

@@ -173,6 +173,7 @@ public class MainTabActivity extends BaseTabActivity {
     private TextView mMenuSearch;
     private TextView mBtnSetting;
     private TextView mBtnFeedBack;
+    private ImageView mBtnCloseView;
 
     private Context mContext;
 
@@ -199,6 +200,7 @@ public class MainTabActivity extends BaseTabActivity {
       mMenuSearch = (TextView) mDrawerContainer.findViewById(R.id.btn_search);
       mBtnSetting = (TextView) mDrawerContainer.findViewById(R.id.btn_settings);
       mBtnFeedBack = (TextView) mDrawerContainer.findViewById(R.id.btn_feed_back);
+      mBtnCloseView = (ImageView) mDrawerContainer.findViewById(R.id.btn_close_drawer);
 
       mSignInView.setOnClickListener(this);
       mMenuTask.setOnClickListener(this);
@@ -208,6 +210,7 @@ public class MainTabActivity extends BaseTabActivity {
       mMenuSearch.setOnClickListener(this);
       mBtnSetting.setOnClickListener(this);
       mBtnFeedBack.setOnClickListener(this);
+      mBtnCloseView.setOnClickListener(this);
     }
 
     private void bindData() {
@@ -297,6 +300,8 @@ public class MainTabActivity extends BaseTabActivity {
           break;
         case R.id.btn_feed_back:
           mContext.startActivity(new Intent(mContext, PrimaryActivity.class));
+          break;
+        case R.id.btn_close_drawer:
           break;
       }
       mDrawerLayout.closeDrawer(Gravity.LEFT);
