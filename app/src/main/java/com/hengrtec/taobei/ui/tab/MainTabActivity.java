@@ -37,10 +37,12 @@ import com.hengrtec.taobei.net.rpc.service.AuthService;
 import com.hengrtec.taobei.net.rpc.service.params.VisitorLoginParams;
 import com.hengrtec.taobei.ui.basic.tab.BaseTabActivity;
 import com.hengrtec.taobei.ui.commonevent.UserAvatarClickedEvent;
+import com.hengrtec.taobei.ui.discover.DiscoverFragment;
 import com.hengrtec.taobei.ui.home.HomeFragment;
 import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.nearby.NearbyFragment;
 import com.hengrtec.taobei.ui.profile.CollectionActivity;
+import com.hengrtec.taobei.ui.profile.MyAccountActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
@@ -110,7 +112,8 @@ public class MainTabActivity extends BaseTabActivity {
   @Override
   protected Class[] getContentClazzes() {
     return new Class[]{
-        HomeFragment.class, ProfitFragment.class, NearbyFragment.class, ProfileFragment.class
+        HomeFragment.class, DiscoverFragment.class, ProfitFragment.class, NearbyFragment.class,
+        ProfileFragment.class
     };
   }
 
@@ -122,7 +125,8 @@ public class MainTabActivity extends BaseTabActivity {
   @Override
   protected int[] getTabIcons() {
     return new int[]{
-        R.drawable.icon_tab_home, R.drawable.icon_tab_profit, R.drawable.icon_tab_nearby,
+        R.drawable.icon_tab_home, R.drawable.icon_tab_discover, R.drawable.icon_tab_profit, R
+        .drawable.icon_tab_nearby,
         R.drawable.icon_tab_profile
     };
   }
@@ -251,6 +255,8 @@ public class MainTabActivity extends BaseTabActivity {
                   @Override
                   public void onClick(String clickedText) {
                     // 跳转到提现界面
+                    startActivity(new Intent(MyAccountActivity.INTENT_ACTION_WITHDRAW));
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
                   }
                 });
         LinkBuilder.on(mTotalProfitView)

@@ -49,8 +49,8 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.bugtags.library.plugin'
 bugtags {
   //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考插件详细使用说明
-  appKey "67fa6fe3a054500306262132ef4bfe55"  //这里是你的 appKey
-  appSecret "APP_SECRET"    //这里是你的 appSecret，管理员在设置页可以查看
+  appKey "67fa6fe3a054500306262132ef4bfe55" //这里是你的 appKey
+  appSecret "APP_SECRET" //这里是你的 appSecret，管理员在设置页可以查看
   mappingUploadEnabled true
 
   //网络跟踪功能配置
@@ -59,48 +59,11 @@ bugtags {
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'io.reactivex:rxjava:1.0.15'
-  compile 'io.reactivex:rxandroid:1.0.1'
-  compile 'com.jakewharton.rxbinding:rxbinding:0.1.0'
-  compile 'com.squareup:otto:1.3.6'
-  compile 'com.jakewharton:butterknife:7.0.1'
-  compile 'com.squareup.okhttp3:okhttp:3.2.0'
-  compile 'com.github.bumptech.glide:glide:3.7.0'
-  compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-  compile 'com.google.dagger:dagger:2.0.1'
   apt 'com.google.dagger:dagger-compiler:2.0.1'
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.4.0'
   provided 'org.glassfish:javax.annotation:10.0-b28'
-  compile 'com.squareup.retrofit2:retrofit:2.0.2'
-  compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-  compile 'com.jakewharton.timber:timber:4.1.2'
-  compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-  compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-  compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.1'
-  compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-  compile 'me.relex:circleindicator:1.1.9@aar'
-  compile 'com.android.support:cardview-v7:23.4.0'
-  compile 'com.malinskiy:superrecyclerview:1.1.3'
-  compile 'com.github.chenupt.android:springindicator:1.0.2@aar'
-  compile 'com.nineoldandroids:library:2.4.0'
-  compile 'com.daimajia.easing:library:1.0.1@aar'
-  compile 'com.daimajia.androidanimations:library:1.1.3@aar'
-  compile 'com.klinkerapps:link_builder:1.3.2'
-  compile 'com.github.d-max:spots-dialog:0.4@aar'
-  compile 'de.hdodenhof:circleimageview:2.0.0'
-  compile 'org.apmem.tools:layouts:1.10@aar'
-  compile 'net.grandcentrix.tray:tray:1.0.0-rc3'
-  compile 'com.github.iwgang:countdownview:1.2'
-  compile 'com.google.code.gson:gson:2.6.2'
-  compile 'com.github.chrisbanes:PhotoView:1.2.6'
-  compile 'com.facebook.fresco:fresco:0.9.0'
-  compile 'com.avast:android-styled-dialogs:2.3.3'
-  compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
-  compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
   compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.1@aar') {
     transitive = true
-
   }
   compile files('src/libs/MobCommons-2016.0426.1819.jar')
   compile files('src/libs/MobTools-2016.0426.1819.jar')
@@ -144,16 +107,52 @@ dependencies {
   compile files('src/libs/ShareSDK-Yixin-Core-2.7.2.jar')
   compile files('src/libs/ShareSDK-Yixin-Moments-2.7.2.jar')
   compile files('src/libs/ShareSDK-YouDao-2.7.2.jar')
+  compile 'com.android.support:design:23.4.0'
+  compile "cn.aigestudio.wheelpicker:WheelPicker:1.0.3"
+  // If you want to use the GPU Filters
+  compile 'io.reactivex:rxjava:1.0.15'
+  compile 'io.reactivex:rxandroid:1.0.1'
+  compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+  compile 'com.squareup:otto:1.3.6'
+  compile 'com.jakewharton:butterknife:7.0.1'
+  compile 'com.squareup.okhttp3:okhttp:3.2.0'
+  compile 'com.github.bumptech.glide:glide:3.7.0'
+  compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+  compile 'com.google.dagger:dagger:2.0.1'
+  compile 'com.android.support:appcompat-v7:23.4.0'
+  compile 'com.squareup.retrofit2:retrofit:2.0.2'
+  compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+  compile 'com.jakewharton.timber:timber:4.1.2'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+  compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.1'
+  compile 'me.relex:circleindicator:1.1.9@aar'
+  compile 'com.android.support:cardview-v7:23.4.0'
+  compile 'com.malinskiy:superrecyclerview:1.1.3'
+  compile 'com.github.chenupt.android:springindicator:1.0.2@aar'
+  compile 'com.nineoldandroids:library:2.4.0'
+  compile 'com.daimajia.easing:library:1.0.1@aar'
+  compile 'com.daimajia.androidanimations:library:1.1.3@aar'
+  compile 'com.klinkerapps:link_builder:1.3.2'
+  compile 'com.github.d-max:spots-dialog:0.4@aar'
+  compile 'de.hdodenhof:circleimageview:2.0.0'
+  compile 'org.apmem.tools:layouts:1.10@aar'
+  compile 'net.grandcentrix.tray:tray:1.0.0-rc3'
+  compile 'com.github.iwgang:countdownview:1.2'
+  compile 'com.google.code.gson:gson:2.6.2'
+  compile 'com.github.chrisbanes:PhotoView:1.2.6'
+  compile 'com.facebook.fresco:fresco:0.9.0'
+  compile 'com.avast:android-styled-dialogs:2.3.3'
+  compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+  compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
   compile 'com.google.zxing:core:3.2.1'
   compile 'com.android.support:design:23.4.0'
-  compile "cn.aigestudio.wheelpicker:WheelPicker:1.0.3"
+  compile 'cn.aigestudio.wheelpicker:WheelPicker:1.0.3'
   compile 'com.github.WuXuBaiYang:JRecyclerViewLibrary:v1.2'
-  compile 'com.android.support:design:23.4.0'
-  compile "cn.aigestudio.wheelpicker:WheelPicker:1.0.3"
   compile 'jp.wasabeef:glide-transformations:2.0.1'
-  // If you want to use the GPU Filters
   compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.3.0'
   compile 'com.bugtags.library:bugtags-lib:latest.integration'
   compile 'jp.wasabeef:recyclerview-animators:2.2.3'
   compile 'com.android.support:multidex:1.0.1'
+  compile 'com.android.support:support-v4:23.4.0'
 }

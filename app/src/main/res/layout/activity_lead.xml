@@ -27,16 +27,15 @@
       android:id="@+id/spring_indicator"
       android:layout_width="match_parent"
       android:layout_height="40dp"
+      android:layout_alignParentBottom="true"
       android:layout_marginLeft="80dp"
       android:layout_marginRight="80dp"
       app:siIndicatorColor="@color/colorPrimary"
       app:siIndicatorColors="@array/indicator_colors"
+      app:siRadiusMax="6dp"
+      app:siRadiusMin="3dp"
       app:siSelectedTextColor="@android:color/white"
       app:siTextColor="@color/colorPrimaryDark"
-      app:siTextSize="@dimen/font_size_medium"
-      app:siRadiusMin="5dp"
-      app:siRadiusMax="10dp"
-      android:layout_alignParentBottom="true"
       />
 
 </RelativeLayout>

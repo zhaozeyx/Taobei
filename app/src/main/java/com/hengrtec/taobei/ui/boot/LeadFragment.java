@@ -32,8 +32,9 @@ import com.hengrtec.taobei.ui.tab.MainTabActivity;
  * @version [Taobei Client V20160411, 16/4/20]
  */
 public class LeadFragment extends BasicFragment {
-  static final int[] LEAD_IMG_RES = new int[]{R.mipmap.bg_login, R.mipmap.bg_login, R.mipmap
-      .bg_login};
+  static final int[] LEAD_IMG_RES = new int[]{R.mipmap.src_lead_first, R.mipmap.src_lead_second,
+      R.mipmap
+      .src_lead_third};
   private static final String ARG_PAGE_INDEX = "page_index";
 
   @Bind(R.id.btn_enter)
