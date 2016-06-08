@@ -1,15 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
+    android:gravity="center"
     tools:context="com.hengrtec.taobei.ui.discover.DiscoverFragment"
     >
 
   <!-- TODO: Update blank fragment layout -->
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:text="@string/hello_blank_fragment"
+  <com.romainpiel.shimmer.ShimmerTextView
+      android:id="@+id/info"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="敬请期待"
+      android:textSize="40sp"
+      style="@style/Widget.App.TextView.Medium"
       />
 
-</FrameLayout>
+</LinearLayout>

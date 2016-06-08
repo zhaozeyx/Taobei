@@ -27,12 +27,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.database.model.MessageModel;
 import com.hengrtec.taobei.manager.UserInfoChangedEvent;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
 import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.login.RegisterActivity;
+import com.hengrtec.taobei.ui.profile.event.MessageDeleteEvent;
+import com.hengrtec.taobei.ui.profile.event.MessageStatusChangeEvent;
 import com.squareup.otto.Subscribe;
+import io.realm.Realm;
 
 /**
  * 个人页面<BR>
@@ -119,6 +123,25 @@ public class ProfileFragment extends BasicTitleBarFragment {
         .getMoney())));
     mVirtualMoney.setText(getString(R.string.fragment_profile_virtual_money_value, info
         .getVirtualMoney()));
+    setNewMsgCount();
+  }
+
+  private void setNewMsgCount() {
+    Realm realm = Realm.getDefaultInstance();
+    long newMsgCount = realm.where(MessageModel.class).equalTo(MessageModel
+        .COLUMNS_MESSAGE_STATUS, MessageModel.MSG_UN_READ).count();
+    mIconNewMessage.setVisibility(newMsgCount > 0 ? View.VISIBLE : View.GONE);
+    mIconNewMessage.setText(String.valueOf(newMsgCount));
+  }
+
+  @Subscribe
+  public void handleMessageStatusChangeEvent(MessageStatusChangeEvent event) {
+    setNewMsgCount();
+  }
+
+  @Subscribe
+  public void handleMessageDeleteEvent(MessageDeleteEvent event) {
+    setNewMsgCount();
   }
 
   @Subscribe

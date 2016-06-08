@@ -19,6 +19,7 @@ public class MessageModel extends RealmObject implements Parcelable {
 
   public static final String COLUMNS_MESSAGE_ID = "mMsgId";
   public static final String COLUMNS_MESSAGE_TYPE = "mMessageType";
+  public static final String COLUMNS_MESSAGE_STATUS = "mStatus";
 
   @PrimaryKey
   private String mMsgId;

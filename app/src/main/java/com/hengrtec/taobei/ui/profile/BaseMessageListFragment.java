@@ -26,11 +26,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
+import com.hengrtec.taobei.component.log.Logger;
 import com.hengrtec.taobei.database.model.MessageModel;
 import com.hengrtec.taobei.injection.GlobalModule;
 import com.hengrtec.taobei.net.rpc.service.UserService;
 import com.hengrtec.taobei.ui.basic.BasicFragment;
 import com.hengrtec.taobei.ui.profile.event.MessageDeleteEvent;
+import com.hengrtec.taobei.ui.profile.event.MessageStatusChangeEvent;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -54,6 +56,7 @@ import rx.subscriptions.CompositeSubscription;
  * @version [Taobei Client V20160411, 16/5/20]
  */
 public abstract class BaseMessageListFragment extends BasicFragment {
+  private static final String TAG = "BaseMessageListFragment";
   protected static final String BUNDLE_KEY_MSG_TYPE = "bundle_key_message_type";
   protected List<String> mMessageIds = new ArrayList<>();
   protected RealmResults<MessageModel> mData;
@@ -101,6 +104,7 @@ public abstract class BaseMessageListFragment extends BasicFragment {
                 (MessageModel.COLUMNS_MESSAGE_TYPE, getArguments().getInt
                     (BUNDLE_KEY_MSG_TYPE)).findAll();
             getListAdapter().notifyDataSetChanged();
+            getComponent().getGlobalBus().post(new MessageStatusChangeEvent());
           }
         }).subscribe();
     mSubscriptions.add(subscription);
@@ -286,8 +290,14 @@ public abstract class BaseMessageListFragment extends BasicFragment {
         .COLUMNS_MESSAGE_ID, msgId);
     Realm.getDefaultInstance().beginTransaction();
     query.findFirst().setStatus(MessageModel.MSG_READ);
+    Realm.getDefaultInstance().copyToRealmOrUpdate(query.findFirst());
     Realm.getDefaultInstance().commitTransaction();
-    // TODO 调用服务器接口
+    getComponent().getGlobalBus().post(new MessageStatusChangeEvent());
+
+    int status = mData.where().equalTo(MessageModel
+        .COLUMNS_MESSAGE_ID, msgId).findFirst().getStatus();
+    Logger.d(TAG, "msg status %d ", status);
+
   }
 
   public class MessageEventHandler {
@@ -305,6 +315,7 @@ public abstract class BaseMessageListFragment extends BasicFragment {
         }
       }
       getListAdapter().notifyDataSetChanged();
+      getComponent().getGlobalBus().post(new MessageDeleteEvent(""));
     }
   }
 

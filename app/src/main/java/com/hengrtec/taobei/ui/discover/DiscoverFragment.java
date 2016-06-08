@@ -2,66 +2,50 @@ package com.hengrtec.taobei.ui.discover;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.hengrtec.taobei.R;
-import com.hengrtec.taobei.ui.basic.BasicFragment;
+import com.hengrtec.taobei.ui.basic.BasicTitleBarFragment;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DiscoverFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DiscoverFragment extends BasicFragment {
-  // TODO: Rename parameter arguments, choose names that match
-  // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
+public class DiscoverFragment extends BasicTitleBarFragment {
 
-  // TODO: Rename and change types of parameters
-  private String mParam1;
-  private String mParam2;
+  @Bind(R.id.info)
+  ShimmerTextView mInfoView;
 
+  @Override
+  protected void onCreateViewCompleted(View view) {
 
-  public DiscoverFragment() {
-    // Required empty public constructor
-  }
-
-  /**
-   * Use this factory method to create a new instance of
-   * this fragment using the provided parameters.
-   *
-   * @param param1 Parameter 1.
-   * @param param2 Parameter 2.
-   * @return A new instance of fragment DiscoverFragment.
-   */
-  // TODO: Rename and change types and number of parameters
-  public static DiscoverFragment newInstance(String param1, String param2) {
-    DiscoverFragment fragment = new DiscoverFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
-    return fragment;
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
+  public int getLayoutId() {
+    return R.layout.fragment_discover;
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_discover, container, false);
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+      savedInstanceState) {
+    // TODO: inflate a fragment view
+    View rootView = super.onCreateView(inflater, container, savedInstanceState);
+    ButterKnife.bind(this, rootView);
+    return rootView;
   }
 
+  @Override
+  public void onViewCreated(View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    Shimmer shimmer = new Shimmer();
+    shimmer.start(mInfoView);
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    ButterKnife.unbind(this);
+  }
 }
