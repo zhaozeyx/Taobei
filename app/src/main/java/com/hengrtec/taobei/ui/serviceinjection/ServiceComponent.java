@@ -48,6 +48,7 @@ import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfitActivity;
 import com.hengrtec.taobei.ui.profile.ProfitRecordsActivity;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
+import com.hengrtec.taobei.ui.profile.TaskActivity;
 import com.hengrtec.taobei.ui.profile.fragments.OneFragment;
 import com.hengrtec.taobei.ui.profile.fragments.ResetPhoneActivity;
 import com.hengrtec.taobei.ui.profile.fragments.TwoFragment;
@@ -153,6 +154,8 @@ public interface ServiceComponent {
   void inject(CouponListActivity couponListActivity);
 
   void inject(LoginWayActivity activity);
+
+  void inject(TaskActivity activity);
 
   void inject(DealRecordsActivity dealRecordsActivity);
 

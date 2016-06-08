@@ -46,8 +46,8 @@ import com.hengrtec.taobei.ui.profile.MyAccountActivity;
 import com.hengrtec.taobei.ui.profile.PrimaryActivity;
 import com.hengrtec.taobei.ui.profile.ProfileFragment;
 import com.hengrtec.taobei.ui.profile.SettingsActivity;
+import com.hengrtec.taobei.ui.profile.TaskActivity;
 import com.hengrtec.taobei.ui.profit.ProfitFragment;
-import com.hengrtec.taobei.ui.register.ProfileInitializeActivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.klinker.android.link_builder.Link;
@@ -63,6 +63,18 @@ import rx.subscriptions.CompositeSubscription;
  * @version [Taobei Client V20160411, 16/4/19]
  */
 public class MainTabActivity extends BaseTabActivity {
+
+  public static final String ACTION_ADV_LIST = "com.hengrtec.taobei.ui.tab.ACTION_ADV_LIST";
+  public static final String ACTION_DISCOVER = "com.hengrtec.taobei.ui.tab.ACTION_DISCOVER";
+  public static final String ACTION_BI = "com.hengrtec.taobei.ui.tab.ACTION_BI";
+  public static final String ACTION_NEARBY = "com.hengrtec.taobei.ui.tab.ACTION_NEARBY";
+  public static final String ACTION_PROFILE = "com.hengrtec.taobei.ui.tab.ACTION_PROFILE";
+
+  private static final int INDEX_ADV_LIST = 0;
+  private static final int INDEX_DISCOVER = 1;
+  private static final int INDEX_BI = 2;
+  private static final int INDEX_NEARBY = 3;
+  private static final int INDEX_PROFILE = 4;
   private DrawerLayout mDrawerLayout;
   private RelativeLayout mDrawerContainer;
   private DrawerLayoutController mDrawerController;
@@ -75,7 +87,37 @@ public class MainTabActivity extends BaseTabActivity {
     super.onCreate(savedInstance);
     inject();
     initDrawerContainer();
+    onNewIntent(getIntent());
     initUserInfo();
+  }
+
+  @Override protected void onNewIntent(Intent intent) {
+    if (null == intent||TextUtils.isEmpty(intent.getAction())) {
+      return;
+    }
+    super.onNewIntent(intent);
+
+    switch (intent.getAction()) {
+      case ACTION_ADV_LIST:
+        setCurrentTab(INDEX_ADV_LIST);
+        break;
+      case ACTION_DISCOVER:
+        setCurrentTab(INDEX_DISCOVER);
+        break;
+      case ACTION_BI:
+        setCurrentTab(INDEX_BI);
+        break;
+      case ACTION_NEARBY:
+        setCurrentTab(INDEX_NEARBY);
+        break;
+      case ACTION_PROFILE:
+        setCurrentTab(INDEX_PROFILE);
+        break;
+      default:
+        setCurrentTab(INDEX_ADV_LIST);
+        break;
+    }
+
   }
 
   private void inject() {
@@ -283,7 +325,7 @@ public class MainTabActivity extends BaseTabActivity {
           break;
         case R.id.btn_task:
           // TODO 测试代码
-          startActivity(new Intent(MainTabActivity.this, ProfileInitializeActivity.class));
+          mContext.startActivity(new Intent(mContext, TaskActivity.class));
           break;
         case R.id.btn_share:
           showShare();

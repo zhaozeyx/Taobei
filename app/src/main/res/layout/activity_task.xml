@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/grid_3"
+      >
+    <TextView
+        android:id="@+id/task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/arc"
+        tools:text="@string/my_account_out_question"
+        android:textColor="@color/font_color_red_dark"
+        />
+    <TextView
+        android:id="@+id/task_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        tools:text="@string/my_account_out_1"
+        />
+    <TextView
+        android:id="@+id/task_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        tools:text="@string/my_account_out_2"
+        />
+    <TextView
+        android:id="@+id/task_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:paddingTop="@dimen/grid_3"
+        tools:text="@string/my_account_out_3"
+        />
+
+  </LinearLayout>
+  <com.malinskiy.superrecyclerview.SuperRecyclerView
+  android:id="@+id/list_view"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_gravity="center"
+  app:layout_empty="@layout/list_empty_view"
+  app:layout_moreProgress="@layout/layout_list_bottom_more"
+  app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+  app:scrollbarStyle="insideOverlay"
+  />
+</LinearLayout>

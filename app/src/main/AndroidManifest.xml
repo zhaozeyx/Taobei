@@ -217,8 +217,16 @@
     <activity
         android:name=".ui.tab.MainTabActivity"
         android:launchMode="singleTask"
-        android:screenOrientation="portrait"/>
-
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="com.hengrtec.taobei.ui.tab.ACTION_ADV_LIST"/>
+        <action android:name="com.hengrtec.taobei.ui.tab.ACTION_DISCOVER"/>
+        <action android:name="com.hengrtec.taobei.ui.tab.ACTION_BI"/>
+        <action android:name="com.hengrtec.taobei.ui.tab.ACTION_NEARBY"/>
+        <action android:name="com.hengrtec.taobei.ui.tab.ACTION_PROFILE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
     <activity
         android:name=".ui.home.AdvertisementDetailActivity"
         android:screenOrientation="portrait"
@@ -293,6 +301,9 @@
 
     <activity
         android:name=".ui.profile.SettingsActivity"
+        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".ui.profile.TaskActivity"
         android:screenOrientation="portrait"/>
     <activity
         android:name=".ui.profile.MyAccountActivity"

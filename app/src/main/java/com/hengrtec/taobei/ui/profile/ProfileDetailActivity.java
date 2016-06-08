@@ -30,6 +30,7 @@ import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.manager.UserInfoChangedEvent;
 import com.hengrtec.taobei.net.rpc.model.UserInfo;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.hengrtec.taobei.ui.profile.fragments.ResetPhoneActivity;
 import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 import org.apmem.tools.layouts.FlowLayout;
@@ -115,6 +116,7 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         startActivity(new Intent(this, CertifyActivity.class));
         break;
       case R.id.phone_setting:
+        startActivity(new Intent(this, ResetPhoneActivity.class));
         break;
       case R.id.nick_name_setting:
         startActivityForResult(new Intent(this, NickNameActivity.class), REQUEST_CODE_NICK_NAME);
