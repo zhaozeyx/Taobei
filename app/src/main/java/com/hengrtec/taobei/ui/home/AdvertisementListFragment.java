@@ -42,8 +42,8 @@ import com.nineoldandroids.animation.Animator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
-import jp.wasabeef.recyclerview.animators.ScaleInLeftAnimator;
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 /**
  * 广告列表界面<BR>
@@ -72,6 +72,7 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
   @Bind(R.id.list_view)
   SuperRecyclerView mListView;
   private AdvertisementListAdapter mListAdapter;
+  private AnimationAdapter mListAnimationAdapter;
 
 
   public static AdvertisementListFragment newInstance(String category) {
@@ -150,16 +151,12 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
   };
 
   private void initListView() {
-    mListAdapter = new AdvertisementListAdapter();
-    mListView.setAdapter(mListAdapter);
     mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mListView.getRecyclerView().setItemAnimator(new ScaleInLeftAnimator());
-    mListView.getRecyclerView().getItemAnimator().setMoveDuration(1000);
-    AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mListAdapter);
-    alphaAdapter.setFirstOnly(true);
-    alphaAdapter.setDuration(500);
-    alphaAdapter.setInterpolator(new OvershootInterpolator(.5f));
-    mListView.setAdapter(alphaAdapter);
+    mListAdapter = new AdvertisementListAdapter();
+    mListAnimationAdapter = new ScaleInAnimationAdapter(mListAdapter);
+    mListAnimationAdapter.setInterpolator(new OvershootInterpolator());
+    mListAnimationAdapter.setFirstOnly(false);
+    mListView.setAdapter(mListAnimationAdapter);
     mListView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
@@ -211,7 +208,8 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
       mListView.removeMoreListener();
     }
     resetLoadingStatus();
-    mListAdapter.notifyDataSetChanged();
+    //mListAdapter.notifyDataSetChanged();
+    mListAnimationAdapter.notifyDataSetChanged();
   }
 
   @Override

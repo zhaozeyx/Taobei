@@ -108,7 +108,7 @@ public class HomeFragment extends BasicTitleBarFragment implements HomeView {
       }
     });
 
-    setRightImgButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
+    setRightImgButton(R.mipmap.icon_title_bar_more, new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         startActivity(new Intent(getActivity(), ReportActivity.class));
