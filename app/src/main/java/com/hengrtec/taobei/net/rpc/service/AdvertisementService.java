@@ -18,6 +18,7 @@ import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.model.BibiModel;
 import com.hengrtec.taobei.net.rpc.model.BibiReport;
 import com.hengrtec.taobei.net.rpc.model.CollectAdvModel;
+import com.hengrtec.taobei.net.rpc.model.GetMoneyModel;
 import com.hengrtec.taobei.net.rpc.model.MyTaskModel;
 import com.hengrtec.taobei.net.rpc.model.Question;
 import com.hengrtec.taobei.net.rpc.model.ResponseModel;
@@ -124,5 +125,7 @@ public interface AdvertisementService {
       @Body GetCardQueryParams params);
 
   @POST("getbenefit.do") Observable<Response<ResponseModel<String>>> getBenefit(
+      @Body GetBenefitParams params);
+  @POST("getmoney.do") Observable<Response<ResponseModel<GetMoneyModel>>> getMoney(
       @Body GetBenefitParams params);
 }

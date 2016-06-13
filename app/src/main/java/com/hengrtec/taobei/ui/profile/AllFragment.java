@@ -21,8 +21,11 @@ import com.hengrtec.taobei.net.rpc.service.params.WatchedListParams;
  * @version [Taobei Client V20160411, 16/5/26]
  */
 public class AllFragment extends BaseWatchedListFragment {
-  @Override
-  protected int getListType() {
+  @Override protected int getListType() {
     return WatchedListParams.FLAG_ALL;
+  }
+
+  @Override protected void updateList(int advId) {
+    updateStatus(advId);
   }
 }

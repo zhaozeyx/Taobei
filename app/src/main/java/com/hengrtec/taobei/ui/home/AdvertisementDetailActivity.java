@@ -57,10 +57,12 @@ import com.hengrtec.taobei.ui.home.event.AwardReceiveClickedEvent;
 import com.hengrtec.taobei.ui.home.event.PlayNotCompletedEvent;
 import com.hengrtec.taobei.ui.home.event.SubmitQuestionAnswerEvent;
 import com.hengrtec.taobei.ui.home.view.AwardViewController;
+import com.hengrtec.taobei.ui.login.LoginWayActivity;
 import com.hengrtec.taobei.ui.serviceinjection.DaggerServiceComponent;
 import com.hengrtec.taobei.ui.serviceinjection.ServiceModule;
 import com.hengrtec.taobei.utils.AdvertisementValueBindUtils;
 import com.hengrtec.taobei.utils.DateUtils;
+import com.hengrtec.taobei.utils.ShareUtils;
 import com.hengrtec.taobei.utils.imageloader.ImageLoader;
 import com.sevenheaven.segmentcontrol.SegmentControl;
 import com.squareup.otto.Subscribe;
@@ -702,12 +704,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       @Override
       public void onClick(View v) {
         // TODO 分享到朋友圈 根据类型不同分享内容不同？
+        ShareUtils.showShareWechatMoments(AdvertisementDetailActivity.this,"","");
       }
     });
     contentView.findViewById(R.id.btn_share_friends).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         // TODO 分享到微信 根据类型不同分享内容不同？
+        ShareUtils.showShareWechat(AdvertisementDetailActivity.this,"","");
       }
     });
     contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
@@ -735,6 +739,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       @Override
       public void onClick(View v) {
         // TODO QQ登录
+        startActivity(new Intent(AdvertisementDetailActivity.this, LoginWayActivity.class));
       }
     });
     contentView.findViewById(R.id.btn_login_web_chat).setOnClickListener(new View.OnClickListener
@@ -742,12 +747,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       @Override
       public void onClick(View v) {
         // TODO 微信登录？
+        startActivity(new Intent(AdvertisementDetailActivity.this, LoginWayActivity.class));
       }
     });
     contentView.findViewById(R.id.btn_login_phone).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         // TODO 手机登录
+        startActivity(new Intent(AdvertisementDetailActivity.this, LoginWayActivity.class));
       }
     });
     if (null != mAdvPlayInfo) {

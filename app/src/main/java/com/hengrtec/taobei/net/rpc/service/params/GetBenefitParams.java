@@ -30,4 +30,9 @@ public class GetBenefitParams {
     this.advId = advId;
     this.benefitType = benefitType;
   }
+
+  public GetBenefitParams(int userId, int advId) {
+    this.userId = userId;
+    this.advId = advId;
+  }
 }
