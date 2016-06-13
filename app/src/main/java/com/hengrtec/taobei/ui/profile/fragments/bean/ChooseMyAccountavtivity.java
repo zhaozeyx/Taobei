@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.hengrtec.taobei.CustomApp;
@@ -163,13 +162,13 @@ public class ChooseMyAccountavtivity extends BasicTitleBarActivity  implements O
     intent.putExtras(bundle);
     //setResult(RESULT_OK, intent);
     startActivity(intent);
-    Toast.makeText(this, "item " + position + " 点击", Toast.LENGTH_SHORT).show();
+    //Toast.makeText(this, "item " + position + " 点击", Toast.LENGTH_SHORT).show();
     finish();
   }
 
   @Override public boolean onItemLongClick(RecyclerHolder holder, View view, int position) {
     //长点击跟长按拖动换位有冲突，正常情况下不要同时使用
-    Toast.makeText(this, "item " + position + " 长点击", Toast.LENGTH_SHORT).show();
+    //Toast.makeText(this, "item " + position + " 长点击", Toast.LENGTH_SHORT).show();
     return true;
   }
 

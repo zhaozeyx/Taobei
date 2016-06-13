@@ -32,8 +32,6 @@ import javax.inject.Inject;
  */
 public class SettingsActivity extends BasicTitleBarActivity {
 
-
-
   @Bind(R.id.rl_about) RelativeLayout mAbout;
   @Bind(R.id.rl_primary) RelativeLayout mPrimary;
   @Bind(R.id.account_safe) RelativeLayout mAccountSafe;
@@ -47,6 +45,7 @@ public class SettingsActivity extends BasicTitleBarActivity {
   @Inject UserService mAdvService;
   @Bind(R.id.clear_cache) RelativeLayout clearCache;
   @Bind(R.id.cache) TextView cache;
+  @Bind(R.id.question_setting) RelativeLayout questionSetting;
 
   @Override protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
@@ -166,8 +165,9 @@ public class SettingsActivity extends BasicTitleBarActivity {
   }
 
   @OnClick({
-      R.id.account_safe, R.id.mTogBtn, R.id.clear_cache, R.id.mTogBtn2, R.id.mTogBtn3,
-      R.id.mTogBtn4, R.id.mTogBtn5, R.id.mTogBtn6, R.id.rl_primary, R.id.rl_about, R.id.exit
+      R.id.account_safe, R.id.mTogBtn, R.id.clear_cache, R.id.question_setting, R.id.mTogBtn2,
+      R.id.mTogBtn3, R.id.mTogBtn4, R.id.mTogBtn5, R.id.mTogBtn6, R.id.rl_primary, R.id.rl_about,
+      R.id.exit
   }) public void onClick(View view) {
     switch (view.getId()) {
       case R.id.account_safe:
@@ -189,11 +189,15 @@ public class SettingsActivity extends BasicTitleBarActivity {
         break;
       case R.id.mTogBtn6:
         break;
+
       case R.id.clear_cache:
         DataCleanManager.cleanApplicationData(this);
         showShortToast("清除成功");
         cache.setText("0kB");
         //FileUtiles.DeleteTempFiles(Url.getDeleteFilesPath());
+        break;
+      case R.id.question_setting:
+        startActivity(new Intent(SettingsActivity.this, QuestionLook.class));
         break;
       case R.id.rl_primary:
         startActivity(new Intent(SettingsActivity.this, PrimaryActivity.class));

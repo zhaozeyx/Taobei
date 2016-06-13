@@ -151,12 +151,12 @@ public class OneFragment extends BasicTitleBarFragment
   }
 
   @Override public void onItemClick(RecyclerHolder holder, View view, int position) {
-    Toast.makeText(getActivity(), "item " + position + " 点击", Toast.LENGTH_SHORT).show();
+    Toast.makeText(getActivity(), "侧滑删除银行卡", Toast.LENGTH_SHORT).show();
   }
 
   @Override public boolean onItemLongClick(RecyclerHolder holder, View view, int position) {
     //长点击跟长按拖动换位有冲突，正常情况下不要同时使用
-    Toast.makeText(getActivity(), "item " + position + " 长点击", Toast.LENGTH_SHORT).show();
+    //Toast.makeText(getActivity(), "item " + position + " 长点击", Toast.LENGTH_SHORT).show();
     return true;
   }
 

@@ -367,7 +367,7 @@
             />
 
         <RelativeLayout
-
+            android:id="@+id/question_setting"
             android:layout_width="match_parent"
             android:layout_height="55dp"
 

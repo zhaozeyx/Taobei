@@ -273,7 +273,9 @@
     <activity
         android:name=".ui.profile.ProfileDetailActivity"
         android:screenOrientation="portrait"/>
-
+    <activity
+        android:name=".ui.profile.QuestionLook"
+        android:screenOrientation="portrait"/>
     <activity
         android:name=".ui.profile.ProfitActivity"
         android:screenOrientation="portrait">
