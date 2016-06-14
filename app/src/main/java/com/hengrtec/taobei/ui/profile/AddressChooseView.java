@@ -43,6 +43,7 @@ public class AddressChooseView extends FrameLayout {
   private String mSelectedProvince;
   private String mSelectedCity;
   private List<AddressUtils.AddressModel> mAddressModelList;
+  private List<List<String>> mCityList = new ArrayList<>();
 
   protected AddressChooseView(Context context) {
     super(context);
@@ -56,6 +57,12 @@ public class AddressChooseView extends FrameLayout {
     List<String> provinceList = new ArrayList<>();
     for (AddressUtils.AddressModel model : mAddressModelList) {
       provinceList.add(model.getName());
+      List<AddressUtils.AddressModel.CityBean> cityBeanList = model.getCity();
+      List<String> cityNameList = new ArrayList<>();
+      for (AddressUtils.AddressModel.CityBean bean : cityBeanList) {
+        cityNameList.add(bean.getName());
+      }
+      mCityList.add(cityNameList);
     }
     mProvincePicker.setData(provinceList);
     mProvincePicker.setOnWheelChangeListener(new AbstractWheelPicker.OnWheelChangeListener() {
@@ -68,6 +75,7 @@ public class AddressChooseView extends FrameLayout {
       public void onWheelSelected(int index, String data) {
         mSelectedProvince = data;
         swapCityList(index);
+        mSelectedCity = mCityList.get(index).get(0);
       }
 
       @Override
@@ -91,16 +99,12 @@ public class AddressChooseView extends FrameLayout {
 
       }
     });
-    addView(view, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    addView(view, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+        .LayoutParams.MATCH_PARENT));
   }
 
   private void swapCityList(int provinceIndex) {
-    List<String> cityList = new ArrayList<>();
-    List<AddressUtils.AddressModel.CityBean> cityBeanList = mAddressModelList.get(provinceIndex).getCity();
-    for (AddressUtils.AddressModel.CityBean bean : cityBeanList) {
-      cityList.add(bean.getName());
-    }
-    mCityPicker.setData(cityList);
+    mCityPicker.setData(mCityList.get(provinceIndex));
   }
 
   public String getSelectAddress() {
