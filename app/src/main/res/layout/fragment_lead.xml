@@ -19,7 +19,7 @@
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
       android:layout_marginBottom="35dp"
-      android:background="@android:color/holo_green_light"
+      android:background="@drawable/bg_btn_yellow_round_corner"
       android:paddingLeft="@dimen/margin_medium"
       android:paddingRight="@dimen/margin_medium"
       android:text="@string/btn_lead_enter"

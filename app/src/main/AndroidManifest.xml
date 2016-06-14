@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:versionName="1.0"
     package="com.hengrtec.taobei">
 
   <uses-permission android:name="android.permission.INTERNET"/>
@@ -224,6 +225,7 @@
         <action android:name="com.hengrtec.taobei.ui.tab.ACTION_BI"/>
         <action android:name="com.hengrtec.taobei.ui.tab.ACTION_NEARBY"/>
         <action android:name="com.hengrtec.taobei.ui.tab.ACTION_PROFILE"/>
+
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
@@ -394,6 +396,16 @@
     <activity
         android:name=".ui.profile.InviteFriendsActivity"
         android:screenOrientation="portrait"/>
+
+    <!-- 下载完成广播接收器 -->
+    <receiver
+        android:name=".manager.UpgradeHelper$DownloadBroadcastReceiver"
+        >
+      <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+      </intent-filter>
+    </receiver>
+
     <!-- Glide Module  -->
     <meta-data
         android:name="com.hengrtec.taobei.utils.imageloader.GlideImageModule"

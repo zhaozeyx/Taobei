@@ -470,4 +470,8 @@
   <string name="activity_invite_friends_title">邀请朋友</string>
   <string name="activity_invite_friends_btn_share_moments">分享到微信朋友圈</string>
   <string name="activity_invite_friends_btn_invite_contacts">邀请手机联系人</string>
+
+  <!-- 更新 -->
+  <string name="upgrade_info_normal">有新的版本更新，是否下载?</string>
+  <string name="check_upgrade_failed">检测更新失败</string>
 </resources>

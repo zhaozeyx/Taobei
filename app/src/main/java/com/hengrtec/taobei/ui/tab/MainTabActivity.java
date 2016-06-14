@@ -91,8 +91,9 @@ public class MainTabActivity extends BaseTabActivity {
     initUserInfo();
   }
 
-  @Override protected void onNewIntent(Intent intent) {
-    if (null == intent||TextUtils.isEmpty(intent.getAction())) {
+  @Override
+  protected void onNewIntent(Intent intent) {
+    if (null == intent || TextUtils.isEmpty(intent.getAction())) {
       return;
     }
     super.onNewIntent(intent);
@@ -324,7 +325,6 @@ public class MainTabActivity extends BaseTabActivity {
           showSignInDialog();
           break;
         case R.id.btn_task:
-          // TODO 测试代码
           mContext.startActivity(new Intent(mContext, TaskActivity.class));
           break;
         case R.id.btn_share:
@@ -393,5 +393,6 @@ public class MainTabActivity extends BaseTabActivity {
     super.onDestroy();
     getComponent().loginSession().onDestroy();
     mSubscriptions.unsubscribe();
+    getComponent().upgradeHelper().onDestroy();
   }
 }

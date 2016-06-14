@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
+import com.squareup.otto.Subscribe;
 
 /**
  * [一句话功能简述]<BR>
@@ -71,14 +72,17 @@ public class WatchedActivity extends BasicTitleBarActivity {
     String[] titles = getResources().getStringArray(R.array.watched_titles);
     WatchedPagerAdapter adapter = new WatchedPagerAdapter(getSupportFragmentManager());
     mPager.setAdapter(adapter);
-    View view = LayoutInflater.from(this).inflate(R.layout.watched_pager_title_view, mTabLayout, false);
-    view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    View view = LayoutInflater.from(this).inflate(R.layout.watched_pager_title_view, mTabLayout,
+        false);
+    view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT));
     mTabLayout.setupWithViewPager(mPager);
     for (int i = 0; i < mTabLayout.getTabCount(); i++) {
       if (i == WatchedType.UN_ACCEPT.ordinal()) {
         mTabLayout.getTabAt(i).setCustomView(view);
         ((TextView) view.findViewById(R.id.title)).setText(titles[i]);
         mStateView = view.findViewById(R.id.state);
+        mStateView.setVisibility(View.GONE);
       } else {
         mTabLayout.getTabAt(i).setText(titles[i]);
       }
@@ -103,6 +107,11 @@ public class WatchedActivity extends BasicTitleBarActivity {
       }
     });
 
+  }
+
+  @Subscribe
+  public void handleUnAcceptDataLoadedEvent(UnAcceptedFragment.UnAcceptDataLoadEvent event) {
+    mStateView.setVisibility(event.hasData ? View.VISIBLE : View.GONE);
   }
 
   class WatchedPagerAdapter extends FragmentPagerAdapter {

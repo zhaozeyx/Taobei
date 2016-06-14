@@ -30,7 +30,6 @@ import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.injection.GlobalModule;
 import com.hengrtec.taobei.net.UiRpcSubscriber;
-import com.hengrtec.taobei.net.rpc.model.AdvPlayInfo;
 import com.hengrtec.taobei.net.rpc.model.GetMoneyModel;
 import com.hengrtec.taobei.net.rpc.model.WatchedModel;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
@@ -58,13 +57,13 @@ import javax.inject.Inject;
  * @version [Taobei Client V20160411, 16/5/26]
  */
 public abstract class BaseWatchedListFragment extends BasicFragment {
-  private static final int PAGE_SIZE = 20;
-  private static final int START_INDEX = 1;
-  @Bind(R.id.refresh_wrapper) PullToRefreshWrapper mRefreshWrapper;
-  private AdvPlayInfo mAdvPlayInfo;
+  @Bind(R.id.refresh_wrapper)
+  PullToRefreshWrapper mRefreshWrapper;
 
-  @Inject UserService mUserService;
-  @Inject AdvertisementService mAdvertisementService;
+  @Inject
+  UserService mUserService;
+  @Inject
+  AdvertisementService mAdvertisementService;
   private AlertDialog mProfitDialog;
   private ExpandableListView mListView;
   private String mLastDate = "";
@@ -72,19 +71,22 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
 
   private EventHandler mEventHandler = new EventHandler();
 
-  @Override public void onCreate(Bundle savedInstanceState) {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getComponent().getGlobalBus().register(mEventHandler);
   }
 
-  @Override public void onDestroy() {
+  @Override
+  public void onDestroy() {
     super.onDestroy();
     getComponent().getGlobalBus().unregister(mEventHandler);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+                           @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_watched_list, container, false);
     inject();
     ButterKnife.bind(this, view);
@@ -93,7 +95,8 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     return view;
   }
 
-  @Override public void onViewCreated(View view, Bundle savedInstanceState) {
+  @Override
+  public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
     initView();
@@ -115,11 +118,13 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     mRefreshWrapper.wrapView(mListView);
 
     mRefreshWrapper.setScrollToLoadListener(new PullToRefreshWrapper.ScrollToLoadListener() {
-      @Override public void onPullUpLoadData() {
+      @Override
+      public void onPullUpLoadData() {
         loadData();
       }
 
-      @Override public void onPullDownLoadData() {
+      @Override
+      public void onPullDownLoadData() {
         mLastDate = "";
         loadData();
       }
@@ -140,14 +145,17 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     manageRpcCall(mUserService.watchedList(
         new WatchedListParams(getComponent().loginSession().getUserId(), getListType(), mLastDate)),
         new UiRpcSubscriber<List<WatchedModel>>(getActivity()) {
-          @Override protected void onSuccess(List<WatchedModel> watchedModels) {
+          @Override
+          protected void onSuccess(List<WatchedModel> watchedModels) {
             if (null == watchedModels || watchedModels.size() == 0) {
               mRefreshWrapper.setPullUpToRefresh(false);
+              onDataLoadFinished(false);
               return;
             }
             if (TextUtils.isEmpty(mLastDate)) {
               mAdapter.clear();
             }
+            onDataLoadFinished(true);
             mLastDate = watchedModels.get(watchedModels.size() - 1).getSeeDate();
             mRefreshWrapper.setPullUpToRefresh(true);
             mAdapter.addAll(watchedModels);
@@ -155,10 +163,15 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
             expandAll(mAdapter.mData);
           }
 
-          @Override protected void onEnd() {
+          @Override
+          protected void onEnd() {
             mRefreshWrapper.resetPullStatus();
           }
         });
+  }
+
+  protected void onDataLoadFinished(boolean hasData) {
+
   }
 
   private void expandAll(List<WatchedModel> models) {
@@ -167,7 +180,8 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     }
   }
 
-  @Override public void onDestroyView() {
+  @Override
+  public void onDestroyView() {
     super.onDestroyView();
     ButterKnife.unbind(this);
   }
@@ -176,31 +190,35 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     manageRpcCall(mAdvertisementService.getMoney(
         new GetBenefitParams(getComponent().loginSession().getUserId(), advId)),
         new UiRpcSubscriber<GetMoneyModel>(getActivity()) {
-          @Override protected void onSuccess(GetMoneyModel getMoneyModel) {
+          @Override
+          protected void onSuccess(GetMoneyModel getMoneyModel) {
             mLastDate = null;
             getComponent().getGlobalBus().post(new ReceiveEvent(advId));
-            showBenefitDialog(getMoneyModel.getBenefitType());
+            showBenefitDialog(getMoneyModel.getBenefitType(), getMoneyModel.getCoupon(),
+                getMoneyModel.getBenefit());
           }
 
-          @Override protected void onEnd() {
+          @Override
+          protected void onEnd() {
             closeProgressDialog();
           }
         });
   }
 
-  private void showBenefitDialog(String benefitType) {
+  private void showBenefitDialog(String benefitType, GetMoneyModel.CouponEntity coupon, int
+      benefit) {
     switch (benefitType) {
       case AdvertisementConstant.ADV_BENEFIT_TYPE_REALITY_CURRENCY:
         if (getComponent().isLogin()) {
           View childView =
               LayoutInflater.from(getActivity()).inflate(R.layout.dialog_red_bag_get, null);
           mProfitDialog = new AlertDialog.Builder(getActivity()).setView(childView).create();
-          bindDataProfitDialog(childView);
+          bindDataProfitDialog(childView, coupon, benefit);
         } else {
           View childView =
               LayoutInflater.from(getActivity()).inflate(R.layout.dialog_red_bag_get_unlogin, null);
           mProfitDialog = new AlertDialog.Builder(getActivity()).setView(childView).create();
-          bindDataUnLoginProfitDialog(childView);
+          bindDataUnLoginProfitDialog(childView, coupon, benefit);
         }
         if (null != mProfitDialog) {
           if (mProfitDialog.isShowing()) {
@@ -214,12 +232,12 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
           View childView =
               LayoutInflater.from(getActivity()).inflate(R.layout.dialog_coupon_get, null);
           mProfitDialog = new AlertDialog.Builder(getActivity()).setView(childView).create();
-          bindDataProfitDialog(childView);
+          bindDataProfitDialog(childView, coupon, benefit);
         } else {
           View childView =
               LayoutInflater.from(getActivity()).inflate(R.layout.dialog_coupon_get_un_login, null);
           mProfitDialog = new AlertDialog.Builder(getActivity()).setView(childView).create();
-          bindDataUnLoginProfitDialog(childView);
+          bindDataUnLoginProfitDialog(childView, coupon, benefit);
         }
         if (null != mProfitDialog) {
           if (mProfitDialog.isShowing()) {
@@ -231,68 +249,73 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     }
   }
 
-  private void bindDataProfitDialog(@NonNull View contentView) {
+  private void bindDataProfitDialog(@NonNull View contentView, GetMoneyModel.CouponEntity coupon,
+                                    int benefit) {
     ImageLoader.loadOptimizedHttpImage(getActivity(),
         getComponent().loginSession().getUserInfo().getAvart())
         .into((ImageView) contentView.findViewById(R.id.user_avatar));
     contentView.findViewById(R.id.btn_share_moments).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         // TODO 分享到朋友圈 根据类型不同分享内容不同？
         ShareUtils.showShareWechatMoments(getActivity(), "", "");
       }
     });
     contentView.findViewById(R.id.btn_share_friends).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         // TODO 分享到微信 根据类型不同分享内容不同？
         ShareUtils.showShareWechat(getActivity(), "", "");
       }
     });
     contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         if (null != mProfitDialog) {
           mProfitDialog.cancel();
         }
       }
     });
-    if (null != mAdvPlayInfo) {
-      ((TextView) contentView.findViewById(R.id.profit_number)).setText(
-          mAdvPlayInfo.getBenefitFinal());
-    }
+    ((TextView) contentView.findViewById(R.id.profit_number)).setText(
+        String.valueOf(benefit));
     TextView congratulationsView =
         ((TextView) contentView.findViewById(R.id.dialog_congratulations));
     congratulationsView.setText(getString(R.string.adv_detail_dialog_congratulations,
         getComponent().loginSession().getUserInfo().getUserName()));
   }
 
-  private void bindDataUnLoginProfitDialog(@NonNull View contentView) {
+  private void bindDataUnLoginProfitDialog(@NonNull View contentView, GetMoneyModel.CouponEntity
+      coupon, int benefit) {
     ImageLoader.loadOptimizedHttpImage(getActivity(),
         getComponent().loginSession().getUserInfo().getAvart())
         .into((ImageView) contentView.findViewById(R.id.user_avatar));
     contentView.findViewById(R.id.btn_login_qq).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         // TODO QQ登录
         startActivity(new Intent(getActivity(), LoginWayActivity.class));
       }
     });
     contentView.findViewById(R.id.btn_login_web_chat)
         .setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View v) {
+          @Override
+          public void onClick(View v) {
             // TODO 微信登录？
             startActivity(new Intent(getActivity(), LoginWayActivity.class));
           }
         });
     contentView.findViewById(R.id.btn_login_phone).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         // TODO 手机登录
         startActivity(new Intent(getActivity(), LoginWayActivity.class));
       }
     });
-    if (null != mAdvPlayInfo) {
-      ((TextView) contentView.findViewById(R.id.profit_number)).setText(
-          mAdvPlayInfo.getBenefitFinal());
-    }
+    ((TextView) contentView.findViewById(R.id.profit_number)).setText(
+        String.valueOf(benefit));
     contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         if (null != mProfitDialog) {
           mProfitDialog.cancel();
         }
@@ -318,37 +341,45 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
       mData.clear();
     }
 
-    @Override public int getGroupCount() {
+    @Override
+    public int getGroupCount() {
       return mData.size();
     }
 
-    @Override public int getChildrenCount(int groupPosition) {
+    @Override
+    public int getChildrenCount(int groupPosition) {
       return null == mData.get(groupPosition).getList() ? 0
           : mData.get(groupPosition).getList().size();
     }
 
-    @Override public WatchedModel getGroup(int groupPosition) {
+    @Override
+    public WatchedModel getGroup(int groupPosition) {
       return mData.get(groupPosition);
     }
 
-    @Override public WatchedModel.ListBean getChild(int groupPosition, int childPosition) {
+    @Override
+    public WatchedModel.ListBean getChild(int groupPosition, int childPosition) {
       return mData.get(groupPosition).getList().get(childPosition);
     }
 
-    @Override public long getGroupId(int groupPosition) {
+    @Override
+    public long getGroupId(int groupPosition) {
       return groupPosition;
     }
 
-    @Override public long getChildId(int groupPosition, int childPosition) {
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
       return childPosition;
     }
 
-    @Override public boolean hasStableIds() {
+    @Override
+    public boolean hasStableIds() {
       return false;
     }
 
-    @Override public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-        ViewGroup parent) {
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
+                             ViewGroup parent) {
       GroupViewHolder holder;
       if (null == convertView) {
         convertView = LayoutInflater.from(getContext())
@@ -361,8 +392,9 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
       return convertView;
     }
 
-    @Override public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-        View convertView, ViewGroup parent) {
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+                             View convertView, ViewGroup parent) {
       ChildViewHolder holder;
       if (null == convertView) {
         convertView = LayoutInflater.from(getContext())
@@ -380,7 +412,7 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
     }
 
     private void setViewByState(TextView awardView, TextView btnView,
-        final WatchedModel.ListBean bean) {
+                                final WatchedModel.ListBean bean) {
       String state = bean.getState();
       String advState = bean.getAdvState();
       btnView.setEnabled(true);
@@ -390,7 +422,8 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
           btnView.setTextColor(getResources().getColor(android.R.color.white));
           btnView.setBackgroundResource(R.drawable.bg_btn_red_round_corner);
           btnView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
               // TODO 答题界面
             }
           });
@@ -403,8 +436,8 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
             btnView.setTextColor(getResources().getColor(android.R.color.white));
             btnView.setBackgroundResource(R.drawable.bg_btn_red_round_corner);
             btnView.setOnClickListener(new View.OnClickListener() {
-              @Override public void onClick(View v) {
-                // TODO 领取红包
+              @Override
+              public void onClick(View v) {
                 receive(bean.getAdvId());
               }
             });
@@ -424,7 +457,8 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
           btnView.setTextColor(getResources().getColor(android.R.color.white));
           btnView.setBackgroundResource(R.drawable.bg_btn_brown_round_corner);
           btnView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
               // TODO 跳转到播放界面
               startActivity(AdvertisementDetailActivity.makeIntent(getActivity(), bean.getAdvId()));
             }
@@ -441,13 +475,15 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
       }
     }
 
-    @Override public boolean isChildSelectable(int groupPosition, int childPosition) {
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
       return false;
     }
   }
 
   class GroupViewHolder {
-    @Bind(R.id.date) TextView mDateView;
+    @Bind(R.id.date)
+    TextView mDateView;
 
     public GroupViewHolder(View view) {
       ButterKnife.bind(this, view);
@@ -455,10 +491,14 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
   }
 
   class ChildViewHolder {
-    @Bind(R.id.snapshot) ImageView mSnapshotView;
-    @Bind(R.id.description) TextView mDescriptionView;
-    @Bind(R.id.btn) TextView mBtnView;
-    @Bind(R.id.award_info) TextView mAwardInfoView;
+    @Bind(R.id.snapshot)
+    ImageView mSnapshotView;
+    @Bind(R.id.description)
+    TextView mDescriptionView;
+    @Bind(R.id.btn)
+    TextView mBtnView;
+    @Bind(R.id.award_info)
+    TextView mAwardInfoView;
 
     public ChildViewHolder(View view) {
       ButterKnife.bind(this, view);
@@ -500,7 +540,8 @@ public abstract class BaseWatchedListFragment extends BasicFragment {
   }
 
   class EventHandler {
-    @Subscribe void onReceiveBtnClicked(ReceiveEvent event) {
+    @Subscribe
+    public void onReceiveBtnClicked(ReceiveEvent event) {
       updateList(event.advId);
     }
   }

@@ -32,22 +32,37 @@ import javax.inject.Inject;
  */
 public class SettingsActivity extends BasicTitleBarActivity {
 
-  @Bind(R.id.rl_about) RelativeLayout mAbout;
-  @Bind(R.id.rl_primary) RelativeLayout mPrimary;
-  @Bind(R.id.account_safe) RelativeLayout mAccountSafe;
-  @Bind(R.id.mTogBtn) ToggleButton mTogBtn;
-  @Bind(R.id.mTogBtn2) ToggleButton mTogBtn2;
-  @Bind(R.id.mTogBtn3) ToggleButton mTogBtn3;
-  @Bind(R.id.mTogBtn4) ToggleButton mTogBtn4;
-  @Bind(R.id.mTogBtn5) ToggleButton mTogBtn5;
-  @Bind(R.id.mTogBtn6) ToggleButton mTogBtn6;
-  @Bind(R.id.exit) Button exit;
-  @Inject UserService mAdvService;
-  @Bind(R.id.clear_cache) RelativeLayout clearCache;
-  @Bind(R.id.cache) TextView cache;
-  @Bind(R.id.question_setting) RelativeLayout questionSetting;
+  @Bind(R.id.rl_about)
+  RelativeLayout mAbout;
+  @Bind(R.id.rl_primary)
+  RelativeLayout mPrimary;
+  @Bind(R.id.account_safe)
+  RelativeLayout mAccountSafe;
+  @Bind(R.id.mTogBtn)
+  ToggleButton mTogBtn;
+  @Bind(R.id.mTogBtn2)
+  ToggleButton mTogBtn2;
+  @Bind(R.id.mTogBtn3)
+  ToggleButton mTogBtn3;
+  @Bind(R.id.mTogBtn4)
+  ToggleButton mTogBtn4;
+  @Bind(R.id.mTogBtn5)
+  ToggleButton mTogBtn5;
+  @Bind(R.id.mTogBtn6)
+  ToggleButton mTogBtn6;
+  @Bind(R.id.exit)
+  Button exit;
+  @Inject
+  UserService mAdvService;
+  @Bind(R.id.clear_cache)
+  RelativeLayout clearCache;
+  @Bind(R.id.cache)
+  TextView cache;
+  @Bind(R.id.question_setting)
+  RelativeLayout questionSetting;
 
-  @Override protected void afterCreate(Bundle savedInstance) {
+  @Override
+  protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
     inject();
     initView();
@@ -86,7 +101,8 @@ public class SettingsActivity extends BasicTitleBarActivity {
 
     mTogBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-      @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // TODO Auto-generated method stub
         if (isChecked) {
           getComponent().appPreferences().put(CustomAppPreferences.KEY_SCREEN, "0");
@@ -98,7 +114,8 @@ public class SettingsActivity extends BasicTitleBarActivity {
     });
     mTogBtn2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-      @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // TODO Auto-generated method stub
         if (isChecked) {
           getComponent().appPreferences().put(CustomAppPreferences.KEY_MOVEMENT, "0");
@@ -112,7 +129,8 @@ public class SettingsActivity extends BasicTitleBarActivity {
     });
     mTogBtn3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-      @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // TODO Auto-generated method stub
         if (isChecked) {
           getComponent().appPreferences().put(CustomAppPreferences.KEY_SYSTEM_MESSAGE, "0");
@@ -124,7 +142,8 @@ public class SettingsActivity extends BasicTitleBarActivity {
     });
     mTogBtn4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-      @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // TODO Auto-generated method stub
         if (isChecked) {
           getComponent().appPreferences().put(CustomAppPreferences.KEY_TRAFFIC_ALERT, "0");
@@ -144,21 +163,25 @@ public class SettingsActivity extends BasicTitleBarActivity {
         .inject(this);
   }
 
-  @Override public boolean initializeTitleBar() {
+  @Override
+  public boolean initializeTitleBar() {
     setMiddleTitle(R.string.activity_settings_title);
     setLeftTitleButton(R.mipmap.icon_title_bar_back, new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         finish();
       }
     });
     return true;
   }
 
-  @Override public int getLayoutId() {
+  @Override
+  public int getLayoutId() {
     return R.layout.activity_settings;
   }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     // TODO: add setContentView(...) invocation
     ButterKnife.bind(this);
@@ -168,7 +191,8 @@ public class SettingsActivity extends BasicTitleBarActivity {
       R.id.account_safe, R.id.mTogBtn, R.id.clear_cache, R.id.question_setting, R.id.mTogBtn2,
       R.id.mTogBtn3, R.id.mTogBtn4, R.id.mTogBtn5, R.id.mTogBtn6, R.id.rl_primary, R.id.rl_about,
       R.id.exit
-  }) public void onClick(View view) {
+  })
+  public void onClick(View view) {
     switch (view.getId()) {
       case R.id.account_safe:
         if (getComponent().isLogin()) {
@@ -209,22 +233,36 @@ public class SettingsActivity extends BasicTitleBarActivity {
         manageRpcCall(mAdvService.logout(
             new GetCardQueryParams(String.valueOf(getComponent().loginSession().getUserId()))),
             new UiRpcSubscriber<String>(this) {
-              @Override protected void onSuccess(String data) {
+              @Override
+              protected void onSuccess(String data) {
 
                 showShortToast("退出成功");
                 getComponent().loginSession().logout();
               }
 
-              @Override protected void onEnd() {
+              @Override
+              protected void onEnd() {
                 finish();
               }
 
-              @Override public void onApiError(RpcApiError apiError) {
+              @Override
+              public void onApiError(RpcApiError apiError) {
                 super.onApiError(apiError);
                 showShortToast("退出失败");
               }
             });
         break;
     }
+  }
+
+  @OnClick(R.id.bt_check_upgrade)
+  public void onUpgradeBtnClicked() {
+    getComponent().upgradeHelper().checkUpgradeInfo();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    getComponent().upgradeHelper().onDestroy();
   }
 }

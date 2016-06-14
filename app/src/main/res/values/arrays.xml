@@ -19,10 +19,10 @@
   </string-array>
 
   <array name="indicator_colors">
-    <item>@color/indicator_1</item>
-    <item>@color/indicator_2</item>
-    <item>@color/indicator_3</item>
-    <item>@color/indicator_4</item>
+    <item>@color/font_color_yellow</item>
+    <item>@color/font_color_yellow</item>
+    <item>@color/font_color_yellow</item>
+    <item>@color/font_color_yellow</item>
   </array>
 
   <array name="label_report_level_male">

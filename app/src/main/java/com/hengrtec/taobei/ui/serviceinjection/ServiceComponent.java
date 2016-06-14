@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.ui.serviceinjection;
 
 import com.hengrtec.taobei.manager.LoginSession;
+import com.hengrtec.taobei.manager.UpgradeHelper;
 import com.hengrtec.taobei.net.RpcCallManager;
 import com.hengrtec.taobei.net.rpc.service.AdvertisementService;
 import com.hengrtec.taobei.net.rpc.service.AppService;
@@ -160,4 +161,6 @@ public interface ServiceComponent {
   void inject(DealRecordsActivity dealRecordsActivity);
 
   void inject(MainTabActivity mainTabActivity);
+
+  void inject(UpgradeHelper upgradeHelper);
 }

@@ -13,6 +13,7 @@ package com.hengrtec.taobei.injection;
 
 import android.content.Context;
 import com.hengrtec.taobei.manager.LoginSession;
+import com.hengrtec.taobei.manager.UpgradeHelper;
 import com.hengrtec.taobei.net.HttpErrorUiNotifier;
 import com.hengrtec.taobei.net.SessionNotifier;
 import com.hengrtec.taobei.utils.preferences.CustomAppPreferences;

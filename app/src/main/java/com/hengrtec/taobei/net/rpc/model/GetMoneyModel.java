@@ -35,6 +35,7 @@ public class GetMoneyModel {
    */
 
   private CouponEntity coupon;
+  private int benefit;
   private int state;
 
   public int getAdvId() {
@@ -75,6 +76,14 @@ public class GetMoneyModel {
 
   public void setState(int state) {
     this.state = state;
+  }
+
+  public int getBenefit() {
+    return benefit;
+  }
+
+  public void setBenefit(int benefit) {
+    this.benefit = benefit;
   }
 
   public static class CouponEntity {

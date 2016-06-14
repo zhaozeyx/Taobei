@@ -21,11 +21,27 @@ import com.hengrtec.taobei.net.rpc.service.params.WatchedListParams;
  * @version [Taobei Client V20160411, 16/5/26]
  */
 public class UnAcceptedFragment extends BaseWatchedListFragment {
-  @Override protected int getListType() {
+  @Override
+  protected int getListType() {
     return WatchedListParams.FLAG_NOT_ACCEPT;
   }
 
-  @Override protected void updateList(int advId) {
+  @Override
+  protected void updateList(int advId) {
     removeItem(advId);
+  }
+
+  @Override
+  protected void onDataLoadFinished(boolean hasData) {
+    super.onDataLoadFinished(hasData);
+    getComponent().getGlobalBus().post(new UnAcceptDataLoadEvent(hasData));
+  }
+
+  public class UnAcceptDataLoadEvent {
+    public boolean hasData;
+
+    public UnAcceptDataLoadEvent(boolean hasData) {
+      this.hasData = hasData;
+    }
   }
 }

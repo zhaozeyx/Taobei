@@ -11,10 +11,11 @@
  */
 package com.hengrtec.taobei.injection;
 
+import com.hengrtec.taobei.manager.UpgradeHelper;
 import com.hengrtec.taobei.net.RpcCallManager;
-import com.hengrtec.taobei.ui.boot.BootActivity;
 import com.squareup.otto.Bus;
 import dagger.Component;
+import javax.inject.Singleton;
 
 /**
  * [一句话功能简述]<BR>
@@ -31,4 +32,6 @@ public interface ActivityComponent extends GlobalComponent {
   Bus getActivityBus();
 
   RpcCallManager rpcCallManager();
+
+  UpgradeHelper upgradeHelper();
 }

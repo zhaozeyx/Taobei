@@ -12,6 +12,7 @@
 package com.hengrtec.taobei.injection;
 
 import android.app.Activity;
+import com.hengrtec.taobei.manager.UpgradeHelper;
 import com.hengrtec.taobei.net.RpcCallManager;
 import com.squareup.otto.Bus;
 import dagger.Module;
@@ -45,5 +46,10 @@ public class ActivityModule {
   @Provides
   public RpcCallManager providesRpcCallManager() {
     return new RpcCallManager.RpcCallManagerImpl();
+  }
+
+  @Provides
+  public UpgradeHelper providesUpgradeHelper() {
+    return new UpgradeHelper(mActivity);
   }
 }
