@@ -68,8 +68,6 @@ import com.sevenheaven.segmentcontrol.SegmentControl;
 import com.squareup.otto.Subscribe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
 import org.apmem.tools.layouts.FlowLayout;
@@ -518,6 +516,9 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   }
 
   private void performLikeAdvBtnClicked() {
+    if (null == mDetail) {
+      return;
+    }
     mDetail.setHeartsClicked(!mDetail.isHeartsClicked());
     mBtnPraise.setSelected(mDetail.isHeartsClicked());
     manageRpcCall(mAdvertisementService.likeAdv(new AdvOperationParams(mDetail.isHeartsClicked()
@@ -539,6 +540,9 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   }
 
   private void performCollectAdvBtnClicked() {
+    if (null == mDetail) {
+      return;
+    }
     mDetail.setCollected(!mDetail.isCollected());
     mBtnCollect.setSelected(mDetail.isCollected());
     manageRpcCall(mAdvertisementService.collectadv(new AdvOperationParams(mDetail.isCollected()
@@ -564,7 +568,9 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
    * 如果未改变,根据是否播放完毕回答问题进行处理
    */
   private void performAdvInfoClicked() {
-
+    if (null == mDetail) {
+      return;
+    }
     showProgressDialog("", false);
     Observable<AdvPlayInfo> advInfoClickedObservable = mAdvertisementService.getUserAdvState(new
         GetUserAdvStateParams(String.valueOf

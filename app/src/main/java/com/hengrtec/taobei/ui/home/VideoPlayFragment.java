@@ -73,7 +73,7 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    if (NetworkUtil.getMobileNetworkType(getActivity()) != NetworkType.WIFI) {
+    if (NetworkUtil.getNetworkType(getActivity()) != NetworkType.WIFI) {
       mWifiDialog = new AlertDialog.Builder(getActivity()).setMessage(R.string
           .adv_play_warn_not_wifi)
           .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
