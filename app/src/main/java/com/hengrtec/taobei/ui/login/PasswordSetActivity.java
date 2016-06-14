@@ -119,9 +119,14 @@ public class PasswordSetActivity extends BasicTitleBarActivity {
   @OnClick(R.id.btn_register_confirm)
   public void onRegisterClick() {
     showProgressDialog("", false);
+    RegisterParams params = getComponent().loginSession().getUserId() > 0 ? new RegisterParams
+        (getComponent().deviceId(), mPasswordInput.getEditableText().toString(), mPhoneNumber,
+            mVerifyCode, getComponent().loginSession().getUserId()) : new RegisterParams
+        (getComponent
+        ().deviceId(), mPasswordInput.getEditableText().toString(), mPhoneNumber,
+        mVerifyCode);
     manageRpcCall(mAuthService.register
-        (new RegisterParams(getComponent().deviceId(), mPasswordInput.getEditableText().toString(), mPhoneNumber,
-            mVerifyCode, getComponent().loginSession().getUserId())), new UiRpcSubscriber<UserInfo>(this) {
+        (params), new UiRpcSubscriber<UserInfo>(this) {
       @Override
       protected void onSuccess(UserInfo userInfo) {
         // 通知所有登录相关界面

@@ -114,7 +114,6 @@ public class RegisterActivity extends BasicTitleBarActivity {
       showShortToast(R.string.register_phone_invalid);
       return;
     }
-    // TODO 调用获取验证码接口
     manageRpcCall(mAuthService.getVerifyCode(new GetVerifyCodeParams(mPhoneInput.getText()
         .toString())), new UiRpcSubscriber<String>(this) {
 
@@ -133,7 +132,6 @@ public class RegisterActivity extends BasicTitleBarActivity {
 
   @OnClick(R.id.btn_register)
   public void onRegisterClick() {
-    // TODO 调用校验验证码接口，这个按钮是否应该叫下一步？？？？！！
     manageRpcCall(mAuthService.checkVerifyCode(new CheckVerifyCodeParams(mPhoneInput.getText()
         .toString(), mVerifyCodeInput.getText
         ().toString())), new UiRpcSubscriber<Void>(this) {

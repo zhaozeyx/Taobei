@@ -11,6 +11,7 @@
  */
 package com.hengrtec.taobei.net.rpc.model;
 
+import android.text.TextUtils;
 import com.hengrtec.taobei.net.rpc.service.NetConstant;
 import com.hengrtec.taobei.net.rpc.service.constant.UserConstant;
 
@@ -318,7 +319,7 @@ public class UserInfo {
   }
 
   public String getUserName() {
-    return userName;
+    return TextUtils.isEmpty(userName) ? mobileNo : userName;
   }
 
   public void setUserName(String userName) {
