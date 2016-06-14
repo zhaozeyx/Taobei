@@ -68,6 +68,8 @@ import com.sevenheaven.segmentcontrol.SegmentControl;
 import com.squareup.otto.Subscribe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
 import org.apmem.tools.layouts.FlowLayout;
@@ -704,14 +706,14 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
       @Override
       public void onClick(View v) {
         // TODO 分享到朋友圈 根据类型不同分享内容不同？
-        ShareUtils.showShareWechatMoments(AdvertisementDetailActivity.this,"","");
+        ShareUtils.showShareWechatMoments(AdvertisementDetailActivity.this, "", "");
       }
     });
     contentView.findViewById(R.id.btn_share_friends).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         // TODO 分享到微信 根据类型不同分享内容不同？
-        ShareUtils.showShareWechat(AdvertisementDetailActivity.this,"","");
+        ShareUtils.showShareWechat(AdvertisementDetailActivity.this, "", "");
       }
     });
     contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
@@ -836,9 +838,23 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
             return;
           }
           comment.setClickHearts(true);
+          comment.setHearts(comment.getHearts() + 1);
           holder.btnPraise.setSelected(comment.isClickHearts());
-          holder.btnPraise.setText(String.valueOf(comment.getHearts() + 1));
+          holder.btnPraise.setText(String.valueOf(comment.getHearts()));
           likeComment(comment.getCommentId());
+          //Collections.sort(mDetail.getCommentsHotList(), new Comparator<AdvertisementDetail
+          //    .Comment>() {
+          //  @Override
+          //  public int compare(AdvertisementDetail.Comment lhs, AdvertisementDetail.Comment rhs) {
+          //    if (lhs.getHearts() > rhs.getHearts()) {
+          //      return -1;
+          //    } else if (lhs.getHearts() < rhs.getHearts()) {
+          //      return 1;
+          //    }
+          //    return 0;
+          //  }
+          //});
+          //notifyDataSetChanged();
         }
       });
       holder.content.setText(comment.getContents());

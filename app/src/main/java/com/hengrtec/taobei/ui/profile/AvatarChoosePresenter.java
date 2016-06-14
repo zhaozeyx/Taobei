@@ -204,7 +204,7 @@ public class AvatarChoosePresenter {
   public void uploadData() {
 
     // create RequestBody instance from file
-    byte[] bytes = ImageUtils.bitmap2Bytes(mBitmap, 70);
+    byte[] bytes = ImageUtils.bitmap2Bytes(mBitmap, 100);
 
     File file = ImageUtils.byte2File(bytes, mContext.getExternalFilesDir(null) +
         AVATAR_FOLDER, FILE_NAME);
