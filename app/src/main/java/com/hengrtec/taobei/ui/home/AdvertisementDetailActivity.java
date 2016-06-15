@@ -697,8 +697,13 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   }
 
   private void dispatchPlayFinish(String watchId) {
+    boolean hasGotten = TextUtils.equals(mAdvPlayInfo.getBenefitType(), AdvertisementConstant
+        .ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY);
+    if (hasGotten) {
+      showBenefitDialog(AdvertisementConstant.ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY);
+    }
     refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true,
-        false, watchId);
+        hasGotten, watchId);
   }
 
   private void refreshUserInfo() {

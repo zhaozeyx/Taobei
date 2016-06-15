@@ -1,6 +1,7 @@
 package com.hengrtec.taobei.ui.home.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.hengrtec.taobei.CustomApp;
 import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.net.rpc.model.AdvertisementDetail;
 import com.hengrtec.taobei.net.rpc.service.constant.AdvertisementConstant;
 import com.hengrtec.taobei.ui.home.DetailSysQuestionActivity;
+import com.hengrtec.taobei.ui.login.LoginWayActivity;
+import com.hengrtec.taobei.ui.profile.ProfitActivity;
 
 /**
  * [一句话功能简述]<BR>
@@ -70,8 +74,11 @@ public class BBJAwardView extends FrameLayout implements IAwardDisplay {
     mBtnLeft.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
-        // TODO 跳转到我的收益界面
-        // TODO 判断是否登录
+        if (((CustomApp) getContext().getApplicationContext()).getGlobalComponent().isLogin()) {
+          getContext().startActivity(ProfitActivity.makeBBJIntent(getContext()));
+        } else {
+          getContext().startActivity(new Intent(getContext(), LoginWayActivity.class));
+        }
       }
     });
 
@@ -80,7 +87,6 @@ public class BBJAwardView extends FrameLayout implements IAwardDisplay {
       mBtnRight.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          // TODO 跳转到我的答题领取贝贝金界面
           getContext().startActivity(DetailSysQuestionActivity.makeDetailSysQuestionIntent
               (getContext(), true));
         }
