@@ -104,6 +104,7 @@
                 android:textColor="@color/font_color_primary"
                 android:textSize="17.5sp"
                 tools:text="松下viera3D平板电视"
+                android:gravity="center"
                 />
 
             <TextView
@@ -114,6 +115,7 @@
                 android:textColor="@color/font_color_light_gray"
                 android:textSize="17.5sp"
                 tools:text="你！给我滚回去"
+                android:gravity="center"
                 />
 
             <TextView
@@ -123,6 +125,7 @@
                 android:background="@drawable/bg_adv_detail_profit"
                 android:textColor="@color/font_color_primary"
                 android:textSize="16sp"
+                android:gravity="center"
                 tools:text="即赚1-5元"
                 />
           </LinearLayout>

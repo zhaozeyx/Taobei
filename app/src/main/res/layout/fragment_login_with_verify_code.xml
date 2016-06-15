@@ -102,6 +102,7 @@
         android:singleLine="true"
         android:textColorHint="@color/font_color_hint"
         style="@style/Widget.App.TextView.Medium"
+        android:alpha="0.8"
         />
 
     <RelativeLayout
@@ -125,6 +126,7 @@
           android:paddingRight="22dp"
           android:textColorHint="@color/font_color_hint"
           style="@style/Widget.App.TextView.Medium"
+          android:alpha="0.8"
           />
 
       <RelativeLayout
