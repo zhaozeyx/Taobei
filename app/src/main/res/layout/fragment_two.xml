@@ -24,21 +24,21 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-
           android:gravity="center"
-
           android:paddingTop="@dimen/grid_3"
+
           android:text="@string/action_settings"
+          android:textSize="@dimen/font_size_small"
           />
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:gravity="center"
-
           android:paddingTop="@dimen/grid_3"
           android:text="@string/my_account_my_balance"
           android:textColor="@color/font_color_red_dark"
+          android:textSize="@dimen/font_size_xlarge"
           />
       <TextView
           android:id="@+id/tv_money"
@@ -46,10 +46,11 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:gravity="center"
-
           android:paddingTop="@dimen/grid_3"
           android:text="@string/action_settings"
           android:textColor="@color/font_color_red_dark"
+          android:textSize="@dimen/font_size_xxlarge"
+          android:textStyle="bold"
           />
       <TextView
 
@@ -57,9 +58,9 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:gravity="center"
-
           android:paddingTop="@dimen/grid_3"
           android:text="@string/my_account_out_mn"
+          android:textSize="@dimen/font_size_small"
           />
     </LinearLayout>
 
@@ -69,8 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:paddingBottom="@dimen/grid_4"
-        android:paddingTop="@dimen/grid_4"
+        android:paddingBottom="@dimen/grid_7"
+        android:paddingTop="@dimen/grid_7"
         android:text="@string/my_account_out_question"
         android:textColor="@color/font_color_red_dark"
         />
@@ -81,7 +82,7 @@
         android:layout_gravity="center"
         android:gravity="center"
 
-        android:paddingTop="@dimen/grid_3"
+        android:paddingTop="@dimen/grid_2"
         android:text="@string/my_account_out_1"
         />
     <TextView
@@ -91,7 +92,7 @@
         android:layout_gravity="center"
         android:gravity="center"
 
-        android:paddingTop="@dimen/grid_3"
+        android:paddingTop="@dimen/grid_2"
         android:text="@string/my_account_out_2"
         />
     <TextView
@@ -101,7 +102,7 @@
         android:layout_gravity="center"
         android:gravity="center"
 
-        android:paddingTop="@dimen/grid_3"
+        android:paddingTop="@dimen/grid_2"
         android:text="@string/my_account_out_3"
         />
     <TextView
@@ -111,7 +112,7 @@
         android:layout_gravity="center"
         android:gravity="center"
 
-        android:paddingTop="@dimen/grid_3"
+        android:paddingTop="@dimen/grid_2"
         android:text="@string/my_account_out_4"
         />
   </LinearLayout>
