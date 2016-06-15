@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="14dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="7dp"
                     android:layout_marginTop="23.5dp"
                     android:background="@mipmap/bg_profit_today_income"
                     android:gravity="center_horizontal"
@@ -84,7 +84,7 @@
                         <View
                             android:layout_width="10dp"
                             android:layout_height="1dp"
-                            android:background="@color/bg_color_divider" />
+                            android:background="@color/font_color_light_gray" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -92,13 +92,13 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
                             android:text="@string/fragment_profit_label_view_time"
-                            android:textColor="@color/bg_color_divider"
+                            android:textColor="@color/font_color_light_gray"
                             android:textSize="@dimen/font_size_medium" />
 
                         <View
                             android:layout_width="10dp"
                             android:layout_height="1dp"
-                            android:background="@color/bg_color_divider" />
+                            android:background="@color/font_color_light_gray" />
                     </LinearLayout>
 
                     <TextView
@@ -137,7 +137,7 @@
                         <View
                             android:layout_width="10dp"
                             android:layout_height="1dp"
-                            android:background="@color/bg_color_divider" />
+                            android:background="@color/font_color_light_gray" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -145,13 +145,13 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
                             android:text="@string/fragment_profit_label_be_visited"
-                            android:textColor="@color/bg_color_divider"
+                            android:textColor="@color/font_color_light_gray"
                             android:textSize="@dimen/font_size_medium" />
 
                         <View
                             android:layout_width="10dp"
                             android:layout_height="1dp"
-                            android:background="@color/bg_color_divider" />
+                            android:background="@color/font_color_light_gray" />
                     </LinearLayout>
 
                     <TextView

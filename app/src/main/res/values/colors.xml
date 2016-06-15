@@ -82,4 +82,6 @@
   <color name="colorYellow">#FFFF00</color>
   <color name="colorWhite">#FFFFFF</color>
 
+  <!-- TabIndicator -->
+  <color name="tab_layout_indicator_color">#ae841d</color>
 </resources>

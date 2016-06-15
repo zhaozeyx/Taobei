@@ -70,7 +70,7 @@
   <string name="adv_detail_profit_info_congratulations_coupon">恭喜你赚得优惠券奖励</string>
   <string name="adv_detail_profit_info_label_wallet">已存入你的卡券</string>
   <string name="adv_detail_profit_info_btn_wallet">我的钱包</string>
-  <string name="adv_detail_profit_info_btn_coupon">我的钱优惠券</string>
+  <string name="adv_detail_profit_info_btn_coupon">我的优惠券</string>
   <string name="adv_detail_profit_info_btn_question_virtual_money">答题得贝贝金</string>
   <string name="adv_detail_profit_info_btn_withdraw">提现</string>
   <string name="adv_detail_profit_info_btn_my_profit">我的收益</string>

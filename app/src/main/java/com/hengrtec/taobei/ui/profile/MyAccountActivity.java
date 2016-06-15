@@ -90,6 +90,7 @@ public class MyAccountActivity extends BasicTitleBarActivity {
     tabLayout.setupWithViewPager(viewPager);
     setupTabIcons();
 
+    viewPager.setCurrentItem(0);
     handleIntent(getIntent());
   }
 

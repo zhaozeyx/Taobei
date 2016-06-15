@@ -57,7 +57,7 @@
       android:layout_alignRight="@id/container"
       android:layout_alignTop="@id/container"
       android:alpha="0.4"
-      android:background="@android:color/darker_gray"
+      android:background="@color/bar_color_yellow"
       android:visibility="gone"
       tools:visibility="visible"
       />

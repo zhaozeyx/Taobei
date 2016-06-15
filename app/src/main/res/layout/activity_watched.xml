@@ -10,10 +10,15 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:tabGravity="fill"
-      app:tabIndicatorColor="@color/font_color_red_dark"
+      app:tabIndicatorColor="@color/tab_layout_indicator_color"
       app:tabMode="fixed"
-      app:tabSelectedTextColor="@color/font_color_red_dark"
-      app:tabTextColor="@color/font_color_primary"
+      app:tabSelectedTextColor="@color/font_color_primary"
+      app:tabTextColor="@color/font_color_secondary"
+      />
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="0.5dp"
+      android:background="@color/bg_color_divider"
       />
 
   <android.support.v4.view.ViewPager
