@@ -121,6 +121,8 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   TextView mBtnShareFriends;
   @Bind(R.id.activity_description)
   TextView mActivityDescription;
+  @Bind(R.id.comments_label_container)
+  View mCommentsLabelContainer;
   @Bind(R.id.comment_list)
   RecyclerView mCommentListView;
   @Bind(R.id.edit_text)
@@ -153,6 +155,8 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   FrameLayout mAwardInfoContainer;
   @Bind(R.id.view_more)
   TextView mLoadMoreView;
+  @Bind(R.id.activity_container)
+  View mActivityContainer;
 
   private int mAdvId;
   private AdvertisementDetail mDetail;
@@ -380,7 +384,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     setProfitInfoByStatus();
 
     mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_number_info, detail
-        .getPlayCounts(), detail.getPlanCounts()));
+        .getPlanCounts() - detail.getPlayCounts(), detail.getPlanCounts()));
     if (0 == detail.getPlayCounts()) {
       mLayoutCanPlay.setVisibility(View.GONE);
       mNoPlayTime.setVisibility(View.VISIBLE);
@@ -402,8 +406,16 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     mLoadMoreView.setVisibility(mHasMore ? View.VISIBLE : View.GONE);
     mListAdapter.notifyDataSetChanged();
 
-    //refreshDetailInfoView(mDetail, null == mAdvPlayInfo ? 0 : Integer.parseInt(mAdvPlayInfo
-    //    .getBenefitFinal()), true, true, null);
+    showCommentsLayout();
+
+    mActivityContainer.setVisibility(TextUtils.isEmpty(mDetail.getActivities()) && TextUtils
+        .isEmpty(mDetail.getTags()) ? View.GONE : View.VISIBLE);
+  }
+
+  private void showCommentsLayout() {
+    mCommentsLabelContainer.setVisibility(mListAdapter.getItemCount() > 0 ? View.VISIBLE : View
+        .GONE);
+    mCommentListView.setVisibility(mListAdapter.getItemCount() > 0 ? View.VISIBLE : View.GONE);
   }
 
   private void refreshDetailInfoView(AdvertisementDetail detail, int profitCount, boolean
@@ -505,6 +517,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
             } else if (mCurrentOrder == ORDER_HOT) {
               mListAdapter.addAll(mDetail.getCommentsHotList());
             }
+            showCommentsLayout();
             mListAdapter.notifyDataSetChanged();
           }
 
