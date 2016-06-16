@@ -81,7 +81,10 @@
   <string name="adv_detail_dialog_share_label">分享广告,让你的朋友们也赚钱</string>
   <string name="adv_detail_dialog_info_recommend_un_login">强烈建议你在15分钟内通过微信、QQ、微博登陆后提现，也
   可以使用手机号码注册成为会员，观看更多的广告，获得更多的现金红包奖励</string>
-  <string name="adv_Detail_dialog_info_un_login_warn">超过十五分钟注册或登录不能获得现金红包。</string>
+  <string name="adv_detail_dialog_info_un_login_warn">超过十五分钟注册或登录不能获得现金红包。</string>
+  <string name="adv_detail_dialog_info_recommend_un_login_bbj">强烈建议你在15分钟内通过微信、QQ、微博登陆后提现，也
+  可以使用手机号码注册成为会员，观看更多的广告，获得更多的贝贝金奖励</string>
+  <string name="adv_detail_dialog_info_un_login_warn_bbj">超过十五分钟注册或登录不能获得贝贝金。</string>
 
   <string name="adv_detail_toast_info_state_changed">您的状态已发生改变,状态同步完成后,请再次点击</string>
 

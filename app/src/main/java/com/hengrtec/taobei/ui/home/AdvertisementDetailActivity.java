@@ -318,6 +318,27 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
           mProfitDialog.show();
         }
         break;
+      case AdvertisementConstant.ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY:
+        if (getComponent().isLogin()) {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_bbj_get, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataProfitDialog(childView);
+        } else {
+          View childView = LayoutInflater.from(AdvertisementDetailActivity.this).inflate(R.layout
+              .dialog_bbj_get_unlogin, null);
+          mProfitDialog = new AlertDialog.Builder(AdvertisementDetailActivity.this).setView
+              (childView).create();
+          bindDataUnLoginProfitDialog(childView);
+        }
+        if (null != mProfitDialog) {
+          if (mProfitDialog.isShowing()) {
+            mProfitDialog.cancel();
+          }
+          mProfitDialog.show();
+        }
+        break;
     }
   }
 
