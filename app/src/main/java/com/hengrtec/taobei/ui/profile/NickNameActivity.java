@@ -55,6 +55,7 @@ public class NickNameActivity extends BasicTitleBarActivity {
     super.onCreate(savedInstanceState);
     // TODO: add setContentView(...) invocation
     ButterKnife.bind(this);
+    mNickNameInputView.setText(getComponent().loginSession().getUserInfo().getUserName());
   }
 
   @Override

@@ -95,6 +95,9 @@ public class UserInfo {
   private int virtualMoney;
 
   public String getAvart() {
+    if (TextUtils.isEmpty(avart) || avart.startsWith("http://")) {
+      return avart;
+    }
     return NetConstant.BASE_URL_LOCATION + avart;
   }
 

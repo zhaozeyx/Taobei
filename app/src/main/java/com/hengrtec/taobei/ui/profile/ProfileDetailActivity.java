@@ -122,7 +122,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         startActivityForResult(new Intent(this, NickNameActivity.class), REQUEST_CODE_NICK_NAME);
         break;
       case R.id.introduction_setting:
-        startActivityForResult(new Intent(this, IntroductionActivity.class), REQUEST_CODE_NICK_INTRODUCTION);
+        startActivityForResult(new Intent(this, IntroductionActivity.class),
+            REQUEST_CODE_NICK_INTRODUCTION);
         break;
       case R.id.gender_setting:
         showGenderChooseDialog();
@@ -150,12 +151,14 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private void showGenderChooseDialog() {
     if (null == mGenderChooseDialog) {
       final String[] genderItems = getResources().getStringArray(R.array.gender_items);
-      mGenderChooseDialog = new AlertDialog.Builder(this).setItems(genderItems, new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setGender(genderItems[which]).update());
-        }
-      }).create();
+      mGenderChooseDialog = new AlertDialog.Builder(this).setItems(genderItems, new
+          DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setGender
+                  (genderItems[which]).update());
+            }
+          }).create();
     }
     if (mGenderChooseDialog.isShowing()) {
       return;
@@ -166,12 +169,14 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private void showEducationChooseDialog() {
     if (null == mEducationChooseDialog) {
       final String[] educationItems = getResources().getStringArray(R.array.education_items);
-      mEducationChooseDialog = new AlertDialog.Builder(this).setItems(educationItems, new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setEducation(educationItems[which]).update());
-        }
-      }).create();
+      mEducationChooseDialog = new AlertDialog.Builder(this).setItems(educationItems, new
+          DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setEducation
+                  (educationItems[which]).update());
+            }
+          }).create();
     }
     if (mEducationChooseDialog.isShowing()) {
       return;
@@ -201,7 +206,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         return;
       case REQUEST_CODE_NICK_INTRODUCTION:
         mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder()
-            .setIntroduce(data.getStringExtra(IntroductionActivity.RESULT_KEY_INTRODUCTION)).update());
+            .setIntroduce(data.getStringExtra(IntroductionActivity.RESULT_KEY_INTRODUCTION))
+            .update());
         return;
     }
     mAvatarChoosePresenter.onActivityResult(requestCode, resultCode, data);
@@ -216,8 +222,11 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
     //ImageLoader.loadOptimizedHttpImage(this, mUserInfo.getAvart()).placeholder(R.mipmap
     //    .src_avatar_default_drawer).into(mUserAvatarView);
     mUserAvatarView.setImageURI(Uri.parse(getUserInfo().getAvart()));
-    mNickNameValueView.setText(getUserInfo().getUserName());
-    mIntroductionValueView.setText(TextUtils.isEmpty(getUserInfo().getIntroduce()) ? getString(R.string.activity_introduction_hint) : getUserInfo().getIntroduce());
+    mPhoneValueView.setText(getUserInfo().getMobileNo());
+    mNickNameValueView.setText(TextUtils.isEmpty(getUserInfo().getUserName()) ? getUserInfo()
+        .getMobileNo() : getUserInfo().getUserName());
+    mIntroductionValueView.setText(TextUtils.isEmpty(getUserInfo().getIntroduce()) ? getString(R
+        .string.activity_introduction_hint) : getUserInfo().getIntroduce());
     mGenderValueView.setText(getUserInfo().getGender());
     mAgeValueView.setText(computeAge(getUserInfo().getBirthday()));
     mBirthplaceValueView.setText(getUserInfo().getBirthPlace());
@@ -251,15 +260,19 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
       int month = today.get(Calendar.MONTH);
       int day = today.get(Calendar.DAY_OF_MONTH);
       if (null != birthDate) {
-        year = birthDate.length > 0 && !TextUtils.isEmpty(birthDate[0]) ? Integer.parseInt(birthDate[0]) : year;
-        month = birthDate.length > 1 && !TextUtils.isEmpty(birthDate[1]) ? Integer.parseInt(birthDate[1]) : month;
-        day = birthDate.length > 2 && !TextUtils.isEmpty(birthDate[2]) ? Integer.parseInt(birthDate[2]) : day;
+        year = birthDate.length > 0 && !TextUtils.isEmpty(birthDate[0]) ? Integer.parseInt
+            (birthDate[0]) : year;
+        month = birthDate.length > 1 && !TextUtils.isEmpty(birthDate[1]) ? Integer.parseInt
+            (birthDate[1]) : month;
+        day = birthDate.length > 2 && !TextUtils.isEmpty(birthDate[2]) ? Integer.parseInt
+            (birthDate[2]) : day;
       }
 
       mBirthdayChooseDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthday(year + "-" + monthOfYear + "-" + dayOfMonth).update());
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthday
+              (year + "-" + monthOfYear + "-" + dayOfMonth).update());
           mBirthdayChooseDialog = null;
         }
       }, year, month, day);
@@ -289,10 +302,12 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private void showBirthplaceChooseDialog() {
     if (null == mBirthplaceChooseDialog) {
       final AddressChooseView view = new AddressChooseView(this);
-      mBirthplaceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
+      mBirthplaceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R
+          .string.btn_confirm), new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthPlace(view.getSelectAddress()).update());
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthPlace
+              (view.getSelectAddress()).update());
           mBirthplaceChooseDialog.cancel();
         }
       }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
@@ -311,10 +326,12 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private void showResidenceChooseDialog() {
     if (null == mResidenceChooseDialog) {
       final AddressChooseView view = new AddressChooseView(this);
-      mResidenceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
+      mResidenceChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string
+          .btn_confirm), new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setMyCity(view.getSelectAddress()).update());
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setMyCity(view
+              .getSelectAddress()).update());
           mResidenceChooseDialog.cancel();
         }
       }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
@@ -333,10 +350,12 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   private void showProfessionalChooseDialog() {
     if (null == mProfessionalChooseDialog) {
       final ProfessionalChooseView view = new ProfessionalChooseView(this);
-      mProfessionalChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R.string.btn_confirm), new DialogInterface.OnClickListener() {
+      mProfessionalChooseDialog = new AlertDialog.Builder(this).setPositiveButton(getString(R
+          .string.btn_confirm), new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setOccupation(view.getSelectData()).update());
+          mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setOccupation
+              (view.getSelectData()).update());
           mProfessionalChooseDialog.cancel();
         }
       }).setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
@@ -373,7 +392,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
 
   private void showUserLabel() {
     tagsContainer.removeAllViews();
-    addTag(getString(R.string.activity_profile_detail_add_tag), R.drawable.bg_btn_gray_round_corner);
+    addTag(getString(R.string.activity_profile_detail_add_tag), R.drawable
+        .bg_btn_gray_round_corner);
     tagsContainer.getChildAt(0).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -391,7 +411,8 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
   }
 
   private void addTag(String label, int backGroundResource) {
-    TextView labelView = (TextView) LayoutInflater.from(this).inflate(R.layout.tag_item_big, tagsContainer, false);
+    TextView labelView = (TextView) LayoutInflater.from(this).inflate(R.layout.tag_item_big,
+        tagsContainer, false);
     labelView.setBackgroundResource(backGroundResource);
     labelView.setText(label);
     labelView.setTextColor(getResources().getColor(R.color.font_color_primary));

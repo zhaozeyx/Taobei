@@ -25,22 +25,26 @@ public class RegisterParams {
   public String mobileNo;
   public String code;
   public Integer userId;
+  public String userName;
 
   public RegisterParams(String devId, String password, String mobileNo, String code, int
-      userId) {
+      userId, String userName) {
 
     this.devId = devId;
     this.password = MD5Encoder.encode(password);
     this.mobileNo = mobileNo;
     this.code = code;
     this.userId = userId;
+    this.userName = userName;
   }
 
-  public RegisterParams(String devId, String password, String mobileNo, String code) {
+  public RegisterParams(String devId, String password, String mobileNo, String code, String
+      userName) {
 
     this.devId = devId;
     this.password = MD5Encoder.encode(password);
     this.mobileNo = mobileNo;
     this.code = code;
+    this.userName = userName;
   }
 }

@@ -121,10 +121,11 @@ public class PasswordSetActivity extends BasicTitleBarActivity {
     showProgressDialog("", false);
     RegisterParams params = getComponent().loginSession().getUserId() > 0 ? new RegisterParams
         (getComponent().deviceId(), mPasswordInput.getEditableText().toString(), mPhoneNumber,
-            mVerifyCode, getComponent().loginSession().getUserId()) : new RegisterParams
+            mVerifyCode, getComponent().loginSession().getUserId(), mPhoneNumber) : new
+        RegisterParams
         (getComponent
-        ().deviceId(), mPasswordInput.getEditableText().toString(), mPhoneNumber,
-        mVerifyCode);
+            ().deviceId(), mPasswordInput.getEditableText().toString(), mPhoneNumber,
+            mVerifyCode, mPhoneNumber);
     manageRpcCall(mAuthService.register
         (params), new UiRpcSubscriber<UserInfo>(this) {
       @Override

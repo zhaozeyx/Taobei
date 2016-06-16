@@ -41,6 +41,7 @@
           app:roundAsCircle="true"
           app:roundingBorderColor="#c3c3c3"
           app:roundingBorderWidth="1dp"
+          app:placeholderImage="@mipmap/src_avatar_default_drawer"
           tools:src="@mipmap/src_avatar_default_drawer"
           />
 
