@@ -14,6 +14,7 @@ package com.hengrtec.taobei.ui.tab;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,7 +203,7 @@ public class SignInDialogFragment extends BasicDialogFragment {
         mBtnSignIn.setEnabled(false);
         mBtnSignIn.setText(R.string.dialog_sign_in_btn_commit_disabled);
       } else if (day == checkInCount && !isCheckIn) {
-        view.bindData(day, SignInDialogItemView.STATE_ENABLED, getIcon(type), getTextId
+        view.bindData(day, SignInDialogItemView.STATE_CHECKED, getIcon(type), getTextId
             (type));
         mTodayAward = bean.getBenefit();
         mTodayAwardType = bean.getBenefitType();
@@ -228,6 +229,9 @@ public class SignInDialogFragment extends BasicDialogFragment {
       protected void onSuccess(Boolean aBoolean) {
         if (aBoolean) {
           showShortToast(R.string.dialog_sign_in_success);
+          if (!TextUtils.equals(mSignInModel.getIsCheckin(), IS_CHEKIN)) {
+            mSignInModel.setCheckinCounts(mSignInModel.getCheckinCounts() + 1);
+          }
           mSignInModel.setIsCheckin(IS_CHEKIN);
           updateUI(mSignInModel);
         }
