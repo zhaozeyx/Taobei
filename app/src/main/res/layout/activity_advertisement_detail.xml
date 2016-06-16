@@ -51,6 +51,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_centerInParent="true"
+              android:inflatedId="@+id/no_play_time_id"
               android:layout="@layout/layout_adv_detail_info_no_play_time"
               />
           <ImageView

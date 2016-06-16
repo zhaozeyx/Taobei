@@ -404,11 +404,27 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
 
     setProfitInfoByStatus();
 
-    mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_number_info, detail
-        .getPlanCounts() - detail.getPlayCounts(), detail.getPlanCounts()));
-    if (0 == detail.getPlayCounts()) {
+    switch (mDetail.getPlayType()) {
+      case AdvertisementConstant.PLAY_TYPE_COUNT:
+        mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_number_info, detail
+            .getPlanCounts() - detail.getPlayCounts(), detail.getPlanCounts()));
+        break;
+      case AdvertisementConstant.PLAY_TYPE_TIME:
+        mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_time_info, detail
+            .getLeftTime(), detail.getTotalTime()));
+        break;
+      default:
+        mPlayCountInfo.setText(getResources().getString(R.string.adv_detail_play_number_info, detail
+            .getPlanCounts() - detail.getPlayCounts(), detail.getPlanCounts()));
+        break;
+    }
+    if (0 == detail.getPlayCounts() || TextUtils.equals("0", mDetail.getLeftTime())) {
       mLayoutCanPlay.setVisibility(View.GONE);
+      mNoPlayTime.inflate();
       mNoPlayTime.setVisibility(View.VISIBLE);
+      View view = findViewById(R.id.no_play_time_id);
+      ((TextView) view.findViewById(R.id.bbj_get_info)).setText(getString(R.string
+          .adv_detail_info_apologize_info_profit, detail.getBbjPrice()));
     } else {
       mLayoutCanPlay.setVisibility(View.VISIBLE);
       mNoPlayTime.setVisibility(View.GONE);

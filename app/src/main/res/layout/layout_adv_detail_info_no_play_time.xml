@@ -10,7 +10,7 @@
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_medium"
+      android:layout_marginBottom="@dimen/margin_smallest"
       android:text="@string/adv_detail_info_apologize_title"
       style="@style/Widget.App.TextView.Large.White"
       />
@@ -24,9 +24,10 @@
       />
 
   <TextView
+      android:id="@+id/bbj_get_info"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_medium"
+      android:layout_marginBottom="@dimen/margin_smallest"
       tools:text="@string/adv_detail_info_apologize_info_profit"
       style="@style/Widget.App.TextView.Medium.White"
       />
@@ -34,7 +35,6 @@
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:drawablePadding="@dimen/margin_primary"
       android:drawableTop="@mipmap/icon_adv_detail_play_enabled"
       android:text="@string/adv_detail_info_play_continue"
       android:textColor="@color/font_color_yellow"

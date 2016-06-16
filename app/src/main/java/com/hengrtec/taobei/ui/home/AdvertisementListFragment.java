@@ -4,7 +4,7 @@
  * 描    述: [该类的简要描述]
  * 创建人: zhaozeyang
  * 创建时间:16/4/20
- * 
+ *
  * 修改人：
  * 修改时间:
  * 修改内容：[修改内容]
@@ -260,7 +260,7 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
       final Advertisement advertisement = mAdvertisementList.get(position);
       ImageLoader.loadOptimizedHttpImage(getActivity(), advertisement.getThumbnail())
           .into(holder.advSnapshot);
@@ -293,6 +293,11 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
         }
       });
 
+      holder.mUnLaunchInfoContainer.setVisibility(TextUtils.equals(mCategory,
+          AdvertisementConstant.ADV_STATE_UN_LAUNCH) ? View.VISIBLE : View.GONE);
+      holder.mUnLaunchInfoView.setText(getString(R.string.adv_item_un_launch_info, advertisement
+          .getStartTime(), advertisement.getPrice()));
+
     }
 
     @Override
@@ -315,6 +320,10 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
     TextView advProfit;
     @Bind(R.id.root_view)
     View rootView;
+    @Bind(R.id.un_launch_info_container)
+    View mUnLaunchInfoContainer;
+    @Bind(R.id.un_launch_info)
+    TextView mUnLaunchInfoView;
 
     public ViewHolder(View itemView) {
       super(itemView);

@@ -59,6 +59,16 @@ public class AdvertisementConstant {
   public static final String ADV_TYPE_H5 = "3";
 
   /**
+   * 播放类型: 按场次
+   */
+  public static final String PLAY_TYPE_COUNT = "1";
+
+  /**
+   * 播放类型: 按时效
+   */
+  public static final String PLAY_TYPE_TIME = "2";
+
+  /**
    * 收益类型: 真实货币(就是钱啊，亲~~~)
    */
   public static final String ADV_BENEFIT_TYPE_REALITY_CURRENCY = "1";

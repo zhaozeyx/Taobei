@@ -38,16 +38,18 @@
   <string name="adv_not_launch_info">剧透啦,剧透啦,剧透啦!重要的事说三遍。每天几分钟,赚钱不耽误,你可以在设置中开启或关闭广告
   预告提醒,在广告开始投放之前,我们将会提前给你推送通知。</string>
   <string name="adv_not_launch_info_setting_text">预告广告正式投放提醒设置</string>
+  <string name="adv_item_un_launch_info">预计在%1$s投放,预计可赚%2$s元,敬请观看</string>
 
   <!-- 广告详情 -->
   <string name="activity_advertisement_detail_title">观看广告</string>
   <string name="adv_detail_input_info_text">写评论</string>
   <string name="adv_detail_play_number_info">剩余%1$d场次,总投放%2$d场次</string>
+  <string name="adv_detail_play_time_info">剩余%1$s,总投放%2$s</string>
   <string name="adv_detail_profit_info_real">即赚%s元</string>
   <string name="adv_detail_profit_info_virtual">即赚%s贝贝金</string>
   <string name="adv_detail_info_apologize_title">非常抱歉!</string>
   <string name="adv_detail_info_apologize_info">您错失先机,未能抢先观看,无法获得现金红包。</string>
-  <string name="adv_detail_info_apologize_info_profit">但是,现在继续看广告,能获得%d枚贝贝金。</string>
+  <string name="adv_detail_info_apologize_info_profit">但是,现在继续看广告,能获得%s枚贝贝金。</string>
   <string name="adv_detail_info_play_continue">继续播放</string>
   <string name="adv_detail_status_profit_real_un_get">领取</string>
   <string name="adv_detail_status_profit_real_get">%d元</string>
