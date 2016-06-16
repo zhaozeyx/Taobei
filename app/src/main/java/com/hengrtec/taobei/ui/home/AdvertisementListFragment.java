@@ -295,8 +295,14 @@ public class AdvertisementListFragment extends BasicFragment implements Advertis
 
       holder.mUnLaunchInfoContainer.setVisibility(TextUtils.equals(mCategory,
           AdvertisementConstant.ADV_STATE_UN_LAUNCH) ? View.VISIBLE : View.GONE);
-      holder.mUnLaunchInfoView.setText(getString(R.string.adv_item_un_launch_info, advertisement
-          .getStartTime(), advertisement.getPrice()));
+      if (TextUtils.equals(advertisement.getBenefitType(), AdvertisementConstant
+          .ADV_BENEFIT_TYPE_COUPON)) {
+        holder.mUnLaunchInfoView.setText(getString(R.string.adv_item_un_launch_info_coupon,
+            advertisement.getStartTime()));
+      } else {
+        holder.mUnLaunchInfoView.setText(getString(R.string.adv_item_un_launch_info, advertisement
+            .getStartTime(), advertisement.getPrice()));
+      }
 
     }
 

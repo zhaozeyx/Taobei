@@ -39,6 +39,7 @@
   预告提醒,在广告开始投放之前,我们将会提前给你推送通知。</string>
   <string name="adv_not_launch_info_setting_text">预告广告正式投放提醒设置</string>
   <string name="adv_item_un_launch_info">预计在%1$s投放,预计可赚%2$s元,敬请观看</string>
+  <string name="adv_item_un_launch_info_coupon">预计在%1$s投放,预计可获得优惠券,敬请观看</string>
 
   <!-- 广告详情 -->
   <string name="activity_advertisement_detail_title">观看广告</string>
