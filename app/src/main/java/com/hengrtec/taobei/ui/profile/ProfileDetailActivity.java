@@ -273,7 +273,6 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
           mSubscriptions.add(getComponent().loginSession().userInfoChangeBuilder().setBirthday
               (year + "-" + monthOfYear + "-" + dayOfMonth).update());
-          mBirthdayChooseDialog = null;
         }
       }, year, month, day);
       mBirthdayChooseDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -289,9 +288,11 @@ public class ProfileDetailActivity extends BasicTitleBarActivity {
         }
       });
       mBirthdayChooseDialog.getDatePicker().setMaxDate(today.getTimeInMillis());
-      Calendar maxDay = Calendar.getInstance();
-      maxDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 100);
-      mBirthdayChooseDialog.getDatePicker().setMinDate(maxDay.getTimeInMillis());
+      //Calendar maxDay = Calendar.getInstance();
+      //maxDay.set(Calendar.YEAR, today.get(Calendar.YEAR) - 100);
+      //maxDay.set(Calendar.MONTH, today.get(Calendar.MONTH));
+      //maxDay.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
+      //mBirthdayChooseDialog.getDatePicker().setMinDate(maxDay.getTimeInMillis());
     }
     if (mBirthdayChooseDialog.isShowing()) {
       return;
