@@ -260,6 +260,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
 
           @Override
           protected void onSuccess(String s) {
+            mSubscriptions.add(getComponent().loginSession().loadUserInfo());
             showBenefitDialog(mDetail.getBenefitType());
             refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()),
                 true, true, event
@@ -750,6 +751,7 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
     boolean hasGotten = TextUtils.equals(mAdvPlayInfo.getBenefitType(), AdvertisementConstant
         .ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY);
     if (hasGotten) {
+      mSubscriptions.add(getComponent().loginSession().loadUserInfo());
       showBenefitDialog(AdvertisementConstant.ADV_BENEFIT_TYPE_VIRTUAL_CURRENCY);
     }
     refreshDetailInfoView(mDetail, Integer.parseInt(mAdvPlayInfo.getBenefitFinal()), true,

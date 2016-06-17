@@ -228,6 +228,7 @@ public class SignInDialogFragment extends BasicDialogFragment {
       @Override
       protected void onSuccess(Boolean aBoolean) {
         if (aBoolean) {
+          mSubscriptions.add(getComponent().loginSession().loadUserInfo());
           showShortToast(R.string.dialog_sign_in_success);
           if (!TextUtils.equals(mSignInModel.getIsCheckin(), IS_CHEKIN)) {
             mSignInModel.setCheckinCounts(mSignInModel.getCheckinCounts() + 1);
