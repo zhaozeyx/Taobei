@@ -1,8 +1,10 @@
 package com.hengrtec.taobei.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -11,6 +13,7 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
+import com.hengrtec.taobei.R;
 import java.io.File;
 import java.util.HashMap;
 
@@ -19,7 +22,8 @@ import java.util.HashMap;
  */
 public class ShareUtils {
   //微信朋友圈
-  public static void showShareWechatMoments(Context context, String imagepath, String imageurl) {
+  public static void showShareWechatMoments(final Context context, String imagepath, String
+      imageurl) {
     ShareSDK.initSDK(context);
     WechatMoments.ShareParams sp = new WechatMoments.ShareParams();
     sp.setTitle("测试的标题");
@@ -27,7 +31,8 @@ public class ShareUtils {
     sp.setText("测试的文本");
     //                Log.e("==", ""+childfile.getPath());
     //                        sp.setImagePath(childfile.getPath());
-    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable
+    // .ic_launcher);
     //                        sp.setImageData(bm);
     if (!"".equals(imagepath)) {
       sp.setImagePath(imagepath);
@@ -41,15 +46,26 @@ public class ShareUtils {
 
     qzone.setPlatformActionListener(new PlatformActionListener() {
 
-      @Override public void onError(Platform arg0, int arg1, Throwable arg2) {
+      @Override
+      public void onError(Platform arg0, int arg1, Throwable arg2) {
         Log.e("share", "onError");
+        ((Activity)context).runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(context, R.string.share_error_web_chat_not_install, Toast.LENGTH_SHORT)
+                .show();
+          }
+        });
+
       }
 
-      @Override public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+      @Override
+      public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
         Log.e("share", "onComplete");
       }
 
-      @Override public void onCancel(Platform arg0, int arg1) {
+      @Override
+      public void onCancel(Platform arg0, int arg1) {
         Log.e("share", "onCancel");
       }
     }); // 设置分享事件回调
@@ -58,7 +74,7 @@ public class ShareUtils {
   }
 
   //QQ
-  public static void showShareQQ(Context context, String imagepath, String imageurl) {
+  public static void showShareQQ(final Context context, String imagepath, String imageurl) {
     ShareSDK.initSDK(context);
     QQ.ShareParams sp = new QQ.ShareParams();
     sp.setTitle("测试的标题");
@@ -66,7 +82,8 @@ public class ShareUtils {
     sp.setText("测试的文本");
     //                Log.e("==", ""+childfile.getPath());
     //                        sp.setImagePath(childfile.getPath());
-    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable
+    // .ic_launcher);
     //                        sp.setImageData(bm);
 
     if (!"".equals(imagepath)) {
@@ -81,15 +98,25 @@ public class ShareUtils {
 
     qzone.setPlatformActionListener(new PlatformActionListener() {
 
-      @Override public void onError(Platform arg0, int arg1, Throwable arg2) {
+      @Override
+      public void onError(Platform arg0, int arg1, Throwable arg2) {
         Log.e("share", "onError");
+        ((Activity)context).runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(context, R.string.share_error_qq_not_install, Toast.LENGTH_SHORT)
+                .show();
+          }
+        });
       }
 
-      @Override public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+      @Override
+      public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
         Log.e("share", "onComplete");
       }
 
-      @Override public void onCancel(Platform arg0, int arg1) {
+      @Override
+      public void onCancel(Platform arg0, int arg1) {
         Log.e("share", "onCancel");
       }
     }); // 设置分享事件回调
@@ -98,7 +125,7 @@ public class ShareUtils {
   }
 
   //QQ空间
-  public static void showShareQzone(Context context, String imagepath, String imageurl) {
+  public static void showShareQzone(final Context context, String imagepath, String imageurl) {
     ShareSDK.initSDK(context);
     QZone.ShareParams sp = new QZone.ShareParams();
     sp.setTitle("测试的标题");
@@ -106,7 +133,8 @@ public class ShareUtils {
     sp.setText("测试的文本");
     //                Log.e("==", ""+childfile.getPath());
     //                        sp.setImagePath(childfile.getPath());
-    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable
+    // .ic_launcher);
     //                        sp.setImageData(bm);
     //sp.setImageUrl("http://www.baidu.com/img/bdlogo.gif");
     sp.setImagePath(
@@ -117,15 +145,25 @@ public class ShareUtils {
 
     qzone.setPlatformActionListener(new PlatformActionListener() {
 
-      @Override public void onError(Platform arg0, int arg1, Throwable arg2) {
+      @Override
+      public void onError(Platform arg0, int arg1, Throwable arg2) {
         Log.e("share", "onError");
+        ((Activity)context).runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(context, R.string.share_error_qq_not_install, Toast.LENGTH_SHORT)
+                .show();
+          }
+        });
       }
 
-      @Override public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+      @Override
+      public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
         Log.e("share", "onComplete");
       }
 
-      @Override public void onCancel(Platform arg0, int arg1) {
+      @Override
+      public void onCancel(Platform arg0, int arg1) {
         Log.e("share", "onCancel");
       }
     }); // 设置分享事件回调
@@ -134,7 +172,7 @@ public class ShareUtils {
   }
 
   //微信朋友
-  public static void showShareWechat(Context context, String imagepath, String imageurl) {
+  public static void showShareWechat(final Context context, String imagepath, String imageurl) {
     ShareSDK.initSDK(context);
     Wechat.ShareParams sp = new Wechat.ShareParams();
     sp.setTitle("测试的标题");
@@ -142,7 +180,8 @@ public class ShareUtils {
     sp.setText("测试的文本");
     //                Log.e("==", ""+childfile.getPath());
     //                        sp.setImagePath(childfile.getPath());
-    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+    //                        Bitmap  bm=BitmapFactory.decodeResource(getResources(), R.drawable
+    // .ic_launcher);
     //                        sp.setImageData(bm);
     if (!"".equals(imagepath)) {
       sp.setImagePath(imagepath);
@@ -156,15 +195,25 @@ public class ShareUtils {
 
     qzone.setPlatformActionListener(new PlatformActionListener() {
 
-      @Override public void onError(Platform arg0, int arg1, Throwable arg2) {
+      @Override
+      public void onError(Platform arg0, int arg1, Throwable arg2) {
         Log.e("share", "onError");
+        ((Activity)context).runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(context, R.string.share_error_web_chat_not_install, Toast.LENGTH_SHORT)
+                .show();
+          }
+        });
       }
 
-      @Override public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+      @Override
+      public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
         Log.e("share", "onComplete");
       }
 
-      @Override public void onCancel(Platform arg0, int arg1) {
+      @Override
+      public void onCancel(Platform arg0, int arg1) {
         Log.e("share", "onCancel");
       }
     }); // 设置分享事件回调
@@ -173,7 +222,7 @@ public class ShareUtils {
   }
 
   //新浪微博
-  public static void showShareSign(Context context, String imagepath, String imageurl) {
+  public static void showShareSign(final Context context, String imagepath, String imageurl) {
     ShareSDK.initSDK(context);
     SinaWeibo.ShareParams sp = new SinaWeibo.ShareParams();
     sp.setTitle("测试的标题");
@@ -191,15 +240,25 @@ public class ShareUtils {
 
     qzone.setPlatformActionListener(new PlatformActionListener() {
 
-      @Override public void onError(Platform arg0, int arg1, Throwable arg2) {
+      @Override
+      public void onError(Platform arg0, int arg1, Throwable arg2) {
         Log.e("share", "onError");
+        ((Activity)context).runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(context, R.string.share_error_sina_not_install, Toast.LENGTH_SHORT)
+                .show();
+          }
+        });
       }
 
-      @Override public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+      @Override
+      public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
         Log.e("share", "onComplete");
       }
 
-      @Override public void onCancel(Platform arg0, int arg1) {
+      @Override
+      public void onCancel(Platform arg0, int arg1) {
         Log.e("share", "onCancel");
       }
     }); // 设置分享事件回调

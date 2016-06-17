@@ -69,7 +69,7 @@
   <string name="adv_detail_btn_send">发送</string>
   <string name="adv_detail_comments_load_more">查看更多评论</string>
   <string name="adv_detail_profit_info_congratulations_real">恭喜你赚得%d元现金红包</string>
-  <string name="adv_detail_profit_info_congratulations_virtual">恭喜你赚得%d元贝贝金</string>
+  <string name="adv_detail_profit_info_congratulations_virtual">恭喜你赚得%d枚贝贝金</string>
   <string name="adv_detail_profit_info_congratulations_coupon">恭喜你赚得优惠券奖励</string>
   <string name="adv_detail_profit_info_label_wallet">已存入你的卡券</string>
   <string name="adv_detail_profit_info_btn_wallet">我的钱包</string>
@@ -480,4 +480,9 @@
   <!-- 更新 -->
   <string name="upgrade_info_normal">有新的版本更新，是否下载?</string>
   <string name="check_upgrade_failed">检测更新失败</string>
+
+  <!-- 分享提示 -->
+  <string name="share_error_web_chat_not_install">请确认微信已安装</string>
+  <string name="share_error_qq_not_install">请确认QQ已安装</string>
+  <string name="share_error_sina_not_install">请确认新浪微博已安装</string>
 </resources>

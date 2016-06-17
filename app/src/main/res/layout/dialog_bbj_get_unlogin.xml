@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="26dp"
-        android:text="@string/unit_cash"
+        android:text="@string/unit_bbj"
         android:textColor="@color/font_color_brown"
         android:textSize="18sp"
         />

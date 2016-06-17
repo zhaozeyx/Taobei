@@ -506,8 +506,10 @@ public class AdvertisementDetailActivity extends BasicTitleBarActivity {
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.btn_share_moments:
+        ShareUtils.showShareWechatMoments(AdvertisementDetailActivity.this, "", "");
         break;
       case R.id.btn_share_friends:
+        ShareUtils.showShareWechat(AdvertisementDetailActivity.this, "", "");
         break;
       case R.id.edit_disable_text:
         mEditText.setVisibility(View.VISIBLE);
