@@ -30,6 +30,7 @@ import com.hengrtec.taobei.R;
 import com.hengrtec.taobei.net.rpc.model.CouponModel;
 import com.hengrtec.taobei.ui.basic.BasicTitleBarActivity;
 import com.hengrtec.taobei.utils.DateUtils;
+import com.hengrtec.taobei.utils.ShareUtils;
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -108,8 +109,10 @@ public class CouponDetailActivity extends BasicTitleBarActivity {
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.btn_share_moments:
+        ShareUtils.showShareWechatMoments(this,"","");
         break;
       case R.id.btn_share_friends:
+        ShareUtils.showShareWechat(this,"","");
         break;
     }
   }

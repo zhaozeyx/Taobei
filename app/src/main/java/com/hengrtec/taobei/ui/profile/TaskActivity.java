@@ -160,43 +160,39 @@ public class TaskActivity extends BasicTitleBarActivity {
       if ("0".equals(list.getState())) {
         holder.linearLayout.setEnabled(true);
         holder.linearLayout.setClickable(true);
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View v) {
+
+            switch (mData.get(position).getTarget()) {
+              case "a":
+                startActivity(new Intent(TaskActivity.this, ProfileDetailActivity.class));
+                break;
+              case "b":
+                startActivity(new Intent(MainTabActivity.ACTION_ADV_LIST));
+                break;
+              case "c":
+                startActivity(new Intent(MyAccountActivity.INTENT_ACTION_WITHDRAW));
+                break;
+              case "d":
+                startActivity(new Intent(MainTabActivity.ACTION_BI));
+                break;
+              case "e":
+                break;
+              case "f":
+                break;
+              case "h":
+                startActivity(new Intent(TaskActivity.this, DetailSysQuestionActivity.class));
+                break;
+              default:
+                break;
+            }
+            return;
+          }
+        });
       } else {
         holder.linearLayout.setEnabled(false);
         holder.linearLayout.setClickable(false);
       }
-      holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View v) {
-
-          switch (mData.get(position).getTarget()) {
-            case "a":
-              startActivity(new Intent(TaskActivity.this, ProfileDetailActivity.class));
-              break;
-            case "b":
-              startActivity(new Intent(MainTabActivity.ACTION_ADV_LIST));
-              break;
-            case "c":
-              startActivity(new Intent(MyAccountActivity.INTENT_ACTION_WITHDRAW));
-              break;
-            case "d":
-              startActivity(new Intent(MainTabActivity.ACTION_BI));
-              break;
-            case "e":
-
-              break;
-            case "f":
-
-              break;
-            case "h":
-              startActivity(new Intent(TaskActivity.this, DetailSysQuestionActivity.class));
-              break;
-            default:
-
-              break;
-          }
-
-          return;
-        }
-      });
     }
 
     @Override public int getItemCount() {
