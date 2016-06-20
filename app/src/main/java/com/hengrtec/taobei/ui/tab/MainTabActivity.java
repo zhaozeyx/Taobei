@@ -137,6 +137,7 @@ public class MainTabActivity extends BaseTabActivity {
             @Override
             protected void onSuccess(UserInfo info) {
               getComponent().loginSession().login(info);
+              mDrawerController.bindData();
             }
 
             @Override
@@ -183,7 +184,6 @@ public class MainTabActivity extends BaseTabActivity {
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     mDrawerContainer = (RelativeLayout) findViewById(R.id.drawer_container);
     mDrawerController = new DrawerLayoutController(this, mDrawerContainer);
-    mDrawerController.bindData();
   }
 
   @Override

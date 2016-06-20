@@ -96,7 +96,7 @@ public class UserInfo {
 
   public String getAvart() {
     if (TextUtils.isEmpty(avart) || avart.startsWith("http://")) {
-      return avart;
+      return null == avart ? "" : avart;
     }
     return NetConstant.BASE_URL_LOCATION + avart;
   }
