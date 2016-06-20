@@ -25,11 +25,12 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Encoder {
   private static final String TAG = "MD5Encoder";
-
+  private static String key = "qHsGce9IMTx305jygNotQ6mzWdn8C1pfibYVUk27";
   public static String encode(@NonNull String text) {
     try {
+
       MessageDigest md5 = MessageDigest.getInstance("MD5");
-      md5.update(text.getBytes("UTF-8"));
+      md5.update(encryptToSHA(text).getBytes("UTF-8"));
       byte[] encryption = md5.digest();
 
       StringBuffer strBuf = new StringBuffer();
@@ -50,5 +51,36 @@ public class MD5Encoder {
       Logger.d(TAG, "", e);
       return "";
     }
+  }
+
+  public static String byte2hex(byte[] b) {
+    String hs = "";
+    String stmp = "";
+    for (int n = 0; n < b.length; n++) {
+      stmp = (java.lang.Integer.toHexString(b[n] & 0XFF));
+      if (stmp.length() == 1) {
+        hs = hs + "0" + stmp;
+      } else {
+        hs = hs + stmp;
+      }
+    }
+    return hs;
+  }
+  //SHA1 加密实例
+  public static String encryptToSHA(String info) {
+    byte[] digesta = null;
+    try {
+      // 得到一个SHA-1的消息摘要
+      MessageDigest alga = MessageDigest.getInstance("SHA-1");
+      // 添加要进行计算摘要的信息
+      alga.update(info.getBytes());
+      // 得到该摘要
+      digesta = alga.digest();
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+    // 将摘要转为字符串
+    String rs = byte2hex(digesta);
+    return rs + key;
   }
 }
