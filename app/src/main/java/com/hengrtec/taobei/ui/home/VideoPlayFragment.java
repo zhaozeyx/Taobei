@@ -52,6 +52,7 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
   private CountDownTimer mCountDownTimer;
 
   private AlertDialog mWifiDialog;
+  private int mFinishTime;
 
   @Nullable
   @Override
@@ -108,13 +109,6 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
       @Override
       public void onPrepared(MediaPlayer mediaPlayer) {
-        mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-          @Override
-          public void onBufferingUpdate(MediaPlayer mp, int percent) {
-            Logger.d("YZZ", "onBufferingUpdate percent %d ", percent);
-          }
-        });
-        Logger.d("YZZ", "OnPreParedListener");
         closeProgressDialog();
         mDuration = mediaPlayer.getDuration();
         startPlay();
@@ -123,7 +117,6 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
       @Override
       public void onCompletion(MediaPlayer mediaPlayer) {
-        Logger.d(TAG, "onCompletion");
         getComponent().getGlobalBus().post(new PlayCompletedEvent(mediaPlayer.getDuration() /
             1000));
       }
@@ -131,8 +124,12 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
       @Override
       public boolean onError(MediaPlayer mp, int what, int extra) {
-        getActivity().finish();
-        return false;
+        if(mFinishTime <= 1) {
+          getComponent().getGlobalBus().post(new PlayCompletedEvent(mp.getDuration() /
+              1000));
+          return true;
+        }
+        return true;
       }
     });
     mVideoView.setVideoURI(Uri.parse(url));
@@ -143,10 +140,10 @@ public class VideoPlayFragment extends BaseAdvPlayFragment {
     mCountDownTimer = new CountDownTimer(mDuration, SPACE) {
       @Override
       public void onTick(long millisUntilFinished) {
-        int finishTime = (int) (millisUntilFinished / 1000L);
+        mFinishTime = (int) (millisUntilFinished / 1000L);
         if (mVideoView.isPlaying()) {
-          mCountDownView.setText(getString(R.string.adv_play_count_down, finishTime));
-          notifyPlaying(mDuration / 1000 - finishTime);
+          mCountDownView.setText(getString(R.string.adv_play_count_down, mFinishTime));
+          notifyPlaying(mDuration / 1000 - mFinishTime);
         }
       }
 
