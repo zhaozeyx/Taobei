@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -56,6 +57,7 @@ public class LoginWayActivity extends BasicTitleBarActivity {
   @Bind(R.id.other_way_sina) TextView mOtherWaySina;
   @Bind(R.id.other_way_container) RelativeLayout otherWayContainer;
   @Inject AuthService mAuthService;
+  @Bind(R.id.btn_close) ImageView btnClose;
 
   @Override protected void afterCreate(Bundle savedInstance) {
     ButterKnife.bind(this);
@@ -86,7 +88,7 @@ public class LoginWayActivity extends BasicTitleBarActivity {
               //platDB.getToken();
               //platDB.getUserGender();
               //platDB.getUserIcon();
-             init(platDB.getUserId(),platDB.getUserName());
+              init(platDB.getUserId(), platDB.getUserName());
             }
           }
 
@@ -105,7 +107,7 @@ public class LoginWayActivity extends BasicTitleBarActivity {
         startActivity(LoginActivity.makeIntent(this, LoginActivity.LOGIN_WAY_PASSWORD));
         break;
       case R.id.btn_login_qq:
-        Platform qq= ShareSDK.getPlatform(this, QQ.NAME);
+        Platform qq = ShareSDK.getPlatform(this, QQ.NAME);
         qq.setPlatformActionListener(new PlatformActionListener() {
           @Override
           public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
@@ -115,7 +117,7 @@ public class LoginWayActivity extends BasicTitleBarActivity {
               //platDB.getToken();
               //platDB.getUserGender();
               //platDB.getUserIcon();
-              init(platDB.getUserId(),platDB.getUserName());
+              init(platDB.getUserId(), platDB.getUserName());
             }
           }
 
@@ -135,7 +137,7 @@ public class LoginWayActivity extends BasicTitleBarActivity {
         startActivity(new Intent(this, RegisterActivity.class));
         break;
       case R.id.other_way_sina:
-        Platform sina= ShareSDK.getPlatform(this, SinaWeibo.NAME);
+        Platform sina = ShareSDK.getPlatform(this, SinaWeibo.NAME);
         sina.setPlatformActionListener(new PlatformActionListener() {
           @Override
           public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
@@ -145,7 +147,7 @@ public class LoginWayActivity extends BasicTitleBarActivity {
               //platDB.getToken();
               //platDB.getUserGender();
               //platDB.getUserIcon();
-              init(platDB.getUserId(),platDB.getUserName());
+              init(platDB.getUserId(), platDB.getUserName());
             }
           }
 
@@ -217,6 +219,18 @@ public class LoginWayActivity extends BasicTitleBarActivity {
 
   @Override protected void onLogin() {
     super.onLogin();
+    finish();
+  }
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    // TODO: add setContentView(...) invocation
+    ButterKnife.bind(this);
+  }
+
+  @OnClick(R.id.btn_close) public void onClick() {
+
+    startActivity(new Intent(LoginWayActivity.this, MainTabActivity.class));
     finish();
   }
 }

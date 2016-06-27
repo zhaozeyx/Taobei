@@ -131,6 +131,7 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:id="@+id/linearLayout2"
         >
       <View
           android:layout_width="0dp"
@@ -153,6 +154,15 @@
           android:background="@color/font_color_secondary"
           />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/src_close_drawer"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_alignEnd="@+id/linearLayout2"
+        android:layout_marginTop="28dp"
+        />
   </RelativeLayout>
-
 </RelativeLayout>
