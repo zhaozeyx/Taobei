@@ -159,6 +159,6 @@ dependencies {
   compile 'com.bugtags.library:bugtags-lib:latest.integration'
   compile 'jp.wasabeef:recyclerview-animators:2.2.3'
   compile 'com.android.support:multidex:1.0.1'
-  compile 'com.android.support:support-v4:23.4.0'
+  compile 'com.android..support:support-v4:23.4.0'
   compile 'com.romainpiel.shimmer:library:1.4.0@aar'
 }
